@@ -307,7 +307,7 @@ public abstract class LocalGame implements Game, Tickable {
         Logger.debugLog("Current GAMEPHASE", " " + this.gameStage);
 
         //The move was legal, and if we are in setup phase, and this is the last player in the list's
-        //turn then we need to increment the setup phase counter and update our phase accordingly.
+        //turn then we need to increment the setup phase quarto and update our phase accordingly.
         if(this.gameStage == GameStage.SETUP_PHASE){
             if((this.players.length-1 == playerId) && action instanceof EndTurnAction){
                 this.state.incCurrentSetupTurn();

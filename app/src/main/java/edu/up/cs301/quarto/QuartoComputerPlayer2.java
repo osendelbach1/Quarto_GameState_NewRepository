@@ -1,4 +1,4 @@
-package edu.up.cs301.counter;
+package edu.up.cs301.quarto;
 
 import edu.up.cs301.GameFramework.GameMainActivity;
 import edu.up.cs301.GameFramework.infoMessage.GameInfo;
@@ -11,33 +11,33 @@ import android.widget.TextView;
 
 
 /**
-* A computer-version of a counter-player.  Since this is such a simple game,
+* A computer-version of a quarto-player.  Since this is such a simple game,
 * it just sends "+" and "-" commands with equal probability, at an average
 * rate of one per second. This computer player does, however, have an option to
 * display the game as it is progressing, so if there is no human player on the
-* device, this player will display a GUI that shows the value of the counter
+* device, this player will display a GUI that shows the value of the quarto
 * as the game is being played.
 * 
 * @author Steven R. Vegdahl
 * @author Andrew M. Nuxoll
 * @version September 2013
 */
-public class CounterComputerPlayer2 extends CounterComputerPlayer1 {
+public class QuartoComputerPlayer2 extends QuartoComputerPlayer1 {
 	
 	/*
 	 * instance variables
 	 */
 	
-	// the most recent game state, as given to us by the CounterLocalGame
-	private CounterState currentGameState = null;
+	// the most recent game state, as given to us by the quartoLocalGame
+	private QuartoState currentGameState = null;
 	
 	// If this player is running the GUI, the activity (null if the player is
 	// not running a GUI).
 	private Activity activityForGui = null;
 	
-	// If this player is running the GUI, the widget containing the counter's
+	// If this player is running the GUI, the widget containing the quarto's
 	// value (otherwise, null);
-	private TextView counterValueTextView = null;
+	private TextView quartoValueTextView = null;
 	
 	// If this player is running the GUI, the handler for the GUI thread (otherwise
 	// null)
@@ -49,7 +49,7 @@ public class CounterComputerPlayer2 extends CounterComputerPlayer1 {
 	 * @param name
 	 * 		the player's name
 	 */
-	public CounterComputerPlayer2(String name) {
+	public QuartoComputerPlayer2(String name) {
 		super(name);
 	}
 	
@@ -70,27 +70,27 @@ public class CounterComputerPlayer2 extends CounterComputerPlayer1 {
 		if (game == null) {
 			return;
 		}
-		else if (info instanceof CounterState) {
-			// if we indeed have a counter-state, update the GUI
-			currentGameState = (CounterState)info;
+		else if (info instanceof QuartoState) {
+			// if we indeed have a quarto-state, update the GUI
+			currentGameState = (QuartoState)info;
 			updateDisplay();
 		}
 	}
 	
 	
 	/** 
-	 * sets the counter value in the text view
+	 * sets the quarto value in the text view
 	 *  */
 	private void updateDisplay() {
-		// if the guiHandler is available, set the new counter value
-		// in the counter-display widget, doing it in the Activity's
+		// if the guiHandler is available, set the new quarto value
+		// in the quarto-display widget, doing it in the Activity's
 		// thread.
 		if (guiHandler != null) {
 			guiHandler.post(
 					new Runnable() {
 						public void run() {
-						if (counterValueTextView != null && currentGameState != null) {
-							counterValueTextView.setText("" + currentGameState.getCounter());
+						if (quartoValueTextView != null && currentGameState != null) {
+							quartoValueTextView.setText("" + currentGameState.getquarto());
 						}
 					}});
 		}
@@ -123,11 +123,11 @@ public class CounterComputerPlayer2 extends CounterComputerPlayer1 {
 		this.guiHandler = new Handler();
 		
 		// Load the layout resource for the our GUI's configuration
-		activityForGui.setContentView(R.layout.counter_human_player);
+		activityForGui.setContentView(R.layout.quarto_human_player);
 
-		// remember who our text view is, for updating the counter value
-		this.counterValueTextView =
-				(TextView) activityForGui.findViewById(R.id.counterValueTextView);
+		// remember who our text view is, for updating the quarto value
+		this.quartoValueTextView =
+				(TextView) activityForGui.findViewById(R.id.quartoValueTextView);
 		
 		// disable the buttons, since they will have no effect anyway
 		Button plusButton = (Button)activityForGui.findViewById(R.id.plusButton);

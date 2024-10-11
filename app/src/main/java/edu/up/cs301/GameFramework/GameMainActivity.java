@@ -34,7 +34,7 @@ import edu.up.cs301.GameFramework.utilities.IPCoder;
 import edu.up.cs301.GameFramework.utilities.Logger;
 import edu.up.cs301.GameFramework.utilities.MessageBox;
 import edu.up.cs301.GameFramework.utilities.Saving;
-import edu.up.cs301.counter.R;
+import edu.up.cs301.quarto.R;
 
 /**
  * class GameMainActivity
@@ -235,7 +235,7 @@ public abstract class GameMainActivity extends Activity implements
                             InputMethodManager.RESULT_UNCHANGED_SHOWN);
                 }
                 catch (Exception x) {
-                    // catch and ignore any exceptions we might encounter
+                    // catch and ignore any exceptions we might enquarto
                 }
             }
         };

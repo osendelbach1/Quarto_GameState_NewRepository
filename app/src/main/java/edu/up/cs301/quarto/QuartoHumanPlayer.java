@@ -1,4 +1,4 @@
-package edu.up.cs301.counter;
+package edu.up.cs301.quarto;
 
 import edu.up.cs301.GameFramework.players.GameHumanPlayer;
 import edu.up.cs301.GameFramework.GameMainActivity;
@@ -10,27 +10,27 @@ import android.widget.TextView;
 import android.view.View.OnClickListener;
 
 /**
- * A GUI of a counter-player. The GUI displays the current value of the counter,
+ * A GUI of a quarto-player. The GUI displays the current value of the quarto,
  * and allows the human player to press the '+' and '-' buttons in order to
  * send moves to the game.
  * 
  * Just for fun, the GUI is implemented so that if the player presses either button
- * when the counter-value is zero, the screen flashes briefly, with the flash-color
+ * when the quarto-value is zero, the screen flashes briefly, with the flash-color
  * being dependent on whether the player is player 0 or player 1.
  * 
  * @author Steven R. Vegdahl
  * @author Andrew M. Nuxoll
  * @version July 2013
  */
-public class CounterHumanPlayer extends GameHumanPlayer implements OnClickListener {
+public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListener {
 
 	/* instance variables */
 	
-	// The TextView the displays the current counter value
-	private TextView counterValueTextView;
+	// The TextView the displays the current quarto value
+	private TextView quartoValueTextView;
 	
-	// the most recent game state, as given to us by the CounterLocalGame
-	private CounterState state;
+	// the most recent game state, as given to us by the quartoLocalGame
+	private QuartoState state;
 	
 	// the android activity that we are running
 	private GameMainActivity myActivity;
@@ -40,7 +40,7 @@ public class CounterHumanPlayer extends GameHumanPlayer implements OnClickListen
 	 * @param name
 	 * 		the player's name
 	 */
-	public CounterHumanPlayer(String name) {
+	public QuartoHumanPlayer(String name) {
 		super(name);
 	}
 
@@ -55,16 +55,16 @@ public class CounterHumanPlayer extends GameHumanPlayer implements OnClickListen
 	}
 	
 	/**
-	 * sets the counter value in the text view
+	 * sets the quarto value in the text view
 	 */
 	protected void updateDisplay() {
 		// set the text in the appropriate widget
-		counterValueTextView.setText("" + state.getCounter());
+		quartoValueTextView.setText("" + state.getquarto());
 	}
 
 	/**
 	 * this method gets called when the user clicks the '+' or '-' button. It
-	 * creates a new CounterMoveAction to return to the parent activity.
+	 * creates a new quartoMoveAction to return to the parent activity.
 	 * 
 	 * @param button
 	 * 		the button that was clicked
@@ -77,11 +77,11 @@ public class CounterHumanPlayer extends GameHumanPlayer implements OnClickListen
 		GameAction action = null;
 		if (button.getId() == R.id.plusButton) {
 			// plus button: create "increment" action
-			action = new CounterMoveAction(this, true);
+			action = new QuartoMoveAction(this, true);
 		}
 		else if (button.getId() == R.id.minusButton) {
 			// minus button: create "decrement" action
-			action = new CounterMoveAction(this, false);
+			action = new QuartoMoveAction(this, false);
 		}
 		else {
 			// something else was pressed: ignore
@@ -99,11 +99,11 @@ public class CounterHumanPlayer extends GameHumanPlayer implements OnClickListen
 	 */
 	@Override
 	public void receiveInfo(GameInfo info) {
-		// ignore the message if it's not a CounterState message
-		if (!(info instanceof CounterState)) return;
+		// ignore the message if it's not a quartoState message
+		if (!(info instanceof QuartoState)) return;
 		
 		// update our state; then update the display
-		this.state = (CounterState)info;
+		this.state = (QuartoState)info;
 		updateDisplay();
 	}
 	
@@ -120,7 +120,7 @@ public class CounterHumanPlayer extends GameHumanPlayer implements OnClickListen
 		this.myActivity = activity;
 		
 	    // Load the layout resource for our GUI
-		activity.setContentView(R.layout.counter_human_player);
+		activity.setContentView(R.layout.quarto_human_player);
 		
 		// make this object the listener for both the '+' and '-' 'buttons
 		Button plusButton = (Button) activity.findViewById(R.id.plusButton);
@@ -128,9 +128,9 @@ public class CounterHumanPlayer extends GameHumanPlayer implements OnClickListen
 		Button minusButton = (Button) activity.findViewById(R.id.minusButton);
 		minusButton.setOnClickListener(this);
 
-		// remember the field that we update to display the counter's value
-		this.counterValueTextView =
-				(TextView) activity.findViewById(R.id.counterValueTextView);
+		// remember the field that we update to display the quarto's value
+		this.quartoValueTextView =
+				(TextView) activity.findViewById(R.id.quartoValueTextView);
 		
 		// if we have a game state, "simulate" that we have just received
 		// the state from the game so that the GUI values are updated
@@ -139,5 +139,5 @@ public class CounterHumanPlayer extends GameHumanPlayer implements OnClickListen
 		}
 	}
 
-}// class CounterHumanPlayer
+}// class quartoHumanPlayer
 

@@ -1,17 +1,17 @@
-package edu.up.cs301.counter;
+package edu.up.cs301.quarto;
 
 import edu.up.cs301.GameFramework.players.GamePlayer;
 import edu.up.cs301.GameFramework.actionMessage.GameAction;
 
 /**
- * A CounterMoveAction is an action that is a "move" the game: either increasing
- * or decreasing the counter value.
+ * A quartoMoveAction is an action that is a "move" the game: either increasing
+ * or decreasing the quarto value.
  * 
  * @author Steven R. Vegdahl
  * @author Andrew M. Nuxoll
  * @version September 2012
  */
-public class CounterMoveAction extends GameAction {
+public class QuartoMoveAction extends GameAction {
 	
 	// to satisfy the serializable interface
 	private static final long serialVersionUID = 28062013L;
@@ -20,14 +20,14 @@ public class CounterMoveAction extends GameAction {
 	private boolean isPlus;
 	
 	/**
-	 * Constructor for the CounterMoveAction class.
+	 * Constructor for the quartoMoveAction class.
 	 * 
 	 * @param player
 	 *            the player making the move
 	 * @param isPlus
 	 *            value to initialize this.isPlus
 	 */
-	public CounterMoveAction(GamePlayer player, boolean isPlus) {
+	public QuartoMoveAction(GamePlayer player, boolean isPlus) {
 		super(player);
 		this.isPlus = isPlus;
 	}
@@ -42,4 +42,4 @@ public class CounterMoveAction extends GameAction {
 		return isPlus;
 		
 	}
-}//class CounterMoveAction
+}//class quartoMoveAction

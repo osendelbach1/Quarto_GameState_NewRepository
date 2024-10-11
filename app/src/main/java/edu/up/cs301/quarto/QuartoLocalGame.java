@@ -1,4 +1,4 @@
-package edu.up.cs301.counter;
+package edu.up.cs301.quarto;
 
 import edu.up.cs301.GameFramework.infoMessage.GameState;
 import edu.up.cs301.GameFramework.players.GamePlayer;
@@ -7,25 +7,25 @@ import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import android.util.Log;
 
 /**
- * A class that represents the state of a game. In our counter game, the only
- * relevant piece of information is the value of the game's counter. The
- * CounterState object is therefore very simple.
+ * A class that represents the state of a game. In our quarto game, the only
+ * relevant piece of information is the value of the game's quarto. The
+ * quartoState object is therefore very simple.
  * 
  * @author Steven R. Vegdahl
  * @author Andrew M. Nuxoll
  * @version July 2013
  */
-public class CounterLocalGame extends LocalGame {
+public class QuartoLocalGame extends LocalGame {
 
-	// When a counter game is played, any number of players. The first player
-	// is trying to get the counter value to TARGET_MAGNITUDE; the second player,
-	// if present, is trying to get the counter to -TARGET_MAGNITUDE. The
+	// When a quarto game is played, any number of players. The first player
+	// is trying to get the quarto value to TARGET_MAGNITUDE; the second player,
+	// if present, is trying to get the quarto to -TARGET_MAGNITUDE. The
 	// remaining players are neither winners nor losers, but can interfere by
-	// modifying the counter.
+	// modifying the quarto.
 	public static final int TARGET_MAGNITUDE = 10;
 
 	// the game's state
-	private CounterState gameState;
+	private QuartoState gameState;
 	
 	/**
 	 * can this player move
@@ -40,32 +40,32 @@ public class CounterLocalGame extends LocalGame {
 	}
 
 	/**
-	 * This ctor should be called when a new counter game is started
+	 * This ctor should be called when a new quarto game is started
 	 */
-	public CounterLocalGame(GameState state) {
-		// initialize the game state, with the counter value starting at 0
-		if (! (state instanceof CounterState)) {
-			state = new CounterState(0);
+	public QuartoLocalGame(GameState state) {
+		// initialize the game state, with the quarto value starting at 0
+		if (! (state instanceof QuartoState)) {
+			state = new QuartoState(0);
 		}
-		this.gameState = (CounterState)state;
+		this.gameState = (QuartoState)state;
 		super.state = state;
 	}
 
 	/**
-	 * The only type of GameAction that should be sent is CounterMoveAction
+	 * The only type of GameAction that should be sent is quartoMoveAction
 	 */
 	@Override
 	protected boolean makeMove(GameAction action) {
 		Log.i("action", action.getClass().toString());
 		
-		if (action instanceof CounterMoveAction) {
+		if (action instanceof QuartoMoveAction) {
 		
-			// cast so that we Java knows it's a CounterMoveAction
-			CounterMoveAction cma = (CounterMoveAction)action;
+			// cast so that we Java knows it's a quartoMoveAction
+			QuartoMoveAction cma = (QuartoMoveAction)action;
 
-			// Update the counter values based upon the action
-			int result = gameState.getCounter() + (cma.isPlus() ? 1 : -1);
-			gameState.setCounter(result);
+			// Update the quarto values based upon the action
+			int result = gameState.getquarto() + (cma.isPlus() ? 1 : -1);
+			gameState.setquarto(result);
 			
 			// denote that this was a legal/successful move
 			return true;
@@ -83,7 +83,7 @@ public class CounterLocalGame extends LocalGame {
 	protected void sendUpdatedStateTo(GamePlayer p) {
 		// this is a perfect-information game, so we'll make a
 		// complete copy of the state to send to the player
-		p.sendInfo(new CounterState(this.gameState));
+		p.sendInfo(new QuartoState(this.gameState));
 		
 	}//sendUpdatedSate
 	
@@ -98,16 +98,16 @@ public class CounterLocalGame extends LocalGame {
 	@Override
 	protected String checkIfGameOver() {
 		
-		// get the value of the counter
-		int counterVal = this.gameState.getCounter();
+		// get the value of the quarto
+		int quartoVal = this.gameState.getquarto();
 		
-		if (counterVal >= TARGET_MAGNITUDE) {
-			// counter has reached target magnitude, so return message that
+		if (quartoVal >= TARGET_MAGNITUDE) {
+			// quarto has reached target magnitude, so return message that
 			// player 0 has won.
 			return playerNames[0]+" has won.";
 		}
-		else if (counterVal <= -TARGET_MAGNITUDE) {
-			// counter has reached negative of target magnitude; if there
+		else if (quartoVal <= -TARGET_MAGNITUDE) {
+			// quarto has reached negative of target magnitude; if there
 			// is a second player, return message that this player has won,
 			// otherwise that the first player has lost
 			if (playerNames.length >= 2) {
@@ -124,4 +124,4 @@ public class CounterLocalGame extends LocalGame {
 
 	}
 
-}// class CounterLocalGame
+}// class quartoLocalGame

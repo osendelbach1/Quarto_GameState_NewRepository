@@ -1,4 +1,4 @@
-package edu.up.cs301.counter;
+package edu.up.cs301.quarto;
 
 import java.util.ArrayList;
 
@@ -9,13 +9,13 @@ import edu.up.cs301.GameFramework.LocalGame;
 import edu.up.cs301.GameFramework.gameConfiguration.*;
 
 /**
- * this is the primary activity for Counter game
+ * this is the primary activity for quarto game
  * 
  * @author Andrew M. Nuxoll
  * @author Steven R. Vegdahl
  * @version July 2013
  */
-public class CounterMainActivity extends GameMainActivity {
+public class QuartoMainActivity extends GameMainActivity {
 	
 	// the port number that this game will use when playing over the network
 	private static final int PORT_NUMBER = 2234;
@@ -38,27 +38,27 @@ public class CounterMainActivity extends GameMainActivity {
 		// a human player player type (player type 0)
 		playerTypes.add(new GamePlayerType("Local Human Player") {
 			public GamePlayer createPlayer(String name) {
-				return new CounterHumanPlayer(name);
+				return new QuartoHumanPlayer(name);
 			}});
 		
 		// a computer player type (player type 1)
 		playerTypes.add(new GamePlayerType("Computer Player") {
 			public GamePlayer createPlayer(String name) {
-				return new CounterComputerPlayer1(name);
+				return new QuartoComputerPlayer1(name);
 			}});
 		
 		// a computer player type (player type 2)
 		playerTypes.add(new GamePlayerType("Computer Player (GUI)") {
 			public GamePlayer createPlayer(String name) {
-				return new CounterComputerPlayer2(name);
+				return new QuartoComputerPlayer2(name);
 			}});
 
-		// Create a game configuration class for Counter:
+		// Create a game configuration class for quarto:
 		// - player types as given above
 		// - from 1 to 2 players
-		// - name of game is "Counter Game"
+		// - name of game is "quarto Game"
 		// - port number as defined above
-		GameConfig defaultConfig = new GameConfig(playerTypes, 1, 2, "Counter Game",
+		GameConfig defaultConfig = new GameConfig(playerTypes, 1, 2, "quarto Game",
 				PORT_NUMBER);
 
 		// Add the default players to the configuration
@@ -79,12 +79,12 @@ public class CounterMainActivity extends GameMainActivity {
 	 * create a local game
 	 * 
 	 * @return
-	 * 		the local game, a counter game
+	 * 		the local game, a quarto game
 	 */
 	@Override
 	public LocalGame createLocalGame(GameState state) {
-		if (state == null) state = new CounterState(0);
-		return new CounterLocalGame(state);
+		if (state == null) state = new QuartoState(0);
+		return new QuartoLocalGame(state);
 	}
 
 }
