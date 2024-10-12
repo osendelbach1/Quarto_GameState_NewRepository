@@ -83,7 +83,7 @@ public class QuartoMainActivity extends GameMainActivity {
 	 */
 	@Override
 	public LocalGame createLocalGame(GameState state) {
-		if (state == null) state = new QuartoState(0);
+		//if (state == null) state = new QuartoState();
 		return new QuartoLocalGame(state);
 	}
 

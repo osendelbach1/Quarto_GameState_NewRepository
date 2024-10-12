@@ -26,10 +26,10 @@ public class QuartoLocalGame extends LocalGame {
 
 	// the game's state
 	private QuartoState gameState;
-	
+
 	/**
 	 * can this player move
-	 * 
+	 *
 	 * @return
 	 * 		true, because all player are always allowed to move at all times,
 	 * 		as this is a fully asynchronous game
@@ -45,7 +45,7 @@ public class QuartoLocalGame extends LocalGame {
 	public QuartoLocalGame(GameState state) {
 		// initialize the game state, with the quarto value starting at 0
 		if (! (state instanceof QuartoState)) {
-			state = new QuartoState(0);
+			//state = new QuartoState(); ******
 		}
 		this.gameState = (QuartoState)state;
 		super.state = state;
@@ -57,16 +57,16 @@ public class QuartoLocalGame extends LocalGame {
 	@Override
 	protected boolean makeMove(GameAction action) {
 		Log.i("action", action.getClass().toString());
-		
+
 		if (action instanceof QuartoMoveAction) {
-		
+
 			// cast so that we Java knows it's a quartoMoveAction
 			QuartoMoveAction cma = (QuartoMoveAction)action;
 
 			// Update the quarto values based upon the action
-			int result = gameState.getquarto() + (cma.isPlus() ? 1 : -1);
-			gameState.setquarto(result);
-			
+			//int result = gameState.getquarto() + (cma.isPlus() ? 1 : -1);
+			//gameState.setquarto(result);
+
 			// denote that this was a legal/successful move
 			return true;
 		}
@@ -75,7 +75,7 @@ public class QuartoLocalGame extends LocalGame {
 			return false;
 		}
 	}//makeMove
-	
+
 	/**
 	 * send the updated state to a given player
 	 */
@@ -84,9 +84,9 @@ public class QuartoLocalGame extends LocalGame {
 		// this is a perfect-information game, so we'll make a
 		// complete copy of the state to send to the player
 		p.sendInfo(new QuartoState(this.gameState));
-		
+
 	}//sendUpdatedSate
-	
+}
 	/**
 	 * Check if the game is over. It is over, return a string that tells
 	 * who the winner(s), if any, are. If the game is not over, return null;
@@ -95,33 +95,34 @@ public class QuartoLocalGame extends LocalGame {
 	 * 		a message that tells who has won the game, or null if the
 	 * 		game is not over
 	 */
-	@Override
-	protected String checkIfGameOver() {
-		
-		// get the value of the quarto
-		int quartoVal = this.gameState.getquarto();
-		
-		if (quartoVal >= TARGET_MAGNITUDE) {
-			// quarto has reached target magnitude, so return message that
-			// player 0 has won.
-			return playerNames[0]+" has won.";
-		}
-		else if (quartoVal <= -TARGET_MAGNITUDE) {
-			// quarto has reached negative of target magnitude; if there
-			// is a second player, return message that this player has won,
-			// otherwise that the first player has lost
-			if (playerNames.length >= 2) {
-				return playerNames[1]+" has won.";
-			}
-			else {
-				return playerNames[0]+" has lost.";
-			}
-		}else {
-			// game is still between the two limit: return null, as the game
-			// is not yet over
-			return null;
-		}
+	//@Override
+//	protected String checkIfGameOver() {
+//	}
 
-	}
+		 //get the value of the quarto
+//		int quartoVal = this.gameState.getquarto();
+//
+//		if (quartoVal >= TARGET_MAGNITUDE) {
+//			 quarto has reached target magnitude, so return message that
+//			 player 0 has won.
+//			return playerNames[0]+" has won.";
+//		}
+//		else if (quartoVal <= -TARGET_MAGNITUDE) {
+//			 quarto has reached negative of target magnitude; if there
+//			 is a second player, return message that this player has won,
+//			 otherwise that the first player has lost
+//			if (playerNames.length >= 2) {
+//				return playerNames[1]+" has won.";
+//			}
+//			else {
+//				return playerNames[0]+" has lost.";
+//			}
+//		}else {
+//			game is still between the two limit: return null, as the game
+//			 is not yet over
+//			return null;
+//		}
+//
 
-}// class quartoLocalGame
+
+//	}// class quartoLocalGame
