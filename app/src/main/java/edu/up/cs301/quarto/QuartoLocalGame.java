@@ -7,13 +7,15 @@ import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import android.util.Log;
 
 /**
- * A class that represents the state of a game. In our quarto game, the only
- * relevant piece of information is the value of the game's quarto. The
- * quartoState object is therefore very simple.
+ * A class that represents the state of a game. In our Quarto game,
+ * we have to know who's turn it is and whether they are placing a piece on
+ * the board or selecting it for the opponent.
  *
- * @author Steven R. Vegdahl
- * @author Andrew M. Nuxoll
- * @version July 2013
+ * @author Olivia Sendelbach
+ * @author Magnus Graham
+ * @author Aaron Chu
+ * @author Becca Biukoto
+ * @version October 11, 2024
  */
 public class QuartoLocalGame extends LocalGame {
 
@@ -65,7 +67,7 @@ public class QuartoLocalGame extends LocalGame {
 	}
 
 	/**
-	 * The only type of GameAction that should be sent is quartoMoveAction
+	 * Will add actions: select piece, place piece, quit, end turn, and declare victory
 	 */
 	@Override
 	protected boolean makeMove(GameAction action) {
@@ -100,6 +102,10 @@ public class QuartoLocalGame extends LocalGame {
 	}//sendUpdatedSate
 } // class quartoLocalGame
 
+
+/** the following comments are the original code from the counter game
+ * that may be useful for future use.
+ */
 
 //	@Override
 //	protected String checkIfGameOver() {

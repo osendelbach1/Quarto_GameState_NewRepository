@@ -5,8 +5,10 @@ import edu.up.cs301.GameFramework.infoMessage.GameState;
 
 
 /**
- * This contains the state for the quarto game. The state consist of simply
- * the value of the quarto.
+ * This contains the state for the Quarto game. The state consist of the
+ * pieces, the board, whether the player is in the selection or placement
+ * phase, the status of the game, and whether the player has completed
+ * their turn.
  * 
  * @author Olivia Sendelbach, Magnus Graham, Becca Biukoto, Aaron Chu
  * @Date 10/06/24

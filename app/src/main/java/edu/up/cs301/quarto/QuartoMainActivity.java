@@ -11,9 +11,11 @@ import edu.up.cs301.GameFramework.gameConfiguration.*;
 /**
  * this is the primary activity for quarto game
  * 
- * @author Andrew M. Nuxoll
- * @author Steven R. Vegdahl
- * @version July 2013
+ * @author Olivia Sendelbach
+ * @author Magnus Graham
+ * @author Aaron Chu
+ * @author Becca Biukoto
+ * @version October 11, 2024
  */
 public class QuartoMainActivity extends GameMainActivity {
 	
