@@ -10,12 +10,13 @@ import android.util.Log;
  * A class that represents the state of a game. In our quarto game, the only
  * relevant piece of information is the value of the game's quarto. The
  * quartoState object is therefore very simple.
- * 
+ *
  * @author Steven R. Vegdahl
  * @author Andrew M. Nuxoll
  * @version July 2013
  */
 public class QuartoLocalGame extends LocalGame {
+
 
 	// When a quarto game is played, any number of players. The first player
 	// is trying to get the quarto value to TARGET_MAGNITUDE; the second player,
@@ -30,9 +31,8 @@ public class QuartoLocalGame extends LocalGame {
 	/**
 	 * can this player move
 	 *
-	 * @return
-	 * 		true, because all player are always allowed to move at all times,
-	 * 		as this is a fully asynchronous game
+	 * @return true, because all player are always allowed to move at all times,
+	 * as this is a fully asynchronous game
 	 */
 	@Override
 	protected boolean canMove(int playerIdx) {
@@ -40,14 +40,27 @@ public class QuartoLocalGame extends LocalGame {
 	}
 
 	/**
+	 * Check if the game is over. It is over, return a string that tells
+	 * who the winner(s), if any, are. If the game is not over, return null;
+	 *
+	 * @return
+	 * 		a message that tells who has won the game, or null if the
+	 * 		game is not over
+	 */
+	@Override
+	protected String checkIfGameOver() {
+		return "";
+	}
+
+	/**
 	 * This ctor should be called when a new quarto game is started
 	 */
 	public QuartoLocalGame(GameState state) {
 		// initialize the game state, with the quarto value starting at 0
-		if (! (state instanceof QuartoState)) {
-			//state = new QuartoState(); ******
+		if (!(state instanceof QuartoState)) {
+			state = new QuartoState();
 		}
-		this.gameState = (QuartoState)state;
+		this.gameState = (QuartoState) state;
 		super.state = state;
 	}
 
@@ -61,7 +74,7 @@ public class QuartoLocalGame extends LocalGame {
 		if (action instanceof QuartoMoveAction) {
 
 			// cast so that we Java knows it's a quartoMoveAction
-			QuartoMoveAction cma = (QuartoMoveAction)action;
+			QuartoMoveAction cma = (QuartoMoveAction) action;
 
 			// Update the quarto values based upon the action
 			//int result = gameState.getquarto() + (cma.isPlus() ? 1 : -1);
@@ -69,8 +82,7 @@ public class QuartoLocalGame extends LocalGame {
 
 			// denote that this was a legal/successful move
 			return true;
-		}
-		else {
+		} else {
 			// denote that this was an illegal move
 			return false;
 		}
@@ -86,16 +98,10 @@ public class QuartoLocalGame extends LocalGame {
 		p.sendInfo(new QuartoState(this.gameState));
 
 	}//sendUpdatedSate
-}
-	/**
-	 * Check if the game is over. It is over, return a string that tells
-	 * who the winner(s), if any, are. If the game is not over, return null;
-	 * 
-	 * @return
-	 * 		a message that tells who has won the game, or null if the
-	 * 		game is not over
-	 */
-	//@Override
+} // class quartoLocalGame
+
+
+//	@Override
 //	protected String checkIfGameOver() {
 //	}
 
@@ -121,8 +127,6 @@ public class QuartoLocalGame extends LocalGame {
 //			game is still between the two limit: return null, as the game
 //			 is not yet over
 //			return null;
+//			return "";
 //		}
-//
 
-
-//	}// class quartoLocalGame

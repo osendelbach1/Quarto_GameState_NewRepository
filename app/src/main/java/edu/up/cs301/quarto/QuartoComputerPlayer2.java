@@ -90,7 +90,7 @@ public class QuartoComputerPlayer2 extends QuartoComputerPlayer1 {
 					new Runnable() {
 						public void run() {
 						if (quartoValueTextView != null && currentGameState != null) {
-							quartoValueTextView.setText("" + currentGameState.getquarto());
+							//quartoValueTextView.setText("" + currentGameState.getquarto());
 						}
 					}});
 		}

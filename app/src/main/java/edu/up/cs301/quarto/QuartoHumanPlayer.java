@@ -59,7 +59,7 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 	 */
 	protected void updateDisplay() {
 		// set the text in the appropriate widget
-		quartoValueTextView.setText("" + state.getquarto());
+		//quartoValueTextView.setText("" + state.getquarto());
 	}
 
 	/**
