@@ -27,7 +27,7 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 	/* instance variables */
 	
 	// The TextView the displays the current quarto value
-	private TextView quartoValueTextView;
+	private TextView testResultsTextView;
 	
 	// the most recent game state, as given to us by the quartoLocalGame
 	private QuartoState state;
@@ -51,7 +51,7 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 	 * 		the top object in the GUI's view heirarchy
 	 */
 	public View getTopView() {
-		return myActivity.findViewById(R.id.top_gui_layout);
+		return myActivity.findViewById(R.id.topLevel);
 	}
 	
 	/**
@@ -72,23 +72,6 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 	public void onClick(View button) {
 		// if we are not yet connected to a game, ignore
 		if (game == null) return;
-
-		// Construct the action and send it to the game
-		GameAction action = null;
-		if (button.getId() == R.id.plusButton) {
-			// plus button: create "increment" action
-			action = new QuartoMoveAction(this, true);
-		}
-		else if (button.getId() == R.id.minusButton) {
-			// minus button: create "decrement" action
-			action = new QuartoMoveAction(this, false);
-		}
-		else {
-			// something else was pressed: ignore
-			return;
-		}
-		
-		game.sendAction(action); // send action to the game
 	}// onClick
 	
 	/**
@@ -120,23 +103,14 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 		this.myActivity = activity;
 		
 	    // Load the layout resource for our GUI
-		activity.setContentView(R.layout.quarto_human_player);
-		
-		// make this object the listener for both the '+' and '-' 'buttons
-		Button plusButton = (Button) activity.findViewById(R.id.plusButton);
-		plusButton.setOnClickListener(this);
-		Button minusButton = (Button) activity.findViewById(R.id.minusButton);
-		minusButton.setOnClickListener(this);
+		activity.setContentView(R.layout.game_unit_tests);
 
-		// remember the field that we update to display the quarto's value
-		this.quartoValueTextView =
-				(TextView) activity.findViewById(R.id.quartoValueTextView);
-		
-		// if we have a game state, "simulate" that we have just received
-		// the state from the game so that the GUI values are updated
-		if (state != null) {
-			receiveInfo(state);
-		}
+		// initialize textView variable with reference to tv in new xml file
+		testResultsTextView = activity.findViewById(R.id.editTextTextMultiLine);
+
+		//register human player as listener for Run Test button
+		Button runTest = activity.findViewById(R.id.runTestButt);
+		runTest.setOnClickListener(this);
 	}
 
 }// class quartoHumanPlayer
