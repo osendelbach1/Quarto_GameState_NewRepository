@@ -107,22 +107,36 @@ public class QuartoState extends GameState {
 
 	//copy constructor; makes a copy of the original object
 	public QuartoState(QuartoState other) {
-		this.board = other.board;
+		// Deep copy the board
+		this.board = new Piece[4][4];
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 4; j++) {
+				this.board[i][j] = (other.board[i][j] != null) ? new Piece(other.board[i][j].getHeight(), other.board[i][j].getHole(), other.board[i][j].getColor(), other.board[i][j].getShape()) : null;
+			}
+		}
 
-		this.pieces = other.pieces;
+		// Deep copy the pieces array
+		this.pieces = new Piece[16];
+		for (int i = 0; i < 16; i++) {
+			this.pieces[i] = new Piece(other.pieces[i].getHeight(), other.pieces[i].getHole(), other.pieces[i].getColor(), other.pieces[i].getShape());
+		}
 
+		// Deep copy the unPlaced list, calling Piece's copy ctor
+		this.unPlaced = new ArrayList<>();
+		for (Piece p : other.unPlaced) {
+			this.unPlaced.add(new Piece(p));
+		}
+
+		// Copy primitive values and immutables directly
 		this.playerID = other.playerID;
-
 		this.currentPiece = other.currentPiece;
-
 		this.phase = other.phase;
-
 		this.gameStatus = other.gameStatus;
-
-		//this.turnComplete = other.turnComplete;
-
+		this.Player1TurnComplete = other.Player1TurnComplete;
+		this.Player2TurnComplete = other.Player2TurnComplete;
 		this.result = other.result;
 	}
+
 
 
 	public boolean placePieceAction(GameAction Action)
@@ -275,14 +289,14 @@ public class QuartoState extends GameState {
 
 		// Check the diagonal according to the direction
 		for (int i = 1; i < 4; i++) {
-			int row = i;
+
 			int col = leftToRight ? i : (3 - i);
 
 			// Update checks if any property doesn't match the first piece
-			if (boardcheck[row][col].getHeight() != firstHeight) heightcheck = false;
-			if (boardcheck[row][col].getColor() != firstColor) colorcheck = false;
-			if (boardcheck[row][col].getHole() != firstHole) holecheck = false;
-			if (boardcheck[row][col].getShape() != firstShape) shapecheck = false;
+			if (boardcheck[i][col].getHeight() != firstHeight) heightcheck = false;
+			if (boardcheck[i][col].getColor() != firstColor) colorcheck = false;
+			if (boardcheck[i][col].getHole() != firstHole) holecheck = false;
+			if (boardcheck[i][col].getShape() != firstShape) shapecheck = false;
 		}
 
 		// Return true if any of the property checks succeeded
@@ -291,19 +305,60 @@ public class QuartoState extends GameState {
 
 
 	@Override
-	public String toString()
-	{
-		if (playerID == HUMANPLAYER)
-		{
-			result += "Your turn";
-		}
-		 else if (playerID == CPUPLAYER)
-		{
-			result += "Ai's Turn";
-		}
-		 return "";
-	}
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
 
+		// Board state
+		sb.append("Game Board:\n");
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 4; j++) {
+				if (board[i][j] != null) {
+					sb.append(board[i][j]).append(" ");
+				} else {
+					sb.append("[Empty] ");
+				}
+			}
+			sb.append("\n");
+		}
+
+		// Unplaced pieces
+		sb.append("\nUnplaced Pieces:\n");
+		for (Piece piece : unPlaced) {
+			sb.append(piece).append(" ");
+		}
+
+		// Current player information
+		sb.append("\n\nCurrent Player: ")
+				.append(playerID == HUMANPLAYER ? "Human" : "CPU")
+				.append("\nCurrent Phase: ")
+				.append(phase ? "Selection" : "Placement")
+				.append("\nCurrent Piece ID: ").append(currentPiece);
+
+		// Game status
+		sb.append("\nGame Status: ");
+		switch (gameStatus) {
+			case ACTIVE:
+				sb.append("Active");
+				break;
+			case WON:
+				sb.append("Won");
+				break;
+			case LOST:
+				sb.append("Lost");
+				break;
+			default:
+				sb.append("Unknown");
+		}
+
+		// Player turn completion
+		sb.append("\nPlayer 1 Turn Complete: ").append(Player1TurnComplete ? "Yes" : "No");
+		sb.append("\nPlayer 2 Turn Complete: ").append(Player2TurnComplete ? "Yes" : "No");
+
+		// Result message
+		sb.append("\nResult: ").append(result);
+
+		return sb.toString();
+	}
 
 }
 

@@ -21,6 +21,13 @@ public class Piece {
         this.squareOrCircle = shape;
     }
 
+    public Piece(Piece p) {
+        this.shortOrTall = p.shortOrTall;
+        this.holeOrSolid = p.holeOrSolid;
+        this.darkOrLight = p.darkOrLight;
+        this.squareOrCircle = p.squareOrCircle;
+    }
+
     public Boolean getHeight() {
         return this.shortOrTall;
     }
