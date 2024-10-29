@@ -1,5 +1,8 @@
 package edu.up.cs301.quarto;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import edu.up.cs301.GameFramework.infoMessage.GameState;
 
@@ -15,33 +18,34 @@ import edu.up.cs301.GameFramework.infoMessage.GameState;
  */
 public class QuartoState extends GameState {
 
+	//constants for piece characteristics
+	public static final Boolean SHORT = true;
+	public static final Boolean TALL = false;
+	public static final Boolean HOLE = true;
+	public static final Boolean SOLID = false;
+	public static final Boolean DARK = true;
+	public static final Boolean LIGHT = false;
+	public static final Boolean SQUARE =  true;
+	public static final Boolean CIRCLE = false;
+
+
+
 	// to satisfy Serializable interface
 	private static final long serialVersionUID = 7737393762469851826L;
 
 	//game board
-	private int[][] board;
+	private Piece[][] board = new Piece[4][4];
+	private Piece[] pieces = new Piece[16];
 
 	//each individual piece ID
-	private int piece1 = 0;
-	private int piece2 = 1;
-	private int piece3 = 2;
-	private int piece4 = 3;
-	private int piece5 = 4;
-	private int piece6 = 5;
-	private int piece7 = 6;
-	private int piece8 = 7;
-	private int piece9 = 8;
-	private int piece10 = 9;
-	private int piece11 = 10;
-	private int piece12 = 11;
-	private int piece13 = 12;
-	private int piece14 = 13;
-	private int piece15 = 14;
-	private int piece16 = 15;
 
+	ArrayList<Piece> unPlaced = new ArrayList<Piece>(16);
 
 	//0 = human and 1 == other or AI
 	private int playerID;
+	public static final int HUMANPLAYER = 0;
+	public static final int CPUPLAYER = 1;
+
 
 	//ID of piece selected
 	private int currentPiece;
@@ -51,47 +55,53 @@ public class QuartoState extends GameState {
 
 	//If true, display "your turn" text as well
 	private boolean phase;
+	public static final boolean SELECTION = true;
+	public static final boolean PLACEMENT = false;
 
 	//0 = active, 1 = won, 2 = lose
 	private int gameStatus;
+	//constants for game state
+	public static final int ACTIVE = 0;
+	public static final int WON = 1;
+	public static final int LOST = 2;
+
 
 	//If you have placed the piece given to you and then selected a piece for the other player, you have completed all the actions for your turn
-	private boolean turnComplete;
+	private boolean Player1TurnComplete;
+	private boolean Player2TurnComplete;
+	public static final boolean INCOMPLETE = false;
+	public static final boolean COMPLETE = true;
 
 	private String result;
 
 	//constructor, initializing the quarto value from the parameter
 	public QuartoState() {
-		board = new int[4][4];
 
-		piece1 = 1;
-		piece2 = 2;
-		piece3 = 3;
-		piece4 = 4;
-		piece5 = 5;
-		piece6 = 6;
-		piece7 = 7;
-		piece8 = 8;
-		piece9 = 9;
-		piece10 = 10;
-		piece11 = 11;
-		piece12 = 12;
-		piece13 = 13;
-		piece14 = 14;
-		piece15 = 15;
-		piece16 = 16;
+		pieces[0] = new Piece(SHORT, HOLE, DARK, SQUARE);
+		pieces[1] = new Piece(SHORT, HOLE, DARK, CIRCLE);
+		pieces[2] = new Piece(SHORT, HOLE, LIGHT, SQUARE);
+		pieces[3] = new Piece(SHORT, HOLE, LIGHT, CIRCLE);
+		pieces[4] = new Piece(SHORT, SOLID, DARK, SQUARE);
+		pieces[5] = new Piece(SHORT, SOLID, DARK, CIRCLE);
+		pieces[6] = new Piece(SHORT, SOLID, LIGHT, SQUARE);
+		pieces[7] = new Piece(SHORT, SOLID, LIGHT, CIRCLE);
+		pieces[8] = new Piece(TALL, HOLE, DARK, SQUARE);
+		pieces[9] = new Piece(TALL, HOLE, DARK, CIRCLE);
+		pieces[10] = new Piece(TALL, HOLE, LIGHT, SQUARE);
+		pieces[11] = new Piece(TALL, HOLE, LIGHT, CIRCLE);
+		pieces[12] = new Piece(TALL, SOLID, DARK, SQUARE);
+		pieces[13] = new Piece(TALL, SOLID, DARK, CIRCLE);
+		pieces[14] = new Piece(TALL, SOLID, LIGHT, SQUARE);
+		pieces[15] = new Piece(TALL, SOLID, LIGHT, CIRCLE);
 
-		playerID = 0;
+		//initialize unplaced with pieces 1-16
+		unPlaced = new ArrayList<>(Arrays.asList(pieces));
 
-		//set at 0 by default since there is no piece with 0 as an ID
-		currentPiece = 0;
-
-		phase = true;
-
-		gameStatus = 0;
-
-		turnComplete = false;
-
+		// Initialize game state
+		playerID = HUMANPLAYER;
+		currentPiece = -1;  // No piece selected yet
+		phase = SELECTION;
+		gameStatus = ACTIVE;
 		result = "";
 	}
 
@@ -99,23 +109,7 @@ public class QuartoState extends GameState {
 	public QuartoState(QuartoState other) {
 		this.board = other.board;
 
-		this.piece1 = other.piece1;
-		this.piece2 = other.piece2;
-		this.piece3 = other.piece3;
-		this.piece4 = other.piece4;
-		this.piece5 = other.piece5;
-		this.piece6 = other.piece6;
-		this.piece7 = other.piece7;
-		this.piece8 = other.piece8;
-		this.piece9 = other.piece9;
-		this.piece10 = other.piece10;
-		this.piece11 = other.piece11;
-		this.piece12 = other.piece12;
-		this.piece13 = other.piece13;
-		this.piece14 = other.piece14;
-		this.piece15 = other.piece15;
-		this.piece16 = other.piece16;
-
+		this.pieces = other.pieces;
 
 		this.playerID = other.playerID;
 
@@ -125,7 +119,7 @@ public class QuartoState extends GameState {
 
 		this.gameStatus = other.gameStatus;
 
-		this.turnComplete = other.turnComplete;
+		//this.turnComplete = other.turnComplete;
 
 		this.result = other.result;
 	}
@@ -133,11 +127,11 @@ public class QuartoState extends GameState {
 
 	public boolean placePieceAction(GameAction Action)
 	{
-		if(gameStatus == 0)
+		if(gameStatus == ACTIVE)
 		{
-			if(phase == false)
+			if(phase == PLACEMENT)
 			{
-				phase = true;
+				phase = SELECTION;
 				return true;
 			}
 		}
@@ -146,11 +140,11 @@ public class QuartoState extends GameState {
 
 	public boolean selectPieceAction(GameAction Action)
 	{
-		if(gameStatus == 0)
+		if(gameStatus == ACTIVE)
 		{
-			if(phase == true)
+			if(phase == SELECTION)
 			{
-				phase = false;
+				phase = PLACEMENT;
 				return true;
 			}
 		}
@@ -159,7 +153,7 @@ public class QuartoState extends GameState {
 
 	public boolean quitAction(GameAction Action)
 	{
-		if(gameStatus == 0 || gameStatus == 1 || gameStatus == 2)
+		if(gameStatus == ACTIVE || gameStatus == WON || gameStatus == LOST)
 		{
 			return true;
 		}
@@ -168,11 +162,11 @@ public class QuartoState extends GameState {
 
 	public boolean endTurnAction(GameAction Action)
 	{
-		if(gameStatus == 0)
+		if(gameStatus == ACTIVE)
 		{
-			if(phase == true)
+			if(phase == PLACEMENT)
 			{
-				if(turnComplete == true)
+				if(Player1TurnComplete == COMPLETE)
 				{
 
 					return true;
@@ -183,23 +177,127 @@ public class QuartoState extends GameState {
 	}
 
 	//requirements to be able to declare victory have to be made in a method for future assignment
-	public boolean declareVictoryAction(GameAction Action)
+	public boolean declareVictoryAction(Piece[][] boardcheck)
 	{
-		if(gameStatus == 1)
-		{
-			return true;
+		boolean rowcheck = true, colcheck = true, diagcheck = true;
+		for (int i = 0; i < 4; i++) {
+			if (!checkRow(boardcheck, i)) {
+				rowcheck = false;
+			}
+			if (!checkCol(boardcheck, i)) {
+				colcheck = false;
+			}
+			if (!checkDiagonal(boardcheck, true)) {
+				diagcheck = false;
+			}
+			if (!checkDiagonal(boardcheck, false)) {
+				diagcheck = false;
+			}
+		}
+
+		//check which player has won
+		if(rowcheck || colcheck || diagcheck) {
+			if (playerID == HUMANPLAYER) {
+				gameStatus = WON;
+				return true;
+			}
+			else if (playerID == CPUPLAYER) {
+				gameStatus = LOST;
+				return true;
+			}
 		}
 		return false;
 	}
 
+	public boolean checkRow(Piece[][] boardCheck, int row) {
+		// Check if all values in the row are true
+		boolean firstHeight = boardCheck[row][0].getHeight();
+		boolean firstColor = boardCheck[row][0].getColor();
+		boolean firstHole = boardCheck[row][0].getHole();
+		boolean firstShape = boardCheck[row][0].getShape();
+		boolean heightcheck = true, colorcheck = true, holecheck = true, shapecheck = true;
+
+
+		for (int j = 0; j < 4; j++) {
+
+			if (boardCheck[row][j].getHeight() != firstHeight) {
+				heightcheck = false;
+			}
+			if (boardCheck[row][j].getHeight() != firstColor) {
+				colorcheck = false;
+			}
+			if (boardCheck[row][j].getHeight() != firstHole) {
+				holecheck = false;
+			}
+			if (boardCheck[row][j].getHeight() != firstShape) {
+				shapecheck = false;
+			}
+		}
+		return heightcheck || colorcheck || holecheck || shapecheck;
+	}
+
+	public boolean checkCol(Piece[][] boardCheck, int col) {
+		// Check if all values in the row are true
+		boolean firstHeight = boardCheck[0][col].getHeight();
+		boolean firstColor = boardCheck[0][col].getColor();
+		boolean firstHole = boardCheck[0][col].getHole();
+		boolean firstShape = boardCheck[0][col].getShape();
+		boolean heightcheck = true, colorcheck = true, holecheck = true, shapecheck = true;
+
+
+		for (int i = 0; i < 4; i++) {
+
+			if (boardCheck[i][col].getHeight() != firstHeight) {
+				heightcheck = false;
+			}
+			if (boardCheck[i][col].getHeight() != firstColor) {
+				colorcheck = false;
+			}
+			if (boardCheck[i][col].getHeight() != firstHole) {
+				holecheck = false;
+			}
+			if (boardCheck[i][col].getHeight() != firstShape) {
+				shapecheck = false;
+			}
+		}
+		return heightcheck || colorcheck || holecheck || shapecheck;
+	}
+
+	public boolean checkDiagonal(Piece[][] boardcheck, boolean leftToRight) {
+		boolean heightcheck = true, colorcheck = true, holecheck = true, shapecheck = true;
+
+		// Initialize the first piece's properties based on the diagonal direction
+		Piece firstPiece = leftToRight ? boardcheck[0][0] : boardcheck[0][3];
+		boolean firstHeight = firstPiece.getHeight();
+		boolean firstColor = firstPiece.getColor();
+		boolean firstHole = firstPiece.getHole();
+		boolean firstShape = firstPiece.getShape();
+
+		// Check the diagonal according to the direction
+		for (int i = 1; i < 4; i++) {
+			int row = i;
+			int col = leftToRight ? i : (3 - i);
+
+			// Update checks if any property doesn't match the first piece
+			if (boardcheck[row][col].getHeight() != firstHeight) heightcheck = false;
+			if (boardcheck[row][col].getColor() != firstColor) colorcheck = false;
+			if (boardcheck[row][col].getHole() != firstHole) holecheck = false;
+			if (boardcheck[row][col].getShape() != firstShape) shapecheck = false;
+		}
+
+		// Return true if any of the property checks succeeded
+		return heightcheck || colorcheck || holecheck || shapecheck;
+	}
+
+
 	@Override
 	public String toString()
 	{
-		if (playerID == 0)
+		if (playerID == HUMANPLAYER)
 		{
 			result += "Your turn";
 		}
-		 else if (playerID == 1)
+		 else if (playerID == CPUPLAYER)
 		{
 			result += "Ai's Turn";
 		}
@@ -209,25 +307,4 @@ public class QuartoState extends GameState {
 
 }
 
-
-
-	///**
-	 //* getter method for the quarto
-	 //*
-	 //* @return
-	 //* 		the value of the quarto
-	// */
-	//public int getquarto() {
-		//return quarto;
-	//}
-
-	///**
-	// * setter method for the quarto
-	// *
-	 //* @param quarto
-	 //* 		the value to which the quarto should be set
-	 //*/
-	//public void setquarto(int quarto) {
-		//this.quarto = quarto;
-	//}
 
