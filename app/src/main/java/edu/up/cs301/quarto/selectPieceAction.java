@@ -9,7 +9,12 @@ public class selectPieceAction extends GameAction {
      *
      * @param player the player who created the action
      */
+
+
     public selectPieceAction(GamePlayer player) {
-        super(player);
+            super(player);
+        }
     }
-}
+
+
+

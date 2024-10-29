@@ -48,7 +48,7 @@ public class QuartoState extends GameState {
 
 
 	//ID of piece selected
-	private int currentPiece;
+	private Piece currentPiece;
 
 	//True for selection phase and false for placement phase of current player
 	//Initialized as true because when the game starts you start off by selecting
@@ -64,6 +64,7 @@ public class QuartoState extends GameState {
 	public static final int ACTIVE = 0;
 	public static final int WON = 1;
 	public static final int LOST = 2;
+	public static final int QUITTED = 3;
 
 
 	//If you have placed the piece given to you and then selected a piece for the other player, you have completed all the actions for your turn
@@ -99,7 +100,7 @@ public class QuartoState extends GameState {
 
 		// Initialize game state
 		playerID = HUMANPLAYER;
-		currentPiece = -1;  // No piece selected yet
+		Piece currentPiece;  // No piece selected yet
 		phase = SELECTION;
 		gameStatus = ACTIVE;
 		result = "";
@@ -129,7 +130,7 @@ public class QuartoState extends GameState {
 
 		// Copy primitive values and immutables directly
 		this.playerID = other.playerID;
-		this.currentPiece = other.currentPiece;
+		this.currentPiece = new Piece(other.currentPiece);
 		this.phase = other.phase;
 		this.gameStatus = other.gameStatus;
 		this.Player1TurnComplete = other.Player1TurnComplete;
@@ -139,12 +140,13 @@ public class QuartoState extends GameState {
 
 
 
-	public boolean placePieceAction(GameAction Action)
+	public boolean placePieceAction(int row, int col)
 	{
 		if(gameStatus == ACTIVE)
 		{
 			if(phase == PLACEMENT)
 			{
+				this.board[row][col] = currentPiece;
 				phase = SELECTION;
 				return true;
 			}
@@ -152,12 +154,26 @@ public class QuartoState extends GameState {
 			return false;
 	}
 
-	public boolean selectPieceAction(GameAction Action)
+	public boolean selectPieceAction(boolean height, boolean hole, boolean color, boolean shape)
 	{
 		if(gameStatus == ACTIVE)
 		{
 			if(phase == SELECTION)
 			{
+				for (int i = 0; i < 16; i++) {
+					if (unPlaced.get(i).getHeight() == height && unPlaced.get(i).getHole() == hole &&  unPlaced.get(i).getColor() == color && unPlaced.get(i).getShape() == shape) {
+						currentPiece = unPlaced.get(i);
+						unPlaced.remove(i);
+						if (playerID == HUMANPLAYER) {
+							Player1TurnComplete = true;
+							Player2TurnComplete = false;
+						}
+						else {
+							Player2TurnComplete = true;
+							Player1TurnComplete = false;
+						}
+					}
+				}
 				phase = PLACEMENT;
 				return true;
 			}
@@ -165,16 +181,16 @@ public class QuartoState extends GameState {
 		return false;
 	}
 
-	public boolean quitAction(GameAction Action)
+	public boolean quitAction()
 	{
 		if(gameStatus == ACTIVE || gameStatus == WON || gameStatus == LOST)
 		{
-			return true;
+			gameStatus = QUITTED;
 		}
-		return false;
+		return true;
 	}
 
-	public boolean endTurnAction(GameAction Action)
+	public boolean endTurnAction()
 	{
 		if(gameStatus == ACTIVE)
 		{
@@ -191,20 +207,20 @@ public class QuartoState extends GameState {
 	}
 
 	//requirements to be able to declare victory have to be made in a method for future assignment
-	public boolean declareVictoryAction(Piece[][] boardcheck)
+	public boolean declareVictoryAction()
 	{
 		boolean rowcheck = true, colcheck = true, diagcheck = true;
 		for (int i = 0; i < 4; i++) {
-			if (!checkRow(boardcheck, i)) {
+			if (!checkRow(board, i)) {
 				rowcheck = false;
 			}
-			if (!checkCol(boardcheck, i)) {
+			if (!checkCol(board, i)) {
 				colcheck = false;
 			}
-			if (!checkDiagonal(boardcheck, true)) {
+			if (!checkDiagonal(board, true)) {
 				diagcheck = false;
 			}
-			if (!checkDiagonal(boardcheck, false)) {
+			if (!checkDiagonal(board, false)) {
 				diagcheck = false;
 			}
 		}

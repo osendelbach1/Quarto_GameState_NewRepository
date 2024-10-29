@@ -69,9 +69,68 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 	 * @param button
 	 * 		the button that was clicked
 	 */
+
 	public void onClick(View button) {
 		// if we are not yet connected to a game, ignore
 		if (game == null) return;
+		testResultsTextView.invalidate();
+		QuartoState firstInstance = new QuartoState();
+		QuartoState firstCopy = new QuartoState(firstInstance);
+		//place 4 light pieces in a row
+		//check for victory
+		//quit the game
+
+
+		firstInstance.selectPieceAction(true, false, false, false);
+		System.out.println("Player 1 selects Tall, no hole, light color, circle.");
+		firstInstance.endTurnAction();
+
+		firstInstance.placePieceAction(0,0);
+		System.out.println("Player 2 places the piece on row 0 column 0.");
+		firstInstance.selectPieceAction(true, true, false, true);
+		System.out.println("Player 2 selects Tall, hole, light color, square.");
+
+		firstInstance.endTurnAction();
+
+		firstInstance.placePieceAction(0, 1);
+		System.out.println("Player 1 places the piece on row 0 column 1.");
+
+		firstInstance.selectPieceAction(true, true, true, true);
+		System.out.println("Player 1 selects Tall, hole, dark color, square.");
+
+		firstInstance.placePieceAction(0, 2);
+		System.out.println("Player 2 places the piece on row 0 column 2.");
+
+		firstInstance.selectPieceAction(true, false, false, true);
+		System.out.println("Player 2 selects Tall, no hole, light color, square.");
+
+		firstInstance.placePieceAction(0, 3);
+		System.out.println("Player 1 places the piece on row 0 column 3.");
+
+
+		firstInstance.declareVictoryAction();
+		System.out.println("Player 1 declares victory.");
+
+
+		firstInstance.quitAction();
+		System.out.println("Player 1 quits the game.");
+
+
+
+		QuartoState secondInstance = new QuartoState();
+		QuartoState secondCopy = new QuartoState(secondInstance);
+
+		testResultsTextView.getText();
+
+		String existingText = testResultsTextView.getText().toString();
+
+		testResultsTextView.setText(existingText + firstCopy.toString() + secondCopy.toString());
+
+
+
+
+
+
 	}// onClick
 	
 	/**
