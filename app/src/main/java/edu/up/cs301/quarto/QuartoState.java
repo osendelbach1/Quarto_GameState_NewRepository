@@ -100,7 +100,7 @@ public class QuartoState extends GameState {
 
 		// Initialize game state
 		playerID = HUMANPLAYER;
-		Piece currentPiece;  // No piece selected yet
+		Piece currentPiece = new Piece(false, false, false, false);  // No piece selected yet
 		phase = SELECTION;
 		gameStatus = ACTIVE;
 		result = "";

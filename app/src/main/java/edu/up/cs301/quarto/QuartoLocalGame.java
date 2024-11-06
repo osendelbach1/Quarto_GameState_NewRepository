@@ -133,6 +133,6 @@ public class QuartoLocalGame extends LocalGame {
 //			game is still between the two limit: return null, as the game
 //			 is not yet over
 //			return null;
-//			return "";
+//
 //		}
 

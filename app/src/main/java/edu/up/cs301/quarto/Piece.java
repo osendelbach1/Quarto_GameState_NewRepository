@@ -22,15 +22,16 @@ public class Piece {
     }
 
     public Piece(Piece p) {
-        this.shortOrTall = p.shortOrTall;
-        this.holeOrSolid = p.holeOrSolid;
-        this.darkOrLight = p.darkOrLight;
-        this.squareOrCircle = p.squareOrCircle;
+        this.shortOrTall = p.getHeight();
+        this.holeOrSolid = p.getHole();
+        this.darkOrLight = p.getColor();
+        this.squareOrCircle = p.getShape();
     }
 
     public Boolean getHeight() {
         return this.shortOrTall;
     }
+
     public Boolean getHole() {
         return this.holeOrSolid;
     }
