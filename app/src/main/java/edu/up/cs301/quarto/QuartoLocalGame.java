@@ -51,7 +51,7 @@ public class QuartoLocalGame extends LocalGame {
 	 */
 	@Override
 	protected String checkIfGameOver() {
-		return "";
+		return null;
 	}
 
 	/**
@@ -111,7 +111,7 @@ public class QuartoLocalGame extends LocalGame {
 //	protected String checkIfGameOver() {
 //	}
 
-		 //get the value of the quarto
+//get the value of the quarto
 //		int quartoVal = this.gameState.getquarto();
 //
 //		if (quartoVal >= TARGET_MAGNITUDE) {

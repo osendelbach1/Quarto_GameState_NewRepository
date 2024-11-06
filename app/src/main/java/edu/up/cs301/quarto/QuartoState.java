@@ -12,7 +12,7 @@ import edu.up.cs301.GameFramework.infoMessage.GameState;
  * pieces, the board, whether the player is in the selection or placement
  * phase, the status of the game, and whether the player has completed
  * their turn.
- * 
+ *
  * @author Olivia Sendelbach, Magnus Graham, Becca Biukoto, Aaron Chu
  * @Date 10/06/24
  */
@@ -48,7 +48,7 @@ public class QuartoState extends GameState {
 
 
 	//ID of piece selected
-	private Piece currentPiece;
+	private Piece currentPiece = new Piece(false, false, false, false);
 
 	//True for selection phase and false for placement phase of current player
 	//Initialized as true because when the game starts you start off by selecting
@@ -151,7 +151,7 @@ public class QuartoState extends GameState {
 				return true;
 			}
 		}
-			return false;
+		return false;
 	}
 
 	public boolean selectPieceAction(boolean height, boolean hole, boolean color, boolean shape)
@@ -160,7 +160,7 @@ public class QuartoState extends GameState {
 		{
 			if(phase == SELECTION)
 			{
-				for (int i = 0; i < 16; i++) {
+				for (int i = 0; i < unPlaced.size(); i++) {
 					if (unPlaced.get(i).getHeight() == height && unPlaced.get(i).getHole() == hole &&  unPlaced.get(i).getColor() == color && unPlaced.get(i).getShape() == shape) {
 						currentPiece = unPlaced.get(i);
 						unPlaced.remove(i);

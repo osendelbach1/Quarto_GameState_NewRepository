@@ -9,15 +9,17 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
 
+import java.util.ArrayList;
+
 /**
  * A GUI of a quarto-player. The GUI displays the current value of the quarto,
  * and allows the human player to press the '+' and '-' buttons in order to
  * send moves to the game.
- * 
+ *
  * Just for fun, the GUI is implemented so that if the player presses either button
  * when the quarto-value is zero, the screen flashes briefly, with the flash-color
  * being dependent on whether the player is player 0 or player 1.
- * 
+ *
  * @author Steven R. Vegdahl
  * @author Andrew M. Nuxoll
  * @version July 2013
@@ -25,16 +27,16 @@ import android.view.View.OnClickListener;
 public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListener {
 
 	/* instance variables */
-	
+
 	// The TextView the displays the current quarto value
 	private TextView testResultsTextView;
-	
+
 	// the most recent game state, as given to us by the quartoLocalGame
 	private QuartoState state;
-	
+
 	// the android activity that we are running
 	private GameMainActivity myActivity;
-	
+
 	/**
 	 * constructor
 	 * @param name
@@ -46,14 +48,14 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 	/**
 	 * Returns the GUI's top view object
-	 * 
+	 *
 	 * @return
 	 * 		the top object in the GUI's view heirarchy
 	 */
 	public View getTopView() {
 		return myActivity.findViewById(R.id.topLevel);
 	}
-	
+
 	/**
 	 * sets the quarto value in the text view
 	 */
@@ -65,7 +67,7 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 	/**
 	 * this method gets called when the user clicks the '+' or '-' button. It
 	 * creates a new quartoMoveAction to return to the parent activity.
-	 * 
+	 *
 	 * @param button
 	 * 		the button that was clicked
 	 */
@@ -80,40 +82,42 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 		//check for victory
 		//quit the game
 
+		ArrayList<String> output = new ArrayList<>();
+
 
 		firstInstance.selectPieceAction(true, false, false, false);
-		System.out.println("Player 1 selects Tall, no hole, light color, circle.");
+		output.add("Player 1 selects Tall, no hole, light color, circle.");
 		firstInstance.endTurnAction();
 
 		firstInstance.placePieceAction(0,0);
-		System.out.println("Player 2 places the piece on row 0 column 0.");
+		output.add("Player 2 places the piece on row 0 column 0.");
 		firstInstance.selectPieceAction(true, true, false, true);
-		System.out.println("Player 2 selects Tall, hole, light color, square.");
+		output.add("Player 2 selects Tall, hole, light color, square.");
 
 		firstInstance.endTurnAction();
 
 		firstInstance.placePieceAction(0, 1);
-		System.out.println("Player 1 places the piece on row 0 column 1.");
+		output.add("Player 1 places the piece on row 0 column 1.");
 
 		firstInstance.selectPieceAction(true, true, true, true);
-		System.out.println("Player 1 selects Tall, hole, dark color, square.");
+		output.add("Player 1 selects Tall, hole, dark color, square.");
 
 		firstInstance.placePieceAction(0, 2);
-		System.out.println("Player 2 places the piece on row 0 column 2.");
+		output.add("Player 2 places the piece on row 0 column 2.");
 
 		firstInstance.selectPieceAction(true, false, false, true);
-		System.out.println("Player 2 selects Tall, no hole, light color, square.");
+		output.add("Player 2 selects Tall, no hole, light color, square.");
 
 		firstInstance.placePieceAction(0, 3);
-		System.out.println("Player 1 places the piece on row 0 column 3.");
+		output.add("Player 1 places the piece on row 0 column 3.");
 
 
 		firstInstance.declareVictoryAction();
-		System.out.println("Player 1 declares victory.");
+		output.add("Player 1 declares victory.");
 
 
 		firstInstance.quitAction();
-		System.out.println("Player 1 quits the game.");
+		output.add("Player 1 quits the game.");
 
 
 
@@ -122,7 +126,12 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 		testResultsTextView.getText();
 
-		String existingText = testResultsTextView.getText().toString();
+		String existingText = "";
+		for(String s : output) {
+			existingText += s + "\n";
+		}
+
+		existingText += testResultsTextView.getText().toString();
 
 		testResultsTextView.setText(existingText + firstCopy.toString() + secondCopy.toString());
 
@@ -132,10 +141,10 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 
 	}// onClick
-	
+
 	/**
 	 * callback method when we get a message (e.g., from the game)
-	 * 
+	 *
 	 * @param info
 	 * 		the message
 	 */
@@ -143,25 +152,25 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 	public void receiveInfo(GameInfo info) {
 		// ignore the message if it's not a quartoState message
 		if (!(info instanceof QuartoState)) return;
-		
+
 		// update our state; then update the display
 		this.state = (QuartoState)info;
 		updateDisplay();
 	}
-	
+
 	/**
 	 * callback method--our game has been chosen/rechosen to be the GUI,
 	 * called from the GUI thread
-	 * 
+	 *
 	 * @param activity
 	 * 		the activity under which we are running
 	 */
 	public void setAsGui(GameMainActivity activity) {
-		
+
 		// remember the activity
 		this.myActivity = activity;
-		
-	    // Load the layout resource for our GUI
+
+		// Load the layout resource for our GUI
 		activity.setContentView(R.layout.game_unit_tests);
 
 		// initialize textView variable with reference to tv in new xml file
