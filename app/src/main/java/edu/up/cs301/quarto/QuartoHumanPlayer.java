@@ -4,6 +4,8 @@ import edu.up.cs301.GameFramework.players.GameHumanPlayer;
 import edu.up.cs301.GameFramework.GameMainActivity;
 import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import edu.up.cs301.GameFramework.infoMessage.GameInfo;
+
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -24,7 +26,7 @@ import java.util.ArrayList;
  * @author Andrew M. Nuxoll
  * @version July 2013
  */
-public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListener {
+public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListener, View.OnTouchListener {
 
 	/* instance variables */
 
@@ -181,5 +183,9 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 		runTest.setOnClickListener(this);
 	}
 
+	@Override
+	public boolean onTouch(View view, MotionEvent motionEvent) {
+		return false;
+	}
 }// class quartoHumanPlayer
 
