@@ -4,6 +4,9 @@ import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import edu.up.cs301.GameFramework.players.GamePlayer;
 
 public class selectPieceAction extends GameAction {
+
+    public Piece selected;
+
     /**
      * constructor for GameAction
      *
@@ -11,8 +14,9 @@ public class selectPieceAction extends GameAction {
      */
 
 
-    public selectPieceAction(GamePlayer player) {
+    public selectPieceAction(GamePlayer player, Piece initSelected) {
             super(player);
+            this.selected = initSelected;
         }
     }
 

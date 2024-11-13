@@ -39,7 +39,7 @@ public class QuartoState extends GameState {
 
 	//each individual piece ID
 
-	ArrayList<Piece> unPlaced = new ArrayList<Piece>(16);
+	private ArrayList<Piece> unPlaced = new ArrayList<Piece>(16);
 
 	//0 = human and 1 == other or AI
 	private int playerID;
@@ -136,6 +136,11 @@ public class QuartoState extends GameState {
 		this.Player1TurnComplete = other.Player1TurnComplete;
 		this.Player2TurnComplete = other.Player2TurnComplete;
 		this.result = other.result;
+	}
+
+	/** getter method for unPlaced */
+	public ArrayList<Piece> getUnPlaced() {
+		return this.unPlaced;
 	}
 
 

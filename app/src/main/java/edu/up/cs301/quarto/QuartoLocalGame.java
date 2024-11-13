@@ -84,7 +84,18 @@ public class QuartoLocalGame extends LocalGame {
 
 			// denote that this was a legal/successful move
 			return true;
-		} else {
+		}
+		else if(action instanceof selectPieceAction) {
+			selectPieceAction spa = (selectPieceAction)action;
+			boolean result = this.gameState.selectPieceAction(
+					spa.selected.getHeight(),
+					spa.selected.getHole(),
+					spa.selected.getColor(),
+					spa.selected.getShape());
+
+			return result;
+		}
+		else {
 			// denote that this was an illegal move
 			return false;
 		}
