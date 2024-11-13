@@ -41,7 +41,7 @@
         android:orientation="horizontal"
         android:weightSum="10">
 
-        <SurfaceView
+        <edu.up.cs301.quarto.QuartoBoardView
             android:id="@+id/surfaceView"
             android:layout_width="985dp"
             android:layout_height="match_parent"
