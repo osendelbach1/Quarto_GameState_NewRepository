@@ -110,7 +110,7 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 		this.myActivity = activity;
 
 		// Load the layout resource for our GUI
-		activity.setContentView(R.layout.game_unit_tests);
+		activity.setContentView(R.layout.activity_main);
 
 		// initialize textView variable with reference to tv in new xml file
 		testResultsTextView = activity.findViewById(R.id.editTextTextMultiLine);
