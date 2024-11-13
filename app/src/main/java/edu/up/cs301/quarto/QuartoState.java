@@ -172,10 +172,12 @@ public class QuartoState extends GameState {
 						if (playerID == HUMANPLAYER) {
 							Player1TurnComplete = true;
 							Player2TurnComplete = false;
+							break;
 						}
 						else {
 							Player2TurnComplete = true;
 							Player1TurnComplete = false;
+							break;
 						}
 					}
 				}

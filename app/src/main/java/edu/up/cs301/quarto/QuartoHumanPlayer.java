@@ -2,7 +2,6 @@ package edu.up.cs301.quarto;
 
 import edu.up.cs301.GameFramework.players.GameHumanPlayer;
 import edu.up.cs301.GameFramework.GameMainActivity;
-import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import edu.up.cs301.GameFramework.infoMessage.GameInfo;
 
 import android.view.MotionEvent;
@@ -10,8 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
-
-import java.util.ArrayList;
 
 /**
  * A GUI of a quarto-player. The GUI displays the current value of the quarto,
@@ -78,6 +75,13 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 	}// onClick
 
+	public boolean onTouch(View view, MotionEvent motionEvent) {
+		Piece q = state.getUnPlaced().get(0);
+		placePieceAction ppa = new placePieceAction(this, motionEvent.getX(), motionEvent.getY(), q);
+		game.sendAction(ppa);
+		return true;
+	}
+
 	/**
 	 * callback method when we get a message (e.g., from the game)
 	 *
@@ -112,11 +116,6 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 		//register human player as listener for Run Test button
 		Button runTest = activity.findViewById(R.id.runTestButt);
 		runTest.setOnClickListener(this);
-	}
-
-	@Override
-	public boolean onTouch(View view, MotionEvent motionEvent) {
-		return false;
 	}
 }// class quartoHumanPlayer
 
