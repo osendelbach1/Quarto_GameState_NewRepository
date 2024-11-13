@@ -46,9 +46,8 @@
         android:orientation="horizontal"
         android:weightSum="10">
 
-        <ImageView
-            android:id="@+id/imageView"
-            tools:srcCompat="@tools:sample/avatars"
+        <SurfaceView
+            android:id="@+id/surfaceView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="10" />

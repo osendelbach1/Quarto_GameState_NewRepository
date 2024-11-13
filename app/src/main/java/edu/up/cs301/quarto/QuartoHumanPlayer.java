@@ -30,9 +30,6 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 	/* instance variables */
 
-	// The TextView the displays the current quarto value
-	private TextView testResultsTextView;
-
 	// the most recent game state, as given to us by the quartoLocalGame
 	private QuartoState state;
 
@@ -111,9 +108,6 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 		// Load the layout resource for our GUI
 		activity.setContentView(R.layout.activity_main);
-
-		// initialize textView variable with reference to tv in new xml file
-		testResultsTextView = activity.findViewById(R.id.editTextTextMultiLine);
 
 		//register human player as listener for Run Test button
 		Button runTest = activity.findViewById(R.id.runTestButt);
