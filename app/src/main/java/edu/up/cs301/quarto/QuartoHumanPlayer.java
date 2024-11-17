@@ -112,10 +112,6 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 		// Load the layout resource for our GUI
 		activity.setContentView(R.layout.activity_main);
-
-		//register human player as listener for Run Test button
-		Button runTest = activity.findViewById(R.id.runTestButt);
-		runTest.setOnClickListener(this);
 	}
 }// class quartoHumanPlayer
 

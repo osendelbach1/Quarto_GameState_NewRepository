@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/topLevel"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -19,7 +20,6 @@
                 android:layout_width="955dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/urbanist_light"
                 android:text="QUARTO"
                 android:textSize="45sp" />
 
@@ -28,7 +28,6 @@
                 android:layout_width="263dp"
                 android:layout_height="81dp"
                 android:layout_weight="1"
-                android:fontFamily="@font/urbanist_light"
                 android:text="Quit"
                 android:textSize="45sp" />
         </LinearLayout>
@@ -57,7 +56,6 @@
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/urbanist_light"
                 android:text="TextView" />
 
             <LinearLayout
@@ -70,14 +68,7 @@
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/urbanist_light"
                     android:text="Opponent's Piece" />
-
-                <ImageView
-                    android:id="@+id/imageView6"
-                    tools:srcCompat="/Users/magnusgraham/AndroidStudioProjects/QuartoGUi/app/src/main/res/drawable/Screenshot 2024-09-14 at 6.48.55 PM.png"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 
@@ -92,14 +83,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:fontFamily="@font/urbanist_light"
                     android:text="Pieces" />
-
-                <ImageView
-                    android:id="@+id/imageView8"
-                    tools:srcCompat="/Users/magnusgraham/AndroidStudioProjects/QuartoGUi/app/src/main/res/drawable/quarto-3.png.webp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 
@@ -113,14 +97,7 @@
                     android:id="@+id/textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/urbanist_light"
                     android:text="Your Piece" />
-
-                <ImageView
-                    android:id="@+id/imageView9"
-                    tools:srcCompat="/Users/magnusgraham/AndroidStudioProjects/QuartoGUi/app/src/main/res/drawable/Screenshot 2024-09-14 at 6.48.45 PM.png"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
 
             </LinearLayout>
         </LinearLayout>

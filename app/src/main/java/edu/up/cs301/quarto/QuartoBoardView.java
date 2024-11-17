@@ -16,16 +16,18 @@ public class QuartoBoardView extends SurfaceView {
         setWillNotDraw(false);
 
         blackPaint = new Paint();
-        blackPaint.setColor(0x000000);
+        blackPaint.setColor(0xFF000000);
         blackPaint.setStyle(Paint.Style.STROKE);
+
+        setBackgroundColor(0xFFF5F5DC);
     }
 
     @Override
     protected void onDraw (Canvas canvas) {
 
-        float margin = 100;
-        float top = 0;
-        float left = 0;
+        float margin = 200;
+        float top = 50;
+        float left = 350;
 
         for(int row = 0; row < 4; row++) {
             for(int col = 0; col < 4; col++) {
@@ -33,6 +35,7 @@ public class QuartoBoardView extends SurfaceView {
                 left += margin;
             }
             top += margin;
+            left = 350;
         }
     }
 }
