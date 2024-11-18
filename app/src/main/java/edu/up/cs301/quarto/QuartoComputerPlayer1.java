@@ -13,8 +13,11 @@ import edu.up.cs301.GameFramework.infoMessage.NotYourTurnInfo;
  * it just sends "+" and "-" commands with equal probability, at an average
  * rate of one per second. 
  * 
- * @author Steven R. Vegdahl
- * @author Andrew M. Nuxoll
+ @author Olivia Sendelbach
+ * @author Magnus Graham
+ * @author Becca Biukoto
+ * @version November 16, 2024
+ * 
  * @version September 2013
  */
 public class QuartoComputerPlayer1 extends GameComputerPlayer implements Tickable {
@@ -44,9 +47,10 @@ public class QuartoComputerPlayer1 extends GameComputerPlayer implements Tickabl
      * 		the information (presumably containing the game's state)
      */
 	@Override
+	//calls actions for the dumb AI's turn
 	protected void receiveInfo(GameInfo info) {
 
-		if (info instanceof NotYourTurnInfo) {
+		/*if (info instanceof NotYourTurnInfo) {
 			return;
 		}
 
@@ -58,25 +62,25 @@ public class QuartoComputerPlayer1 extends GameComputerPlayer implements Tickabl
 		// update our state variable
 		state = (QuartoState)info;
 
+		//creates a random int for the row and col that the AI can place a piece
 		Random random = new Random();
-		int randomNumber1 = (int)random.nextInt(900);
-		int randomNumber2 = (int)random.nextInt(850);
+		int randomNumber1 = (int)random.nextInt(4);
+		int randomNumber2 = (int)random.nextInt(4);
 		placePieceAction ppa = new placePieceAction(this, randomNumber1, randomNumber2, state.getCurrentPiece());
 		game.sendAction(ppa);
 
-		sleep(10);
-		int randomNumber3 = random.nextInt(state.getUnPlaced().size());
+		sleep(2);
+		int randomNumber3 = (int)random.nextInt(state.getUnPlaced().size());
 		Piece q = state.getUnPlaced().get(randomNumber3);
-		selectPieceAction spa = new selectPieceAction(this, q);
-		game.sendAction(spa);
+		selectPieceAction spa = new selectPieceAction(this, q);*/
+
+
 	}
 	
 	/**
 	 * callback method: the timer ticked
 	 */
-
-
-	/**protected void timerTicked() {
+	protected void timerTicked() {
 		// 5% of the time, increment or decrement the quarto
 		if (Math.random() >= 0.05) return; // do nothing 95% of the time
 
@@ -84,6 +88,6 @@ public class QuartoComputerPlayer1 extends GameComputerPlayer implements Tickabl
 		boolean move = Math.random() >= 0.5;
 		
 		// send the move-action to the game
-		// game.sendAction(new QuartoMoveAction(this, move));
-	}*/
+		game.sendAction(new QuartoMoveAction(this, move));
+	}
 }

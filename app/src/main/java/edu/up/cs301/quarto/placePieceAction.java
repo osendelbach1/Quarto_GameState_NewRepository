@@ -1,3 +1,9 @@
+/*
+* @author Olivia Sendelbach
+ * @author Magnus Graham
+ * @author Becca Biukoto
+ * @version November 10, 2024
+ */
 package edu.up.cs301.quarto;
 
 import edu.up.cs301.GameFramework.actionMessage.GameAction;
@@ -10,10 +16,12 @@ public class placePieceAction extends GameAction {
      * @param player the player who created the action
      */
 
+    //instance variables
     private int row;
     private int col;
     public Piece p;
 
+    //implements parent class in constructor
     public placePieceAction(GamePlayer player, float x, float y, Piece p) {
         super(player);
         this.p = p;
@@ -28,7 +36,7 @@ public class placePieceAction extends GameAction {
         return col;
     }
 
-
+// checks which square on the board is touched by checking the varibales passed in and seeing if they are within the bounds of each tile
     public void squareTouched(float x, float y) {
 
         if (x >= 100 && x <= 300 && y >= 50 && y <= 250) {

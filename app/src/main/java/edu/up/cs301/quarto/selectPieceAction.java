@@ -1,3 +1,11 @@
+/* 
+ * @author Olivia Sendelbach
+ * @author Magnus Graham
+ * @author Aaron Chu
+ * @author Becca Biukoto
+ * @version October 11, 2024
+ */
+
 package edu.up.cs301.quarto;
 
 import android.util.Log;
@@ -16,7 +24,7 @@ public class selectPieceAction extends GameAction {
      * @param player the player who created the action
      */
 
-
+// Uses parameters passed in select a piece
     public selectPieceAction(GamePlayer player, Piece initSelected) {
             super(player);
             //game.getUnPlaced().remove(initSelected);
