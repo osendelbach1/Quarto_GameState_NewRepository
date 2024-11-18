@@ -131,8 +131,10 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 		Piece q = state.getCurrentPiece();
 		float x = motionEvent.getX();
 		float y = motionEvent.getY();
+		Log.d("Touch","" + x + " " + y);
 		placePieceAction ppa = new placePieceAction(this, x, y, q);
 		game.sendAction(ppa);
+		view.invalidate();
 		return true;
 	}
 

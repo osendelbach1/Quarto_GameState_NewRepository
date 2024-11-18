@@ -1,8 +1,12 @@
 package edu.up.cs301.quarto;
 
+import java.util.Random;
+
+import edu.up.cs301.GameFramework.infoMessage.GameState;
 import edu.up.cs301.GameFramework.players.GameComputerPlayer;
 import edu.up.cs301.GameFramework.infoMessage.GameInfo;
 import edu.up.cs301.GameFramework.utilities.Tickable;
+import edu.up.cs301.GameFramework.infoMessage.NotYourTurnInfo;
 
 /**
  * A computer-version of a quarto-player.  Since this is such a simple game,
@@ -21,16 +25,19 @@ public class QuartoComputerPlayer1 extends GameComputerPlayer implements Tickabl
      * @param name
      * 		the player's name
      */
+	private QuartoState state;
+
+
     public QuartoComputerPlayer1(String name) {
         // invoke superclass constructor
         super(name);
         
         // start the timer, ticking 20 times per second
-        getTimer().setInterval(50);
+        getTimer().setInterval(5000);
         getTimer().start();
     }
-    
-    /**
+
+	/**
      * callback method--game's state has changed
      * 
      * @param info
@@ -38,8 +45,32 @@ public class QuartoComputerPlayer1 extends GameComputerPlayer implements Tickabl
      */
 	@Override
 	protected void receiveInfo(GameInfo info) {
-		// Do nothing, as we ignore all state in deciding our next move. It
-		// depends totally on the timer and random numbers.
+
+		/*if (info instanceof NotYourTurnInfo) {
+			return;
+		}
+
+		// if we don't have a game-state, ignore
+		if (!(info instanceof QuartoState)) {
+			return;
+		}
+
+		// update our state variable
+		state = (QuartoState)info;
+
+
+		Random random = new Random();
+		int randomNumber1 = (int)random.nextInt(4);
+		int randomNumber2 = (int)random.nextInt(4);
+		placePieceAction ppa = new placePieceAction(this, randomNumber1, randomNumber2, state.getCurrentPiece());
+		game.sendAction(ppa);
+
+		sleep(2);
+		int randomNumber3 = (int)random.nextInt(state.getUnPlaced().size());
+		Piece q = state.getUnPlaced().get(randomNumber3);
+		selectPieceAction spa = new selectPieceAction(this, q);*/
+
+
 	}
 	
 	/**

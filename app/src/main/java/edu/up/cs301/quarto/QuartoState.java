@@ -46,6 +46,15 @@ public class QuartoState extends GameState {
 	public static final int HUMANPLAYER = 0;
 	public static final int CPUPLAYER = 1;
 
+	public int getTurn() {
+		if (Player1TurnComplete == true) {
+			return 2;
+		}
+		else {
+			return 1;
+		}
+	}
+
 
 	//ID of piece selected
 	private Piece currentPiece = new Piece(false, false, false, false);
@@ -74,6 +83,8 @@ public class QuartoState extends GameState {
 	private boolean Player2TurnComplete;
 	public static final boolean INCOMPLETE = false;
 	public static final boolean COMPLETE = true;
+
+
 
 	private String result;
 
@@ -157,6 +168,7 @@ public class QuartoState extends GameState {
 			{
 				this.board[row][col] = currentPiece;
 				phase = SELECTION;
+				this.endTurnAction();
 				return true;
 			}
 		}
@@ -174,11 +186,13 @@ public class QuartoState extends GameState {
 						currentPiece = unPlaced.get(i);
 						unPlaced.remove(i);
 						if (playerID == HUMANPLAYER) {
+							playerID = CPUPLAYER;
 							Player1TurnComplete = true;
 							Player2TurnComplete = false;
 							break;
 						}
 						else {
+							playerID = HUMANPLAYER;
 							Player2TurnComplete = true;
 							Player1TurnComplete = false;
 							break;
@@ -209,8 +223,14 @@ public class QuartoState extends GameState {
 			{
 				if(Player1TurnComplete == COMPLETE)
 				{
-
+					Player1TurnComplete = INCOMPLETE;
+					Player2TurnComplete = COMPLETE;
 					return true;
+				}
+				else if (Player2TurnComplete == COMPLETE) {
+					Player2TurnComplete = INCOMPLETE;
+					Player1TurnComplete = COMPLETE;
+
 				}
 			}
 		}
