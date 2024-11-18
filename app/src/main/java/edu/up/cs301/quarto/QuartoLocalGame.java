@@ -38,7 +38,7 @@ public class QuartoLocalGame extends LocalGame {
 	 */
 	@Override
 	protected boolean canMove(int playerIdx) {
-		return true;
+		return gameState.getTurn() == playerIdx;
 	}
 
 	/**
@@ -76,7 +76,7 @@ public class QuartoLocalGame extends LocalGame {
 		if (action instanceof QuartoMoveAction) {
 
 			// cast so that we Java knows it's a quartoMoveAction
-			QuartoMoveAction cma = (QuartoMoveAction)action;
+			//QuartoMoveAction cma = (QuartoMoveAction)action;
 
 			// Update the quarto values based upon the action
 			//int result = gameState.getquarto() + (cma.isPlus() ? 1 : -1);

@@ -62,7 +62,14 @@ public class QuartoComputerPlayer1 extends GameComputerPlayer implements Tickabl
 		// update our state variable
 		state = (QuartoState)info;
 
+		//check if it's AI's turn
+		if (state.getTurn() != 1 ) {
+			return; // It's not the AI's turn, so do nothing
+		}
+
+
 		//creates a random int for the row and col that the AI can place a piece
+		// bug here: working on turns
 		Random random = new Random();
 		int randomNumber1 = (int)random.nextInt(900);
 		int randomNumber2 = (int)random.nextInt(850);

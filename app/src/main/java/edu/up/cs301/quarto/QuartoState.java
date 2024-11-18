@@ -47,11 +47,11 @@ public class QuartoState extends GameState {
 	public static final int CPUPLAYER = 1;
 
 	public int getTurn() {
-		if (Player1TurnComplete == true) {
-			return 2;
+		if (Player1TurnComplete) {
+			return 1;
 		}
 		else {
-			return 1;
+			return 0;
 		}
 	}
 
@@ -184,19 +184,19 @@ public class QuartoState extends GameState {
 			{
 				for (int i = 0; i < unPlaced.size(); i++) {
 					if (unPlaced.get(i).getHeight() == height && unPlaced.get(i).getHole() == hole &&  unPlaced.get(i).getColor() == color && unPlaced.get(i).getShape() == shape) { //checks to see if the qualities of the piece are the same as whats in the element
-						currentPiece = unPlaced.get(i); // if its not, it will set whatever is at spot (i) in unplaced to currnet piece
+						currentPiece = unPlaced.get(i); // if its not, it will set whatever is at spot (i) in unplaced to current piece
 						unPlaced.remove(i); //will remove that piece from spot i once it has been set to current piece
 						if (playerID == HUMANPLAYER) {
 							playerID = CPUPLAYER; //switches turn
 							Player1TurnComplete = true; //completes turn
 							Player2TurnComplete = false; //completes turn
-							break;
+							//break;
 						}
 						else {
 							playerID = HUMANPLAYER;
 							Player2TurnComplete = true;
 							Player1TurnComplete = false;
-							break;
+							//break;
 						}
 					}
 				}

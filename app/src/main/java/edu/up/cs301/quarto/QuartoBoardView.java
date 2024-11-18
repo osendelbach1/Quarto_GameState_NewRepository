@@ -18,6 +18,8 @@ import android.view.SurfaceView;
 public class QuartoBoardView extends SurfaceView {
 
     private Paint blackPaint; // for color
+    private QuartoState qs;
+    Piece p;
 
     public QuartoBoardView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -43,8 +45,8 @@ public class QuartoBoardView extends SurfaceView {
         float top = 50; // distance from top of screen
         float left = 100; // distance from left of screen
 
-        for(int row = 0; row < 4; row++) {
-            for(int col = 0; col < 4; col++) {
+        for (int row = 0; row < 4; row++) {
+            for (int col = 0; col < 4; col++) {
                 canvas.drawRect(left, top, left + margin, top + margin, blackPaint); // draws each iteration of the board by iterating through a for loop (row & col)
                 left += margin;
             }
