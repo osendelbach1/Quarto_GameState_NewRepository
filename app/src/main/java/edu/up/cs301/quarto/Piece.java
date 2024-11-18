@@ -1,5 +1,11 @@
 package edu.up.cs301.quarto;
-
+/*
+ * @author Olivia Sendelbach
+ * @author Magnus Graham
+ * @author Aaron Chu
+ * @author Becca Biukoto
+ * @version October 20, 2024
+*/
 
 
 public class Piece {
@@ -28,6 +34,7 @@ public class Piece {
         this.squareOrCircle = p.getShape();
     }
 
+    //getters
     public Boolean getHeight() {
         return this.shortOrTall;
     }
@@ -44,6 +51,7 @@ public class Piece {
         return this.squareOrCircle;
     }
 
+    //setters
     public void setHeight(Boolean b) {
         this.shortOrTall = b;
     }
