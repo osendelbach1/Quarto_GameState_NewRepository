@@ -13,8 +13,11 @@ import edu.up.cs301.GameFramework.infoMessage.NotYourTurnInfo;
  * it just sends "+" and "-" commands with equal probability, at an average
  * rate of one per second. 
  * 
- * @author Steven R. Vegdahl
- * @author Andrew M. Nuxoll
+ @author Olivia Sendelbach
+ * @author Magnus Graham
+ * @author Becca Biukoto
+ * @version November 16, 2024
+ * 
  * @version September 2013
  */
 public class QuartoComputerPlayer1 extends GameComputerPlayer implements Tickable {
@@ -44,6 +47,7 @@ public class QuartoComputerPlayer1 extends GameComputerPlayer implements Tickabl
      * 		the information (presumably containing the game's state)
      */
 	@Override
+	//calls actions for the dumb AI's turn
 	protected void receiveInfo(GameInfo info) {
 
 		/*if (info instanceof NotYourTurnInfo) {
@@ -58,7 +62,7 @@ public class QuartoComputerPlayer1 extends GameComputerPlayer implements Tickabl
 		// update our state variable
 		state = (QuartoState)info;
 
-
+		//creates a random int for the row and col that the AI can place a piece
 		Random random = new Random();
 		int randomNumber1 = (int)random.nextInt(4);
 		int randomNumber2 = (int)random.nextInt(4);
