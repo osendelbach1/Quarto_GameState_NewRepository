@@ -112,16 +112,17 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 		// Get the Piece
 		Piece p = state.getPieces()[index];
-
+		boolean found = false;
 		for (Piece p1 : state.getUnPlaced()) {
 			if (state.PieceEquals(p1, p)) {
+				found = true;
 				selectPieceAction spa = new selectPieceAction(this, p1);
 				game.sendAction(spa);
 				break;
-			} else {
-				Log.d("Error","Piece already placed!");
-				break;
 			}
+		}
+		if(!found) {
+			Log.d("Error","Piece already placed!");
 		}
 
 
