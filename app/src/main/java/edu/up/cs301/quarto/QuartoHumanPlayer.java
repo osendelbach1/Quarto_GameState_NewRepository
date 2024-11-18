@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
+import com.google.android.material.snackbar.Snackbar;
 
 /**
  * A GUI of a quarto-player. The GUI displays the current value of the quarto,
@@ -69,9 +70,75 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 	 */
 
 	public void onClick(View button) {
-		Piece p = state.getUnPlaced().get(0);
-		selectPieceAction spa = new selectPieceAction(this, p);
-		game.sendAction(spa);
+		Piece p = new Piece(false, false, false, false);
+
+		if (button.getId() == (R.id.button1)) {
+			p = state.getPieces()[0];
+		}
+		else if (button.getId() == (R.id.button2)) {
+			p = state.getPieces()[1];
+		}
+		else if (button.getId() == (R.id.button3)) {
+
+			p = state.getPieces()[2];
+		}
+		else if (button.getId() == (R.id.button4)) {
+
+			p = state.getPieces()[3];
+		}
+		else if (button.getId() == (R.id.button5)) {
+
+			p = state.getPieces()[4];
+		}
+		else if (button.getId() == (R.id.button6)) {
+
+			p = state.getPieces()[5];
+		}
+		else if (button.getId() == (R.id.button7)) {
+
+			p = state.getPieces()[6];
+		}
+		else if (button.getId() == (R.id.button8)) {
+
+			p = state.getPieces()[7];
+		}
+		else if (button.getId() == (R.id.button9)) {
+
+			p = state.getPieces()[8];
+		}
+		else if (button.getId() == (R.id.button10)) {
+			p = state.getPieces()[9];
+		}
+		else if (button.getId() == (R.id.button11)) {
+			p = state.getPieces()[10];
+		}
+		else if (button.getId() == (R.id.button12)) {
+			p = state.getPieces()[11];
+		}
+		else if (button.getId() == (R.id.button13)) {
+			p = state.getPieces()[12];
+		}
+		else if (button.getId() == (R.id.button14)) {
+			p = state.getPieces()[13];
+		}
+		else if (button.getId() == (R.id.button15)) {
+			p = state.getPieces()[14];
+		}
+
+		else if (button.getId() == (R.id.button16)) {
+			p = state.getPieces()[15];
+
+		}
+
+		if (state.getUnPlaced().contains(p)) {
+			Snackbar.make(this.getTopView(), "Error: Piece has already been placed!", Snackbar.LENGTH_SHORT).show();
+		}
+
+		else {
+			selectPieceAction spa = new selectPieceAction(this, p, state);
+			game.sendAction(spa);
+		}
+
 
 	}// onClick
 

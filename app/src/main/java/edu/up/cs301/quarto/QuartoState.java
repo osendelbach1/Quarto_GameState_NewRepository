@@ -143,7 +143,9 @@ public class QuartoState extends GameState {
 		return this.unPlaced;
 	}
 
-
+	public Piece[] getPieces() {
+		return pieces;
+	}
 
 	public boolean placePieceAction(int row, int col)
 	{
