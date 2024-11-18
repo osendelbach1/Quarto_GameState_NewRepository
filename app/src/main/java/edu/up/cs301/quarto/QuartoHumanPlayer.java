@@ -4,7 +4,9 @@ import edu.up.cs301.GameFramework.players.GameHumanPlayer;
 import edu.up.cs301.GameFramework.GameMainActivity;
 import edu.up.cs301.GameFramework.infoMessage.GameInfo;
 
+import android.util.Log;
 import android.view.MotionEvent;
+import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -113,11 +115,11 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 		for (Piece p1 : state.getUnPlaced()) {
 			if (state.PieceEquals(p1, p)) {
-				selectPieceAction spa = new selectPieceAction(this, p1, state);
+				selectPieceAction spa = new selectPieceAction(this, p1);
 				game.sendAction(spa);
 				break;
 			} else {
-				Snackbar.make(this.getTopView(), "Error: Piece has already been placed!", Snackbar.LENGTH_SHORT).show();
+				Log.d("Error","Piece already placed!");
 				break;
 			}
 		}
@@ -126,7 +128,7 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 	}// onClick
 
 	public boolean onTouch(View view, MotionEvent motionEvent) {
-		Piece q = state.getUnPlaced().get(0);
+		Piece q = state.getCurrentPiece();
 		float x = motionEvent.getX();
 		float y = motionEvent.getY();
 		placePieceAction ppa = new placePieceAction(this, x, y, q);
@@ -198,6 +200,8 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 		Button button16 = activity.findViewById(R.id.button16);
 		button16.setOnClickListener(this);
 
+		QuartoBoardView QBV = activity.findViewById(R.id.QuartoBoardView);
+		QBV.setOnTouchListener(this);
 
 	}
 }// class quartoHumanPlayer

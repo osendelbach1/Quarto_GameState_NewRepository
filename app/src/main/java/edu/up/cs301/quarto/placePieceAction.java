@@ -17,27 +17,68 @@ public class placePieceAction extends GameAction {
     public placePieceAction(GamePlayer player, float x, float y, Piece p) {
         super(player);
         this.p = p;
+        squareTouched(x,y);
+    }
 
-        if(x > 0 && x < 10) {
-            col = 0;
-        }
-        else if (x > 10 && x < 20) {
-            col = 1;
-        }
-        else if (x > 20 && x < 30) {
-            col = 2;
-        }
+    public int getRow() {
+        return row;
+    }
 
-        if (y > 0 && y < 10) {
+    public int getCol() {
+        return col;
+    }
+
+
+    public void squareTouched(float x, float y) {
+
+        if (x >= 100 && x <= 300 && y >= 50 && y <= 250) {
             row = 0;
-        }
-        else if (y > 10 && y < 20) {
+            col = 0;
+        } else if (x >= 300 && x <= 500 && y >= 50 && y <= 250) {
+            row = 0;
+            col = 1;
+        } else if (x >= 500 && x <= 700 && y >= 50 && y <= 250) {
+            row = 0;
+            col = 2;
+        } else if (x >= 700 && x <= 900 && y >= 50 && y <= 250) {
+            row = 0;
+            col = 3;
+        } else if (x >= 100 && x <= 300 && y >= 250 && y <= 450) {
             row = 1;
-        }
-        else if (y > 20 && y < 30) {
+            col = 0;
+        } else if (x >= 300 && x <= 500 && y >= 250 && y <= 450) {
+            row = 1;
+            col = 1;
+        } else if (x >= 500 && x <= 700 && y >= 250 && y <= 450) {
+            row = 1;
+            col = 2;
+        } else if (x >= 700 && x <= 900 && y >= 250 && y <= 450) {
+            row = 1;
+            col = 3;
+        } else if (x >= 100 && x <= 300 && y >= 450 && y <= 650) {
             row = 2;
+            col = 0;
+        } else if (x >= 300 && x <= 500 && y >= 450 && y <= 650) {
+            row = 2;
+            col = 1;
+        } else if (x >= 500 && x <= 700 && y >= 450 && y <= 650) {
+            row = 2;
+            col = 2;
+        } else if (x >= 700 && x <= 900 && y >= 450 && y <= 650) {
+            row = 2;
+            col = 3;
+        } else if (x >= 100 && x <= 300 && y >= 650 && y <= 850) {
+            row = 3;
+            col = 0;
+        } else if (x >= 300 && x <= 500 && y >= 650 && y <= 850) {
+            row = 3;
+            col = 1;
+        } else if (x >= 500 && x <= 700 && y >= 650 && y <= 850) {
+            row = 3;
+            col = 2;
+        } else if (x >= 700 && x <= 900 && y >= 650 && y <= 850) {
+            row = 3;
+            col = 3;
         }
-
-
     }
 }

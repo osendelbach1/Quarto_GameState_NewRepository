@@ -92,13 +92,23 @@ public class QuartoLocalGame extends LocalGame {
 					spa.selected.getHole(),
 					spa.selected.getColor(),
 					spa.selected.getShape());
-
+			Log.d("State:", "" + state.toString());
 			return result;
 		}
+
+		else if (action instanceof placePieceAction) {
+			placePieceAction ppa = (placePieceAction)action;
+			boolean result = this.gameState.placePieceAction(ppa.getRow(),ppa.getCol());
+			Log.d("State:", "" + state.toString());
+			return result;
+		}
+
+
 		else {
 			// denote that this was an illegal move
 			return false;
 		}
+
 	}//makeMove
 
 	/**

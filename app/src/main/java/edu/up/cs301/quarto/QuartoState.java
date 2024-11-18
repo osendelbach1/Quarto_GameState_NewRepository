@@ -49,7 +49,9 @@ public class QuartoState extends GameState {
 
 	//ID of piece selected
 	private Piece currentPiece = new Piece(false, false, false, false);
-
+	public Piece getCurrentPiece() {
+		return currentPiece;
+	}
 	//True for selection phase and false for placement phase of current player
 	//Initialized as true because when the game starts you start off by selecting
 
