@@ -45,7 +45,7 @@ public class QuartoBoardView extends SurfaceView {
 
         for(int row = 0; row < 4; row++) {
             for(int col = 0; col < 4; col++) {
-                canvas.drawRect(left, top, left + margin, top + margin, blackPaint);
+                canvas.drawRect(left, top, left + margin, top + margin, blackPaint); // draws each iteration of the board by iterating through a for loop (row & col)
                 left += margin;
             }
             top += margin;
