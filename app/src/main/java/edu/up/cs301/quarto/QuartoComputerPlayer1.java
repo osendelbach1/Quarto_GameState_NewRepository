@@ -50,7 +50,7 @@ public class QuartoComputerPlayer1 extends GameComputerPlayer implements Tickabl
 	//calls actions for the dumb AI's turn
 	protected void receiveInfo(GameInfo info) {
 
-		/*if (info instanceof NotYourTurnInfo) {
+		if (info instanceof NotYourTurnInfo) {
 			return;
 		}
 
@@ -64,16 +64,16 @@ public class QuartoComputerPlayer1 extends GameComputerPlayer implements Tickabl
 
 		//creates a random int for the row and col that the AI can place a piece
 		Random random = new Random();
-		int randomNumber1 = (int)random.nextInt(4);
-		int randomNumber2 = (int)random.nextInt(4);
+		int randomNumber1 = (int)random.nextInt(900);
+		int randomNumber2 = (int)random.nextInt(850);
 		placePieceAction ppa = new placePieceAction(this, randomNumber1, randomNumber2, state.getCurrentPiece());
 		game.sendAction(ppa);
 
 		sleep(2);
 		int randomNumber3 = (int)random.nextInt(state.getUnPlaced().size());
 		Piece q = state.getUnPlaced().get(randomNumber3);
-		selectPieceAction spa = new selectPieceAction(this, q);*/
-
+		selectPieceAction spa = new selectPieceAction(this, q);
+		game.sendAction(spa);
 
 	}
 	

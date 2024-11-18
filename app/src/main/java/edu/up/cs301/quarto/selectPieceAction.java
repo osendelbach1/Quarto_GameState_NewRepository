@@ -31,8 +31,8 @@ public class selectPieceAction extends GameAction {
             //Log.d("Piece removed", "" + initSelected.getShape() + initSelected.getColor() + initSelected.getHole() + initSelected.getHeight());
             this.selected = initSelected;
             //Log.d("Error", "Piece already placed");
-        }
     }
+}
 
 
 
