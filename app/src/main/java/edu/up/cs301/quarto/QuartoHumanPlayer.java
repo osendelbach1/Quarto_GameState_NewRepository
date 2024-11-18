@@ -70,73 +70,56 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 	 */
 
 	public void onClick(View button) {
-		Piece p = new Piece(false, false, false, false);
 
-		if (button.getId() == (R.id.button1)) {
-			p = state.getPieces()[0];
-		}
-		else if (button.getId() == (R.id.button2)) {
-			p = state.getPieces()[1];
-		}
-		else if (button.getId() == (R.id.button3)) {
+		int index = -1; // Default invalid index
 
-			p = state.getPieces()[2];
-		}
-		else if (button.getId() == (R.id.button4)) {
-
-			p = state.getPieces()[3];
-		}
-		else if (button.getId() == (R.id.button5)) {
-
-			p = state.getPieces()[4];
-		}
-		else if (button.getId() == (R.id.button6)) {
-
-			p = state.getPieces()[5];
-		}
-		else if (button.getId() == (R.id.button7)) {
-
-			p = state.getPieces()[6];
-		}
-		else if (button.getId() == (R.id.button8)) {
-
-			p = state.getPieces()[7];
-		}
-		else if (button.getId() == (R.id.button9)) {
-
-			p = state.getPieces()[8];
-		}
-		else if (button.getId() == (R.id.button10)) {
-			p = state.getPieces()[9];
-		}
-		else if (button.getId() == (R.id.button11)) {
-			p = state.getPieces()[10];
-		}
-		else if (button.getId() == (R.id.button12)) {
-			p = state.getPieces()[11];
-		}
-		else if (button.getId() == (R.id.button13)) {
-			p = state.getPieces()[12];
-		}
-		else if (button.getId() == (R.id.button14)) {
-			p = state.getPieces()[13];
-		}
-		else if (button.getId() == (R.id.button15)) {
-			p = state.getPieces()[14];
+		// Map button IDs to indices
+		if (button.getId() == R.id.button1) {
+			index = 0;
+		} else if (button.getId() == R.id.button2) {
+			index = 1;
+		} else if (button.getId() == R.id.button3) {
+			index = 2;
+		} else if (button.getId() == R.id.button4) {
+			index = 3;
+		} else if (button.getId() == R.id.button5) {
+			index = 4;
+		} else if (button.getId() == R.id.button6) {
+			index = 5;
+		} else if (button.getId() == R.id.button7) {
+			index = 6;
+		} else if (button.getId() == R.id.button8) {
+			index = 7;
+		} else if (button.getId() == R.id.button9) {
+			index = 8;
+		} else if (button.getId() == R.id.button10) {
+			index = 9;
+		} else if (button.getId() == R.id.button11) {
+			index = 10;
+		} else if (button.getId() == R.id.button12) {
+			index = 11;
+		} else if (button.getId() == R.id.button13) {
+			index = 12;
+		} else if (button.getId() == R.id.button14) {
+			index = 13;
+		} else if (button.getId() == R.id.button15) {
+			index = 14;
+		} else {
+			index = 15; // Default case
 		}
 
-		else if (button.getId() == (R.id.button16)) {
-			p = state.getPieces()[15];
+		// Get the Piece
+		Piece p = state.getPieces()[index];
 
-		}
-
-		if (state.getUnPlaced().contains(p)) {
-			Snackbar.make(this.getTopView(), "Error: Piece has already been placed!", Snackbar.LENGTH_SHORT).show();
-		}
-
-		else {
-			selectPieceAction spa = new selectPieceAction(this, p, state);
-			game.sendAction(spa);
+		for (Piece p1 : state.getUnPlaced()) {
+			if (state.PieceEquals(p1, p)) {
+				selectPieceAction spa = new selectPieceAction(this, p1, state);
+				game.sendAction(spa);
+				break;
+			} else {
+				Snackbar.make(this.getTopView(), "Error: Piece has already been placed!", Snackbar.LENGTH_SHORT).show();
+				break;
+			}
 		}
 
 
@@ -181,6 +164,41 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 		// Load the layout resource for our GUI
 		activity.setContentView(R.layout.activity_main);
+
+		Button button1 = activity.findViewById(R.id.button1);
+		button1.setOnClickListener(this);
+		Button button2 = activity.findViewById(R.id.button2);
+		button2.setOnClickListener(this);
+		Button button3 = activity.findViewById(R.id.button3);
+		button3.setOnClickListener(this);
+		Button button4 = activity.findViewById(R.id.button4);
+		button4.setOnClickListener(this);
+		Button button5 = activity.findViewById(R.id.button5);
+		button5.setOnClickListener(this);
+		Button button6 = activity.findViewById(R.id.button6);
+		button6.setOnClickListener(this);
+		Button button7 = activity.findViewById(R.id.button7);
+		button7.setOnClickListener(this);
+		Button button8 = activity.findViewById(R.id.button8);
+		button8.setOnClickListener(this);
+		Button button9 = activity.findViewById(R.id.button9);
+		button9.setOnClickListener(this);
+		Button button10 = activity.findViewById(R.id.button10);
+		button10.setOnClickListener(this);
+		Button button11 = activity.findViewById(R.id.button11);
+		button11.setOnClickListener(this);
+		Button button12 = activity.findViewById(R.id.button12);
+		button12.setOnClickListener(this);
+		Button button13 = activity.findViewById(R.id.button13);
+		button13.setOnClickListener(this);
+		Button button14 = activity.findViewById(R.id.button14);
+		button14.setOnClickListener(this);
+		Button button15 = activity.findViewById(R.id.button15);
+		button15.setOnClickListener(this);
+		Button button16 = activity.findViewById(R.id.button16);
+		button16.setOnClickListener(this);
+
+
 	}
 }// class quartoHumanPlayer
 

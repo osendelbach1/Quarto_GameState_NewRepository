@@ -215,6 +215,10 @@ public class QuartoState extends GameState {
 		return false;
 	}
 
+	public boolean PieceEquals(Piece p1, Piece p2) {
+		return p1.getHeight() == p2.getHeight() && p1.getHole() == p2.getHole() && p1.getColor() == p2.getColor() && p1.getShape() == p2.getShape();
+	}
+
 	//requirements to be able to declare victory have to be made in a method for future assignment
 	public boolean declareVictoryAction()
 	{
