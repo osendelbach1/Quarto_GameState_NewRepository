@@ -77,7 +77,9 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 	public boolean onTouch(View view, MotionEvent motionEvent) {
 		Piece q = state.getUnPlaced().get(0);
-		placePieceAction ppa = new placePieceAction(this, motionEvent.getX(), motionEvent.getY(), q);
+		float x = motionEvent.getX();
+		float y = motionEvent.getY();
+		placePieceAction ppa = new placePieceAction(this, x, y, q);
 		game.sendAction(ppa);
 		return true;
 	}
