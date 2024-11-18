@@ -166,10 +166,15 @@ public class QuartoState extends GameState {
 		{
 			if(phase == PLACEMENT)
 			{
-				this.board[row][col] = currentPiece; //sets current piece to the board
-				phase = SELECTION; //sets the phase of the game to select a piece
-				this.endTurnAction(); //ends turn
-				return true;
+				if (this.board[row][col] == null) {
+					this.board[row][col] = currentPiece; //sets current piece to the board
+					phase = SELECTION; //sets the phase of the game to select a piece
+					this.endTurnAction(); //ends turn
+					return true;
+				}
+				else {
+					return false;
+				}
 			}
 		}
 		return false;
