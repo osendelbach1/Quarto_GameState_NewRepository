@@ -50,9 +50,8 @@
 
             <edu.up.cs301.quarto.QuartoBoardView
                 android:id="@+id/surfaceView"
-                android:layout_width="1189dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
         </LinearLayout>
 
         <LinearLayout
@@ -185,6 +184,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Light/Round/Short/Solid" />
+            </androidx.gridlayout.widget.GridLayout>
+
+            <androidx.gridlayout.widget.GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/button16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Light/Round/Short/Hollow" />
             </androidx.gridlayout.widget.GridLayout>
 
             <LinearLayout
