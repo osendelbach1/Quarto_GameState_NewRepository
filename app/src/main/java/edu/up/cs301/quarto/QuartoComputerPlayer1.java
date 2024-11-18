@@ -46,7 +46,7 @@ public class QuartoComputerPlayer1 extends GameComputerPlayer implements Tickabl
 	@Override
 	protected void receiveInfo(GameInfo info) {
 
-		/*if (info instanceof NotYourTurnInfo) {
+		if (info instanceof NotYourTurnInfo) {
 			return;
 		}
 
@@ -58,25 +58,25 @@ public class QuartoComputerPlayer1 extends GameComputerPlayer implements Tickabl
 		// update our state variable
 		state = (QuartoState)info;
 
-
 		Random random = new Random();
-		int randomNumber1 = (int)random.nextInt(4);
-		int randomNumber2 = (int)random.nextInt(4);
+		int randomNumber1 = (int)random.nextInt(900);
+		int randomNumber2 = (int)random.nextInt(850);
 		placePieceAction ppa = new placePieceAction(this, randomNumber1, randomNumber2, state.getCurrentPiece());
 		game.sendAction(ppa);
 
-		sleep(2);
-		int randomNumber3 = (int)random.nextInt(state.getUnPlaced().size());
+		sleep(10);
+		int randomNumber3 = random.nextInt(state.getUnPlaced().size());
 		Piece q = state.getUnPlaced().get(randomNumber3);
-		selectPieceAction spa = new selectPieceAction(this, q);*/
-
-
+		selectPieceAction spa = new selectPieceAction(this, q);
+		game.sendAction(spa);
 	}
 	
 	/**
 	 * callback method: the timer ticked
 	 */
-	protected void timerTicked() {
+
+
+	/**protected void timerTicked() {
 		// 5% of the time, increment or decrement the quarto
 		if (Math.random() >= 0.05) return; // do nothing 95% of the time
 
@@ -84,6 +84,6 @@ public class QuartoComputerPlayer1 extends GameComputerPlayer implements Tickabl
 		boolean move = Math.random() >= 0.5;
 		
 		// send the move-action to the game
-		game.sendAction(new QuartoMoveAction(this, move));
-	}
+		// game.sendAction(new QuartoMoveAction(this, move));
+	}*/
 }
