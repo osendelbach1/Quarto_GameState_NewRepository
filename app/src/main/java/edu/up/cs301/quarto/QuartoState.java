@@ -162,19 +162,20 @@ public class QuartoState extends GameState {
 
 	public boolean placePieceAction(int row, int col)
 	{
-		if(gameStatus == ACTIVE)
+		if(gameStatus == ACTIVE) 
 		{
 			if(phase == PLACEMENT)
 			{
-				this.board[row][col] = currentPiece;
-				phase = SELECTION;
-				this.endTurnAction();
+				this.board[row][col] = currentPiece; //sets current piece to the board
+				phase = SELECTION; //sets the phase of the game to select a piece
+				this.endTurnAction(); //ends turn
 				return true;
 			}
 		}
 		return false;
 	}
 
+	//returns true or false based on the piece selected is available
 	public boolean selectPieceAction(boolean height, boolean hole, boolean color, boolean shape)
 	{
 		if(gameStatus == ACTIVE)
@@ -182,13 +183,13 @@ public class QuartoState extends GameState {
 			if(phase == SELECTION)
 			{
 				for (int i = 0; i < unPlaced.size(); i++) {
-					if (unPlaced.get(i).getHeight() == height && unPlaced.get(i).getHole() == hole &&  unPlaced.get(i).getColor() == color && unPlaced.get(i).getShape() == shape) {
-						currentPiece = unPlaced.get(i);
-						unPlaced.remove(i);
+					if (unPlaced.get(i).getHeight() == height && unPlaced.get(i).getHole() == hole &&  unPlaced.get(i).getColor() == color && unPlaced.get(i).getShape() == shape) { //checks to see if the qualities of the piece are the same as whats in the element
+						currentPiece = unPlaced.get(i); // if its not, it will set whatever is at spot (i) in unplaced to currnet piece
+						unPlaced.remove(i); //will remove that piece from spot i once it has been set to current piece
 						if (playerID == HUMANPLAYER) {
-							playerID = CPUPLAYER;
-							Player1TurnComplete = true;
-							Player2TurnComplete = false;
+							playerID = CPUPLAYER; //switches turn
+							Player1TurnComplete = true; //completes turn
+							Player2TurnComplete = false; //completes turn
 							break;
 						}
 						else {
