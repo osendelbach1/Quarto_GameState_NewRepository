@@ -1,5 +1,4 @@
 package edu.up.cs301.quarto;
-
 import edu.up.cs301.GameFramework.players.GameHumanPlayer;
 import edu.up.cs301.GameFramework.GameMainActivity;
 import edu.up.cs301.GameFramework.infoMessage.GameInfo;
@@ -12,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
 import com.google.android.material.snackbar.Snackbar;
+import android.os.Handler;
 
 /**
  * A GUI of a quarto-player. The GUI displays the current value of the quarto,
@@ -22,8 +22,9 @@ import com.google.android.material.snackbar.Snackbar;
  * when the quarto-value is zero, the screen flashes briefly, with the flash-color
  * being dependent on whether the player is player 0 or player 1.
  *
- * @author Steven R. Vegdahl
- * @author Andrew M. Nuxoll
+ * @author Olivia Sendelbach, Magnus Graham, Becca Biukoto, Aaron Chu,Steven R. Vegdahl, Andrew M. Nuxoll
+ *
+ * @Author: Another reference from Shogi group ShogiHumanPlayer.Java
  * @version July 2013
  */
 public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListener, View.OnTouchListener {
@@ -35,6 +36,10 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 	// the android activity that we are running
 	private GameMainActivity myActivity;
+
+	//Refernce variables
+	//Refernce of the surface view of the board
+	private QuartoBoardView quartoBoardView;
 
 	/**
 	 * constructor
@@ -166,7 +171,7 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 		// remember the activity
 		this.myActivity = activity;
-
+		
 		// Load the layout resource for our GUI
 		activity.setContentView(R.layout.activity_main);
 
@@ -208,4 +213,6 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 	}
 }// class quartoHumanPlayer
+
+
 
