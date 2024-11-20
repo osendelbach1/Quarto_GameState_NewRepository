@@ -1,6 +1,8 @@
 package edu.up.cs301.quarto;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
@@ -21,6 +23,24 @@ public class QuartoBoardView extends SurfaceView {
     private QuartoState qs;
     Piece p;
 
+    private Bitmap SHDC;
+    private Bitmap SHDS;
+    private Bitmap SHLC;
+    private Bitmap SHLS;
+    private Bitmap SSDC;
+    private Bitmap SSDS;
+    private Bitmap SSLC;
+    private Bitmap SSLS;
+    private Bitmap THDC;
+    private Bitmap THDS;
+    private Bitmap THLC;
+    private Bitmap THLS;
+    private Bitmap TSDC;
+    private Bitmap TSDS;
+    private Bitmap TSLC;
+    private Bitmap TSLS;
+
+
     public QuartoBoardView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
@@ -32,6 +52,26 @@ public class QuartoBoardView extends SurfaceView {
         blackPaint.setStyle(Paint.Style.STROKE);
 
         setBackgroundColor(0xFFFFFFFF);
+    }
+
+    public void renderPieces(Context context){
+         SHDC = BitmapFactory.decodeResource(context.getResources(), R.drawable.shortholedarkcircle);
+          SHDS = BitmapFactory.decodeResource(context.getResources(), R.drawable.shortholedarksquare);
+          SHLC =  BitmapFactory.decodeResource(context.getResources(), R.drawable.shortholelightcircle);
+          SHLS = BitmapFactory.decodeResource(context.getResources(), R.drawable.shortholelightsquare);
+          SSDC = BitmapFactory.decodeResource(context.getResources(), R.drawable.shortsoliddarkcircle);
+          SSDS = BitmapFactory.decodeResource(context.getResources(), R.drawable.shortsoliddarksquare);
+          SSLC = BitmapFactory.decodeResource(context.getResources(), R.drawable.shortsolidlightcircle);
+          SSLS = BitmapFactory.decodeResource(context.getResources(), R.drawable.shortsolidlightsquare);
+          THDC = BitmapFactory.decodeResource(context.getResources(), R.drawable.tallholedarkcircle);
+          THDS = BitmapFactory.decodeResource(context.getResources(), R.drawable.tallholedarksquare);
+          THLC = BitmapFactory.decodeResource(context.getResources(), R.drawable.tallholelightcircle);
+          THLS = BitmapFactory.decodeResource(context.getResources(), R.drawable.tallholelightsquare);
+          TSDC = BitmapFactory.decodeResource(context.getResources(), R.drawable.tallsoliddarkcircle);
+          TSDS = BitmapFactory.decodeResource(context.getResources(), R.drawable.tallsoliddarksquare);
+          TSLC = BitmapFactory.decodeResource(context.getResources(), R.drawable.tallsolidlightcircle);
+          TSLS = BitmapFactory.decodeResource(context.getResources(), R.drawable.tallsolidlightsquare);
+
     }
 
     /**
