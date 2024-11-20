@@ -67,7 +67,6 @@ public class QuartoComputerPlayer1 extends GameComputerPlayer implements Tickabl
 			return; // It's not the AI's turn, so do nothing
 		}
 
-
 		//creates a random int for the row and col that the AI can place a piece
 		// bug here: working on turns
 		Random random = new Random();

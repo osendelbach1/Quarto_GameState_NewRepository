@@ -40,18 +40,31 @@ public class QuartoBoardView extends SurfaceView {
      */
     @Override
     protected void onDraw (Canvas canvas) {
+        /**
+         * External citation
+         * Date: November 19, 2024
+         * Problem: Surface View looked good only in landscape, not in portrait mode
+         *
+         * Resource: Chloe Pham
+         * Solution: Implemented code that was suggested in her report
+         */
 
-        float margin = 200; // how big square is
-        float top = 50; // distance from top of screen
-        float left = 100; // distance from left of screen
+        int width = getWidth();
+        int height = getHeight();
 
+        int boardSize = 4;
+        float margin = width / (boardSize + (float) 0.75);
+        float top = (height - (margin * boardSize)) / 2;
+        float leftStart = (width - (margin * boardSize)) / 2;
+
+        float left = leftStart;
         for (int row = 0; row < 4; row++) {
             for (int col = 0; col < 4; col++) {
                 canvas.drawRect(left, top, left + margin, top + margin, blackPaint); // draws each iteration of the board by iterating through a for loop (row & col)
                 left += margin;
             }
             top += margin;
-            left = 100;
+            left = leftStart;
         }
     }
 }
