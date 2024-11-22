@@ -73,19 +73,7 @@ public class QuartoLocalGame extends LocalGame {
 	protected boolean makeMove(GameAction action) {
 		Log.i("action", action.getClass().toString());
 
-		if (action instanceof QuartoMoveAction) {
-
-			// cast so that we Java knows it's a quartoMoveAction
-			//QuartoMoveAction cma = (QuartoMoveAction)action;
-
-			// Update the quarto values based upon the action
-			//int result = gameState.getquarto() + (cma.isPlus() ? 1 : -1);
-			//gameState.setquarto(result);
-
-			// denote that this was a legal/successful move
-			return true;
-		}
-		else if(action instanceof selectPieceAction) {
+		if(action instanceof selectPieceAction) {
 			selectPieceAction spa = (selectPieceAction)action;
 			boolean result = this.gameState.selectPieceAction(
 					spa.selected.getHeight(),
@@ -102,8 +90,6 @@ public class QuartoLocalGame extends LocalGame {
 			Log.d("State:", "" + state.toString());
 			return result;
 		}
-
-
 		else {
 			// denote that this was an illegal move
 			return false;

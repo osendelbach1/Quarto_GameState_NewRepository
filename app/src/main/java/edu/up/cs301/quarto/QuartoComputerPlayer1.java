@@ -92,8 +92,5 @@ public class QuartoComputerPlayer1 extends GameComputerPlayer implements Tickabl
 
 		// "flip a coin" to determine whether to increment or decrement
 		boolean move = Math.random() >= 0.5;
-		
-		// send the move-action to the game
-		game.sendAction(new QuartoMoveAction(this, move));
 	}
 }

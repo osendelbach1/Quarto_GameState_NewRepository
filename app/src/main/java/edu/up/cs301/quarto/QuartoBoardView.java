@@ -153,9 +153,23 @@ public class QuartoBoardView extends SurfaceView {
         }
 
         else if (qs.getBoard()[row][col] != null){
-            Piece piecetodraw = qs.getBoard()[row][col];
+            int width = getWidth();
+            int height = getHeight();
+            int boardSize = 4;
 
-            canvas.drawBitmap(pieceToDraw(piecetodraw), left, top, blackPaint);
+            int squareWidth = (int)(width / (boardSize + (float) 1));
+            int squareHeight = (int)(height / (boardSize + (float) 1));
+            Piece pieceToDraw = qs.getBoard()[row][col];
+
+            Bitmap centeredPiece;
+            if (pieceToDraw.getHeight() == SHORT){
+                centeredPiece = Bitmap.createScaledBitmap(pieceToDraw(pieceToDraw), squareWidth/2, squareHeight/2, false);
+                canvas.drawBitmap(centeredPiece, left + (float)(squareWidth / 3.5), top + (float)(squareHeight / 2.5), blackPaint);
+
+            } else {
+                centeredPiece = Bitmap.createScaledBitmap(pieceToDraw(pieceToDraw), squareWidth / 2, squareHeight, false);
+                canvas.drawBitmap(centeredPiece, left + (float)(squareWidth / 3.5) , top + (float)(squareHeight / 8), blackPaint);
+            }
         }
     }
 
