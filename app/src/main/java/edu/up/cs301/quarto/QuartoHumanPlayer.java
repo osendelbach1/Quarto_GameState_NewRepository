@@ -38,7 +38,7 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 	private GameMainActivity myActivity;
 
 	//Refernce variables
-	//Refernce of the surface view of the board
+	//Reference of the surface view of the board
 	private QuartoBoardView QBV;
 
 	/**
