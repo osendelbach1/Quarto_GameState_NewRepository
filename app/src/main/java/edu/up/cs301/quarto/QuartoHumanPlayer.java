@@ -31,14 +31,14 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 	/* instance variables */
 
 	// the most recent game state, as given to us by the quartoLocalGame
-	private QuartoState state;
+	private QuartoState state = new QuartoState();
 
 	// the android activity that we are running
 	private GameMainActivity myActivity;
 
 	//Refernce variables
 	//Refernce of the surface view of the board
-	private QuartoBoardView quartoBoardView;
+	private QuartoBoardView QBV;
 
 	/**
 	 * constructor
@@ -62,9 +62,10 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 	/**
 	 * sets the quarto value in the text view
 	 */
-	protected void updateDisplay() {
-		// set the text in the appropriate widget
-		//quartoValueTextView.setText("" + state.getquarto());
+	protected void updateDisplay(QuartoState qs) {
+		if (qs != null) {
+			QBV.setQuartoState(qs);
+		}
 	}
 
 	/**
@@ -152,11 +153,14 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 	@Override
 	public void receiveInfo(GameInfo info) {
 		// ignore the message if it's not a quartoState message
-		if (!(info instanceof QuartoState)) return;
+		if (QBV == null) return;
 
-		// update our state; then update the display
-		this.state = (QuartoState)info;
-		updateDisplay();
+		if (!(info instanceof QuartoState))
+			return;
+		else {
+			this.state = (QuartoState) info;
+			updateDisplay(state);
+		}
 	}
 
 	/**
@@ -207,8 +211,9 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 		Button button16 = activity.findViewById(R.id.button16);
 		button16.setOnClickListener(this);
 
-		QuartoBoardView QBV = activity.findViewById(R.id.QuartoBoardView);
+		QBV = activity.findViewById(R.id.QuartoBoardView);
 		QBV.setOnTouchListener(this);
+		QBV.setQuartoState(state);
 
 	}
 }// class quartoHumanPlayer

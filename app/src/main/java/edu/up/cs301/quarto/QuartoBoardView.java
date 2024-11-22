@@ -1,5 +1,14 @@
 package edu.up.cs301.quarto;
 
+import static edu.up.cs301.quarto.QuartoState.CIRCLE;
+import static edu.up.cs301.quarto.QuartoState.DARK;
+import static edu.up.cs301.quarto.QuartoState.HOLE;
+import static edu.up.cs301.quarto.QuartoState.LIGHT;
+import static edu.up.cs301.quarto.QuartoState.SHORT;
+import static edu.up.cs301.quarto.QuartoState.SOLID;
+import static edu.up.cs301.quarto.QuartoState.SQUARE;
+import static edu.up.cs301.quarto.QuartoState.TALL;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -52,6 +61,13 @@ public class QuartoBoardView extends SurfaceView {
         blackPaint.setStyle(Paint.Style.STROKE);
 
         setBackgroundColor(0xFFFFFFFF);
+        renderPieces(context);
+    }
+
+    // setter method for the shogi state
+    public void setQuartoState(QuartoState state){
+        this.qs = state;
+        invalidate();
     }
 
     public void renderPieces(Context context){
@@ -74,12 +90,76 @@ public class QuartoBoardView extends SurfaceView {
 
     }
 
-    /**
-     * draws a 4x4 board with squares
-     * @param canvas
-     */
-    @Override
-    protected void onDraw (Canvas canvas) {
+
+    private Bitmap pieceToDraw(Piece piece) {
+        if (piece.getHeight() == SHORT && piece.getHole() == HOLE && piece.getColor() == DARK &&  piece.getShape() == CIRCLE) {
+            return SHDC;
+        }
+        else if (piece.getHeight() == SHORT && piece.getHole() == HOLE && piece.getColor() == DARK &&  piece.getShape() == SQUARE) {
+            return SHDS;
+        }
+        else if(piece.getHeight() == SHORT && piece.getHole() == HOLE && piece.getColor() == LIGHT &&  piece.getShape() == CIRCLE) {
+            return SHLC;
+        }
+        else if(piece.getHeight() == SHORT && piece.getHole() == HOLE && piece.getColor() == LIGHT &&  piece.getShape() == SQUARE) {
+            return SHLS;
+        }
+        else if(piece.getHeight() == SHORT && piece.getHole() == SOLID && piece.getColor() == DARK &&  piece.getShape() == CIRCLE) {
+            return SSDC;
+        }
+        else if(piece.getHeight() == SHORT && piece.getHole() == SOLID && piece.getColor() == DARK &&  piece.getShape() == SQUARE) {
+            return SSDS;
+        }
+        else if(piece.getHeight() == SHORT && piece.getHole() == SOLID && piece.getColor() == LIGHT &&  piece.getShape() == CIRCLE) {
+            return SSLC;
+        }
+        else if(piece.getHeight() == SHORT && piece.getHole() == SOLID && piece.getColor() == LIGHT &&  piece.getShape() == SQUARE) {
+            return SSLS;
+        }
+        else if(piece.getHeight() == TALL && piece.getHole() == HOLE && piece.getColor() == DARK &&  piece.getShape() == CIRCLE) {
+            return THDC;
+        }
+        else if(piece.getHeight() == TALL && piece.getHole() == HOLE && piece.getColor() == DARK &&  piece.getShape() == SQUARE) {
+            return THDS;
+        }
+        else if(piece.getHeight() == TALL && piece.getHole() == HOLE && piece.getColor() == LIGHT &&  piece.getShape() == CIRCLE) {
+            return THLC;
+        }
+        else if(piece.getHeight() == TALL && piece.getHole() == HOLE && piece.getColor() == LIGHT &&  piece.getShape() == SQUARE) {
+            return THLS;
+        }
+        else if(piece.getHeight() == TALL && piece.getHole() == SOLID && piece.getColor() == DARK &&  piece.getShape() == CIRCLE) {
+            return TSDC;
+        }
+        else if(piece.getHeight() == TALL && piece.getHole() == SOLID && piece.getColor() == DARK &&  piece.getShape() == SQUARE) {
+            return TSDS;
+        }
+        else if(piece.getHeight() == TALL && piece.getHole() == SOLID && piece.getColor() == LIGHT &&  piece.getShape() == CIRCLE) {
+            return TSLC;
+        }
+        else if(piece.getHeight() == TALL && piece.getHole() == SOLID && piece.getColor() == LIGHT &&  piece.getShape() == SQUARE) {
+            return TSLS;
+        }
+        else { return null; }
+    }
+
+    private void drawPieces(Canvas canvas, float left, float top, int row, int col){
+        if (qs == null) {
+            return;
+        }
+
+        if (qs.getBoard()[row] == null || qs.getBoard()[row][col] == null) {
+            return;
+        }
+
+        else if (qs.getBoard()[row][col] != null){
+            Piece piecetodraw = qs.getBoard()[row][col];
+
+            canvas.drawBitmap(pieceToDraw(piecetodraw), left, top, blackPaint);
+        }
+    }
+
+    private void drawBoard(Canvas canvas) {
         /**
          * External citation
          * Date: November 19, 2024
@@ -88,7 +168,6 @@ public class QuartoBoardView extends SurfaceView {
          * Resource: Chloe Pham
          * Solution: Implemented code that was suggested in her report
          */
-
         int width = getWidth();
         int height = getHeight();
 
@@ -101,10 +180,23 @@ public class QuartoBoardView extends SurfaceView {
         for (int row = 0; row < 4; row++) {
             for (int col = 0; col < 4; col++) {
                 canvas.drawRect(left, top, left + margin, top + margin, blackPaint); // draws each iteration of the board by iterating through a for loop (row & col)
+                drawPieces(canvas, left, top, row, col);
                 left += margin;
             }
             top += margin;
             left = leftStart;
         }
+    }
+
+    /**
+     * draws a 4x4 board with squares
+     * @param canvas
+     */
+    @Override
+    protected void onDraw (Canvas canvas) {
+
+        drawBoard(canvas);
+
+
     }
 }

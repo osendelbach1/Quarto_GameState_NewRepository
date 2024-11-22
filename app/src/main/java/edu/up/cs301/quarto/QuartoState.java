@@ -35,6 +35,9 @@ public class QuartoState extends GameState {
 
 	//game board
 	private Piece[][] board = new Piece[4][4];
+	public Piece[][] getBoard() {
+		return board;
+	}
 	private Piece[] pieces = new Piece[16];
 
 	//each individual piece ID
