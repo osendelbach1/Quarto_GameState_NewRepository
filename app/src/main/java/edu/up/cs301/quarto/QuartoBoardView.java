@@ -30,7 +30,6 @@ public class QuartoBoardView extends SurfaceView {
 
     private Paint blackPaint; // for color
     private QuartoState qs;
-    Piece p;
 
     private Bitmap SHDC;
     private Bitmap SHDS;

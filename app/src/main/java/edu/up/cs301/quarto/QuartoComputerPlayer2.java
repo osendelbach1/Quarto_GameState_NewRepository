@@ -8,6 +8,10 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
+import edu.up.cs301.quarto.Quadruplet;
+
 
 
 /**
@@ -76,6 +80,54 @@ public class QuartoComputerPlayer2 extends QuartoComputerPlayer1 {
 			updateDisplay();
 		}
 	}
+
+	Quadruplet Row0;
+	Quadruplet Row1;
+	Quadruplet Row2;
+	Quadruplet Row3;
+
+	Quadruplet Col0;
+	Quadruplet Col1;
+	Quadruplet Col2;
+	Quadruplet Col3;
+
+	Quadruplet Diag0;
+	Quadruplet Diag1;
+
+	private void smartPlace() {
+
+		//declare arraylist
+
+		//for loop through board (vertical, horizontal, diagonal)
+			//if null found in row, make placeable true
+				//if pattern disrupted (helper method), make consecutive false
+
+				//increment found characteristics by 1
+
+		//end of row iteration loop
+			//if placeable true, add to ranked array list (helper method)
+
+
+
+
+
+
+
+		//each pass through should contain a number of consecutive shape, height, color, hole
+
+		//note consecutive patterns
+
+	}
+
+
+	/*public ArrayList addRanked(Quadruplet q) {
+
+
+
+
+	}*/
+
+
 	
 	
 	/** 
