@@ -103,6 +103,89 @@ public class Quadruplet {
     public void setConsecSquare(int consecSquare) {
         this.consecSquare = consecSquare;
     }
-}
+
+   
+    
+    
+    public boolean checkIfShort() {
+        if (this.consecShort > 1) {
+            if (this.consecTall > 1) {
+                this.consecShort = -1;
+                this.consecTall = -1;
+            }
+        }
+        return true;
+    } //checkIfShort()
+
+    public boolean checkIfTall() {
+        if (this.consecTall > 1) {
+            if (this.consecShort > 1) {
+                this.consecTall = -1;
+                this.consecShort = -1;
+            }
+        }
+        return true;
+    } //checkIfTall()
+
+    public boolean checkIfSquare() {
+        if (this.consecSquare > 1) {
+            if (this.consecCircle > 1) {
+                this.consecSquare = -1;
+                this.consecCircle = -1;
+            }
+        }
+        return true;
+    } //checkIfSquare()
+
+    public boolean checkIfCircle() {
+        if (this.consecCircle > 1) {
+            if (this.consecSquare > 1) {
+                this.consecCircle = -1;
+                this.consecSquare = -1;
+            }
+        }
+        return true;
+    } //checkIfCircle()
+
+    public boolean checkIfDark() {
+        if (this.consecDark > 1) {
+            if (this.consecLight > 1) {
+                this.consecDark = -1;
+                this.consecLight = -1;
+            }
+        }
+        return true;
+    } //checkIfDark()
 
 
+    public boolean checkIfLight() {
+        if (this.consecLight > 1) {
+            if (this.consecDark > 1) {
+                this.consecLight = -1;
+                this.consecDark = -1;
+            }
+        }
+        return true;
+    } //checkIfLight()
+
+
+    public boolean checkIfHole() {
+        if (this.consecHole > 1) {
+            if (this.consecSolid > 1) {
+                this.consecHole = -1;
+                this.consecSolid = -1;
+            }
+        }
+        return true;
+    } //checkIfHole()
+
+    public boolean checkIfSolid() {
+        if (this.consecSolid > 1) {
+            if (this.consecHole > 1) {
+                this.consecSolid = -1;
+                this.consecHole = -1;
+            }
+        }
+        return true;
+    } //checkIfSolid()
+} //Quadruplet class
