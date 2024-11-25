@@ -8,7 +8,9 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import edu.up.cs301.quarto.Quadruplet;
 
@@ -95,17 +97,17 @@ public class QuartoComputerPlayer2 extends QuartoComputerPlayer1 {
 	Quadruplet Diag1;
 
 	private void smartPlace() {
-
+		ArrayList<Quadruplet> rankedArray = new ArrayList<>();
 		//declare arraylist
 
 		//for loop through board (vertical, horizontal, diagonal)
 			//if null found in row, make placeable true
 				//if pattern disrupted (helper method), make consecutive false
 
-				//increment found characteristics by 1
+				//increment found characteristics ConsecShort, ConsecTall by 1
 
 		//end of row iteration loop
-			//if placeable true, add to ranked array list (helper method)
+			//if placeable true, add row/col/diag to ranked array list (helper method)
 
 
 
@@ -120,16 +122,38 @@ public class QuartoComputerPlayer2 extends QuartoComputerPlayer1 {
 	}
 
 
-	/*public ArrayList addRanked(Quadruplet q) {
+
+
+	public void addRanked(ArrayList<Quadruplet> rankedList, Quadruplet q) {
+		for (int i = 0; i < rankedList.size(); i++) {
+			if (q.getTotal() > rankedList.get(i).getTotal()) {
+				rankedList.add(i, q);
+				return; // Exit after inserting
+			}
+		}
+		rankedList.add(q); // Add at the end if no larger total found
+	}
+
+	public boolean checkRow(Quadruplet q, int row) {
+		// Check if all values in the row are true
+
+
+		for (int j = 0; j < 4; j++) {
+			if (q.getPlaceable() == false) {
+				if (currentGameState.getBoard()[row][j] == null) {
+					q.setPlaceable(true);
+				}
+			}
+
+
+		}
+		return false;
+	}
 
 
 
 
-	}*/
 
-
-	
-	
 	/** 
 	 * sets the quarto value in the text view
 	 *  */
