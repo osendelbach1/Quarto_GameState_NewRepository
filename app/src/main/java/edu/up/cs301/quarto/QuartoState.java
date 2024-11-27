@@ -218,7 +218,7 @@ public class QuartoState extends GameState implements Serializable {
 		return false;
 	}
 
-	public boolean quitAction()
+	public boolean quitAction(QuitGameAction action)
 	{
 		if(gameStatus == ACTIVE || gameStatus == WON || gameStatus == LOST)
 		{
