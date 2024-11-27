@@ -80,55 +80,78 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 	public void onClick(View button) {
 
 		int index = -1; // Default invalid index
-
+		boolean selection = false;
 		// Map button IDs to indices
 		if (button.getId() == R.id.button1) {
 			index = 0;
+			selection = true;
 		} else if (button.getId() == R.id.button2) {
 			index = 1;
+			selection = true;
 		} else if (button.getId() == R.id.button3) {
 			index = 2;
+			selection = true;
 		} else if (button.getId() == R.id.button4) {
 			index = 3;
+			selection = true;
 		} else if (button.getId() == R.id.button5) {
 			index = 4;
+			selection = true;
 		} else if (button.getId() == R.id.button6) {
 			index = 5;
+			selection = true;
 		} else if (button.getId() == R.id.button7) {
 			index = 6;
+			selection = true;
 		} else if (button.getId() == R.id.button8) {
 			index = 7;
+			selection = true;
 		} else if (button.getId() == R.id.button9) {
 			index = 8;
+			selection = true;
 		} else if (button.getId() == R.id.button10) {
 			index = 9;
+			selection = true;
 		} else if (button.getId() == R.id.button11) {
 			index = 10;
+			selection = true;
 		} else if (button.getId() == R.id.button12) {
 			index = 11;
+			selection = true;
 		} else if (button.getId() == R.id.button13) {
 			index = 12;
+			selection = true;
 		} else if (button.getId() == R.id.button14) {
 			index = 13;
+			selection = true;
 		} else if (button.getId() == R.id.button15) {
 			index = 14;
-		} else {
-			index = 15; // Default case
+			selection = true;
+		} else if (button.getId()== R.id.button16) {
+			index = 15;
+			selection = true;
 		}
 
-		// Get the Piece
-		Piece p = state.getPieces()[index];
-		boolean found = false;
-		for (Piece p1 : state.getUnPlaced()) {
-			if (state.PieceEquals(p1, p)) {
-				found = true;
-				selectPieceAction spa = new selectPieceAction(this, p1);
-				game.sendAction(spa);
-				break;
-			}
+		if (button.getId() == R.id.quartoButton) {
+			declareVictoryAction dva = new declareVictoryAction((this));
+			game.sendAction(dva);
 		}
-		if(!found) {
-			Log.d("Error","Piece already placed!");
+
+		if(selection) {
+			// Get the Piece
+			Piece p = state.getPieces()[index];
+			boolean found = false;
+			for (Piece p1 : state.getUnPlaced()) {
+				if (state.PieceEquals(p1, p)) {
+					found = true;
+					selectPieceAction spa = new selectPieceAction(this, p1);
+					game.sendAction(spa);
+					break;
+				}
+			}
+			if (!found) {
+				Log.d("Error", "Piece already placed!");
+			}
 		}
 
 
@@ -211,6 +234,9 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 		button15.setOnClickListener(this);
 		Button button16 = activity.findViewById(R.id.button16);
 		button16.setOnClickListener(this);
+
+		Button QuartoButton = activity.findViewById(R.id.quartoButton);
+		QuartoButton.setOnClickListener(this);
 
 		QBV = activity.findViewById(R.id.QuartoBoardView);
 		QBV.setOnTouchListener(this);

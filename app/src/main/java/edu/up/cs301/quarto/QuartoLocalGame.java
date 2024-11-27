@@ -90,6 +90,11 @@ public class QuartoLocalGame extends LocalGame {
 			Log.d("State:", "" + state.toString());
 			return result;
 		}
+
+		else if (action instanceof declareVictoryAction) {
+			boolean result = this.gameState.declareVictoryAction();
+			return result;
+		}
 		else {
 			// denote that this was an illegal move
 			return false;

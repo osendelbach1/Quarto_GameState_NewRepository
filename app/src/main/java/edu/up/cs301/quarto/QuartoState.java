@@ -32,7 +32,7 @@ public class QuartoState extends GameState implements Serializable {
 	public static final Boolean CIRCLE = false;
 
 
-	public TextViewModel turn;
+	//public TextViewModel turn;
 	// to satisfy Serializable interface
 	private static final long serialVersionUID = 1126202472;
 
@@ -287,6 +287,16 @@ public class QuartoState extends GameState implements Serializable {
 	}
 
 	public boolean checkRow(Piece[][] boardCheck, int row) {
+		// Null check for the entire board and row
+		if (boardCheck == null || boardCheck[row] == null) {
+			throw new IllegalArgumentException("Board or specified row cannot be null.");
+		}
+
+		// Check if the first piece in the row is null
+		if (boardCheck[row][0] == null) {
+			return false; // Return false if the first piece is null
+		}
+
 		// Check if all values in the row are true
 		boolean firstHeight = boardCheck[row][0].getHeight();
 		boolean firstColor = boardCheck[row][0].getColor();
@@ -296,6 +306,10 @@ public class QuartoState extends GameState implements Serializable {
 
 
 		for (int j = 0; j < 4; j++) {
+
+			if (boardCheck[row][j] == null) {
+				return false; // If any piece is null, return false
+			}
 
 			if (boardCheck[row][j].getHeight() != firstHeight) {
 				heightcheck = false;
@@ -314,6 +328,12 @@ public class QuartoState extends GameState implements Serializable {
 	}
 
 	public boolean checkCol(Piece[][] boardCheck, int col) {
+
+		// Check if the first piece in the col is null
+		if (boardCheck[0][col] == null) {
+			return false; // Return false if the first piece is null
+		}
+
 		// Check if all values in the row are true
 		boolean firstHeight = boardCheck[0][col].getHeight();
 		boolean firstColor = boardCheck[0][col].getColor();
@@ -323,6 +343,9 @@ public class QuartoState extends GameState implements Serializable {
 
 
 		for (int i = 0; i < 4; i++) {
+			if (boardCheck[i][col] == null) {
+				return false; // If any piece is null, return false
+			}
 
 			if (boardCheck[i][col].getHeight() != firstHeight) {
 				heightcheck = false;
@@ -340,15 +363,24 @@ public class QuartoState extends GameState implements Serializable {
 		return heightcheck || colorcheck || holecheck || shapecheck;
 	}
 
-	public boolean checkDiagonal(Piece[][] boardcheck, boolean leftToRight) {
+	public boolean checkDiagonal(Piece[][] boardCheck, boolean leftToRight) {
+
 		boolean heightcheck = true, colorcheck = true, holecheck = true, shapecheck = true;
 
+		if (leftToRight && boardCheck[0][0] == null) {
+			return false; // Return false if the first piece is null
+		}
+		else if (!leftToRight && boardCheck[0][3] == null) {
+			return false;
+		}
 		// Initialize the first piece's properties based on the diagonal direction
-		Piece firstPiece = leftToRight ? boardcheck[0][0] : boardcheck[0][3];
+		Piece firstPiece = leftToRight ? boardCheck[0][0] : boardCheck[0][3];
 		boolean firstHeight = firstPiece.getHeight();
 		boolean firstColor = firstPiece.getColor();
 		boolean firstHole = firstPiece.getHole();
 		boolean firstShape = firstPiece.getShape();
+
+
 
 		// Check the diagonal according to the direction
 		for (int i = 1; i < 4; i++) {
@@ -356,10 +388,10 @@ public class QuartoState extends GameState implements Serializable {
 			int col = leftToRight ? i : (3 - i);
 
 			// Update checks if any property doesn't match the first piece
-			if (boardcheck[i][col].getHeight() != firstHeight) heightcheck = false;
-			if (boardcheck[i][col].getColor() != firstColor) colorcheck = false;
-			if (boardcheck[i][col].getHole() != firstHole) holecheck = false;
-			if (boardcheck[i][col].getShape() != firstShape) shapecheck = false;
+			if (boardCheck[i][col].getHeight() != firstHeight) heightcheck = false;
+			if (boardCheck[i][col].getColor() != firstColor) colorcheck = false;
+			if (boardCheck[i][col].getHole() != firstHole) holecheck = false;
+			if (boardCheck[i][col].getShape() != firstShape) shapecheck = false;
 		}
 
 		// Return true if any of the property checks succeeded

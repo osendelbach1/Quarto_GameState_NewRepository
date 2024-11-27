@@ -119,7 +119,10 @@ public class QuartoComputerPlayer2 extends QuartoComputerPlayer1 {
 		}
 
 		this.smartPlace(rankedArrayPlace);
+		declareVictoryAction dva = new declareVictoryAction(this);
 		this.smartSelect(currentGameState.getUnPlaced());
+
+
 	}
 
 
@@ -190,7 +193,9 @@ public class QuartoComputerPlayer2 extends QuartoComputerPlayer1 {
 		//choose an index in the row/col/diag of rankedArray.get(0)
 		placePieceAction ppa = new placePieceAction(this, x, y, currentGameState.getCurrentPiece());
 		game.sendAction(ppa);
+
 	}
+
 
 	public void addRanked(ArrayList<Quadruplet> rankedList, Quadruplet q) {
 		if (!q.getPlaceable()) return;

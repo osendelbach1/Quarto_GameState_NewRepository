@@ -81,6 +81,8 @@ public class QuartoComputerPlayer1 extends GameComputerPlayer implements Tickabl
 		selectPieceAction spa = new selectPieceAction(this, q);
 		game.sendAction(spa);
 
+		declareVictoryAction dva = new declareVictoryAction(this);
+		game.sendAction(dva);
 	}
 	
 	/**
