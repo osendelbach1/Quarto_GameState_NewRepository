@@ -42,6 +42,7 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 	private TextView textView;
 	private TextViewModel tvm;
 	private ImageButton imgButton;
+	private boolean isPieceSelected = false;
 	/**
 	 * constructor
 	 * @param name
@@ -80,58 +81,77 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 	 */
 
 	public void onClick(View button) {
-
+		if (isPieceSelected) {
+			return;
+		}
 		int index = -1; // Default invalid index
 		boolean selection = false;
+
 		// Map button IDs to indices
 		if (button.getId() == R.id.imageButton1) {
 			index = 0;
 			selection = true;
+			imgButton = myActivity.findViewById(R.id.imageButton1);
 		} else if (button.getId() == R.id.imageButton2) {
 			index = 1;
 			selection = true;
+			imgButton = myActivity.findViewById(R.id.imageButton2);
 		} else if (button.getId() == R.id.imageButton3) {
 			index = 2;
 			selection = true;
+			imgButton = myActivity.findViewById(R.id.imageButton3);
 		} else if (button.getId() == R.id.imageButton4) {
 			index = 3;
 			selection = true;
+			imgButton = myActivity.findViewById(R.id.imageButton4);
 		} else if (button.getId() == R.id.imageButton5) {
 			index = 4;
 			selection = true;
+			imgButton = myActivity.findViewById(R.id.imageButton5);
 		} else if (button.getId() == R.id.imageButton6) {
 			index = 5;
 			selection = true;
+			imgButton = myActivity.findViewById(R.id.imageButton6);
 		} else if (button.getId() == R.id.imageButton7) {
 			index = 6;
 			selection = true;
+			imgButton = myActivity.findViewById(R.id.imageButton7);
 		} else if (button.getId() == R.id.imageButton8) {
 			index = 7;
 			selection = true;
+			imgButton = myActivity.findViewById(R.id.imageButton8);
 		} else if (button.getId() == R.id.imageButton9) {
 			index = 8;
 			selection = true;
+			imgButton = myActivity.findViewById(R.id.imageButton9);
 		} else if (button.getId() == R.id.imageButton10) {
 			index = 9;
 			selection = true;
+			imgButton = myActivity.findViewById(R.id.imageButton10);
 		} else if (button.getId() == R.id.imageButton11) {
 			index = 10;
 			selection = true;
+			imgButton = myActivity.findViewById(R.id.imageButton11);
 		} else if (button.getId() == R.id.imageButton12) {
 			index = 11;
 			selection = true;
+			imgButton = myActivity.findViewById(R.id.imageButton12);
 		} else if (button.getId() == R.id.imageButton13) {
 			index = 12;
 			selection = true;
+			imgButton = myActivity.findViewById(R.id.imageButton13);
 		} else if (button.getId() == R.id.imageButton14) {
 			index = 13;
 			selection = true;
+			imgButton = myActivity.findViewById(R.id.imageButton14);
 		} else if (button.getId() == R.id.imageButton15) {
 			index = 14;
 			selection = true;
+			imgButton = myActivity.findViewById(R.id.imageButton15);
 		} else if (button.getId()== R.id.imageButton16) {
 			index = 15;
 			selection = true;
+			imgButton = myActivity.findViewById(R.id.imageButton16);
 		}
 
 		if (button.getId() == R.id.quartoButton) {
@@ -149,17 +169,25 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 					selectPieceAction spa = new selectPieceAction(this, p1);
 					game.sendAction(spa);
 					textView.setText(tvm.cpSelect);
+					indicateSelection(imgButton);
+					isPieceSelected = true;
 					break;
 				}
 			}
 			if (!found) {
 				Log.d("Error", "Piece already placed!");
 				this.flash(0xFFFF0000, 100);
+				isPieceSelected = false;
 			}
 		}
 
 
 	}// onClick
+
+	public void indicateSelection(ImageButton button) {
+		button.setImageAlpha(128);
+	}
+
 
 	private CharSequence getTurnAndPhase (boolean isHumanTurn, boolean isSelectionPhase) {
 		if (isHumanTurn) {
@@ -176,6 +204,7 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 		Log.d("Touch","" + x + " " + y);
 		placePieceAction ppa = new placePieceAction(this, x, y, q, view.getHeight(), view.getWidth());
 		game.sendAction(ppa);
+		isPieceSelected = false;
 		textView.setText(tvm.cpPlace);
 		view.invalidate();
 		return true;
@@ -209,6 +238,10 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 		// Update the TextView
 		textView.setText(turnMessage);
+
+		if (!isHumanTurn && isSelectionPhase) {
+			indicateSelection(imgButton);
+		}
 	}
 
 	/**
