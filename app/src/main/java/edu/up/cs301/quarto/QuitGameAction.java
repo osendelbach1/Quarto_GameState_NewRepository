@@ -31,6 +31,6 @@ public class QuitGameAction extends GameAction implements Serializable
     public void quitAction()
     {
         GamePlayer GamePlayer = this.getPlayer();
-        System.exit(0);
+        //System.exit(0);
     }
 }
