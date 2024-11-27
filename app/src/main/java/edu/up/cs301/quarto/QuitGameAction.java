@@ -1,5 +1,5 @@
 package edu.up.cs301.quarto;
 
-public class QuitAction {
+public class QuitGameAction {
     //fill in class here
 }
