@@ -12,16 +12,25 @@ public class Quadruplet {
     private boolean placeable;
     private boolean consecutive;
 
+    public Quadruplet() {
+        this.consecDark = 0;
+        this.consecLight = 0;
+        this.consecShort = 0;
+        this.consecTall = 0;
+        this.consecHole = 0;
+        this.consecSolid = 0;
+        this.consecCircle = 0;
+        this.consecSquare = 0;
+        this.placeable = false;
+    }
+
     public int getTotal() {
+        checkHeight();
+        checkColor();
+        checkShape();
+        checkHole();
+
         return consecDark + consecLight + consecShort + consecTall + consecHole + consecSolid + consecCircle + consecSquare;
-    }
-
-    public boolean getConsecutive() {
-        return consecutive;
-    }
-
-    public void setConsecutive(boolean consecutive) {
-        this.consecutive = consecutive;
     }
 
     public boolean getPlaceable() {
@@ -37,17 +46,17 @@ public class Quadruplet {
         return consecDark;
     }
 
-    public void setConsecDark(int consecDark) {
-        this.consecDark = consecDark;
+    public void addConsecDark() {
+        this.consecDark++;
     }
 
     // Getter and Setter for consecLight
-    public int getConsecLight() {
+    public int gettConsecLight() {
         return consecLight;
     }
 
-    public void setConsecLight(int consecLight) {
-        this.consecLight = consecLight;
+    public void addConsecLight() {
+        this.consecLight++;
     }
 
     // Getter and Setter for consecShort
@@ -55,8 +64,8 @@ public class Quadruplet {
         return consecShort;
     }
 
-    public void setConsecShort(int consecShort) {
-        this.consecShort = consecShort;
+    public void addConsecShort() {
+        this.consecShort++;
     }
 
     // Getter and Setter for consecTall
@@ -64,8 +73,8 @@ public class Quadruplet {
         return consecTall;
     }
 
-    public void setConsecTall(int consecTall) {
-        this.consecTall = consecTall;
+    public void addConsecTall() {
+        this.consecTall++;
     }
 
     // Getter and Setter for consecHole
@@ -73,8 +82,8 @@ public class Quadruplet {
         return consecHole;
     }
 
-    public void setConsecHole(int consecHole) {
-        this.consecHole = consecHole;
+    public void addConsecHole() {
+        this.consecHole++;
     }
 
     // Getter and Setter for consecSolid
@@ -82,8 +91,8 @@ public class Quadruplet {
         return consecSolid;
     }
 
-    public void setConsecSolid(int consecSolid) {
-        this.consecSolid = consecSolid;
+    public void addConsecSolid() {
+        this.consecSolid++;
     }
 
     // Getter and Setter for consecCircle
@@ -91,8 +100,8 @@ public class Quadruplet {
         return consecCircle;
     }
 
-    public void setConsecCircle(int consecCircle) {
-        this.consecCircle = consecCircle;
+    public void addConsecCircle() {
+        this.consecCircle++;
     }
 
     // Getter and Setter for consecSquare
@@ -100,92 +109,42 @@ public class Quadruplet {
         return consecSquare;
     }
 
-    public void setConsecSquare(int consecSquare) {
-        this.consecSquare = consecSquare;
+    public void addConsecSquare() {
+        this.consecSquare++;
     }
 
    
     
     
-    public boolean checkIfShort() {
-        if (this.consecShort > 1) {
-            if (this.consecTall > 1) {
-                this.consecShort = -1;
-                this.consecTall = -1;
+    public void checkHeight() {
+        if (this.consecShort > 0 && this.consecTall > 0) {
+                this.consecShort = 0;
+                this.consecTall = 0;
             }
-        }
-        return true;
-    } //checkIfShort()
+    }//checkIfShort()
 
-    public boolean checkIfTall() {
-        if (this.consecTall > 1) {
-            if (this.consecShort > 1) {
-                this.consecTall = -1;
-                this.consecShort = -1;
-            }
+    public void checkShape() {
+        if (this.consecSquare > 0 && this.consecCircle > 0) {
+                this.consecSquare = 0;
+                this.consecCircle = 0;
         }
-        return true;
-    } //checkIfTall()
-
-    public boolean checkIfSquare() {
-        if (this.consecSquare > 1) {
-            if (this.consecCircle > 1) {
-                this.consecSquare = -1;
-                this.consecCircle = -1;
-            }
-        }
-        return true;
     } //checkIfSquare()
 
-    public boolean checkIfCircle() {
-        if (this.consecCircle > 1) {
-            if (this.consecSquare > 1) {
-                this.consecCircle = -1;
-                this.consecSquare = -1;
-            }
+    public void checkColor() {
+        if (this.consecLight > 0 && this.consecDark > 0) {
+
+                this.consecCircle = 0;
+                this.consecSquare = 0;
         }
-        return true;
     } //checkIfCircle()
 
-    public boolean checkIfDark() {
-        if (this.consecDark > 1) {
-            if (this.consecLight > 1) {
-                this.consecDark = -1;
-                this.consecLight = -1;
-            }
+    public void checkHole() {
+        if (this.consecHole > 0 && this.consecSolid > 0) {
+                this.consecHole = 0;
+                this.consecSolid = 0;
         }
-        return true;
+
     } //checkIfDark()
 
 
-    public boolean checkIfLight() {
-        if (this.consecLight > 1) {
-            if (this.consecDark > 1) {
-                this.consecLight = -1;
-                this.consecDark = -1;
-            }
-        }
-        return true;
-    } //checkIfLight()
-
-
-    public boolean checkIfHole() {
-        if (this.consecHole > 1) {
-            if (this.consecSolid > 1) {
-                this.consecHole = -1;
-                this.consecSolid = -1;
-            }
-        }
-        return true;
-    } //checkIfHole()
-
-    public boolean checkIfSolid() {
-        if (this.consecSolid > 1) {
-            if (this.consecHole > 1) {
-                this.consecSolid = -1;
-                this.consecHole = -1;
-            }
-        }
-        return true;
-    } //checkIfSolid()
 } //Quadruplet class
