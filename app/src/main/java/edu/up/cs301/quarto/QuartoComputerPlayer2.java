@@ -15,6 +15,10 @@ import java.util.ArrayList;
 
 import java.util.Random;
 
+import edu.up.cs301.quarto.Quadruplet;
+
+
+
 
 /**
  * Smart AI:
@@ -28,6 +32,7 @@ import java.util.Random;
  */
 public class QuartoComputerPlayer2 extends QuartoComputerPlayer1 implements Serializable {
 
+	//constants for characteristics of pieces
 	public static final Boolean SHORT = true;
 	public static final Boolean TALL = false;
 	public static final Boolean HOLE = true;
@@ -158,13 +163,14 @@ public class QuartoComputerPlayer2 extends QuartoComputerPlayer1 implements Seri
 			addRanked(rankedArray, quads[i]); // add row/col/diag to arraylist
 		}
 
+		//based on the ranked array, the most highly patterned Row/col/diag is chosen.
 		Quadruplet chosen = rankedArray.get(0);
 		int x = 0;
 		int y = 0;
 
 		Random random = new Random();
 		int rand = random.nextInt(openSpots.get(chosen).size());
-		//assign index
+		//assign index within the selected row/col/diag
 		for (int i = 0; i < 10; i++) {
 			if (i < 4 && chosen.equals(quads[i])) {
 				x = corresponding.get(chosen);
@@ -185,7 +191,7 @@ public class QuartoComputerPlayer2 extends QuartoComputerPlayer1 implements Seri
 
 		}
 
-		//choose an index in the row/col/diag of rankedArray.get(0)
+		//pass the x and y to placePieceAction
 		placePieceAction ppa = new placePieceAction(this, x, y, currentGameState.getCurrentPiece());
 		game.sendAction(ppa);
 
@@ -357,9 +363,12 @@ public class QuartoComputerPlayer2 extends QuartoComputerPlayer1 implements Seri
 	}
 
 	/** 
-	 *
+	 * sets the quarto value in the text view
 	 *  */
 	private void updateDisplay() {
+		// if the guiHandler is available, set the new quarto value
+		// in the quarto-display widget, doing it in the Activity's
+		// thread.
 		if (guiHandler != null) {
 			guiHandler.post(
 					new Runnable() {

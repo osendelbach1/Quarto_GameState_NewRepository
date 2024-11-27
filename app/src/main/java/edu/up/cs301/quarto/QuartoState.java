@@ -221,12 +221,22 @@ public class QuartoState extends GameState implements Serializable {
 		return false;
 	}
 
-	public boolean quitAction(GameAction action)
+	public boolean quitAction()
 	{
-		if(gameStatus == ACTIVE || gameStatus == WON || gameStatus == LOST)
+		if(gameStatus == ACTIVE)
 		{
+			//display "quitting gam...e"
 			gameStatus = QUITTED;
 		}
+		else if (gameStatus == WON) {
+			//display victory message
+		}
+		else if (gameStatus == LOST) {
+			//display defeat message
+		}
+
+		//exit the game
+
 		return true;
 	}
 
@@ -389,6 +399,10 @@ public class QuartoState extends GameState implements Serializable {
 		for (int i = 1; i < 4; i++) {
 
 			int col = leftToRight ? i : (3 - i);
+
+			if (boardCheck[i][col] == null) {
+				return false; // If any piece in the diagonal is null, return false
+			}
 
 			// Update checks if any property doesn't match the first piece
 			if (boardCheck[i][col].getHeight() != firstHeight) heightcheck = false;

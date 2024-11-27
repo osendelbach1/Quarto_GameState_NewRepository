@@ -1,6 +1,17 @@
 package edu.up.cs301.quarto;
-
 import java.io.Serializable;
+/*
+
+Quadruplet helper class for ComputerPlayer2 created to keep track
+of characteristics of rows, columns, and diagonals. Each Quadruplet
+instance contains the total of each characteristic per row/col/diagonal.
+
+@Author Magnus Graham
+@Author Olivia Sendelbach
+@Author Becca Biukoto
+ */
+public class Quadruplet {
+
 
 /**
  * Assists with Smart AI functionality in placing the piece
@@ -41,6 +52,7 @@ public class Quadruplet implements Serializable {
     }
 
     // gets the total of similar characteristics in a row, column, or diagonal
+    //total of each characteristic
     public int getTotal() {
         checkHeight();
         checkColor();
@@ -49,6 +61,7 @@ public class Quadruplet implements Serializable {
 
         return consecDark + consecLight + consecShort + consecTall + consecHole + consecSolid + consecCircle + consecSquare;
     }
+
 
     public boolean getPlaceable() {
         return placeable;
@@ -130,19 +143,23 @@ public class Quadruplet implements Serializable {
         this.consecSquare++;
     }
 
+
+
+    //The following methods cancel out opposing characteristics so the AI does not try to
+    //place where the pattern is already disrupted.
     public void checkHeight() {
         if (this.consecShort > 0 && this.consecTall > 0) {
                 this.consecShort = 0;
                 this.consecTall = 0;
             }
-    }//checkIfShort()
+    }
 
     public void checkShape() {
         if (this.consecSquare > 0 && this.consecCircle > 0) {
                 this.consecSquare = 0;
                 this.consecCircle = 0;
         }
-    } //checkIfSquare()
+    }
 
     public void checkColor() {
         if (this.consecLight > 0 && this.consecDark > 0) {
@@ -150,7 +167,7 @@ public class Quadruplet implements Serializable {
                 this.consecCircle = 0;
                 this.consecSquare = 0;
         }
-    } //checkIfCircle()
+    }
 
     public void checkHole() {
         if (this.consecHole > 0 && this.consecSolid > 0) {
@@ -158,7 +175,7 @@ public class Quadruplet implements Serializable {
                 this.consecSolid = 0;
         }
 
-    } //checkIfDark()
+    }
 
 
 } //Quadruplet class
