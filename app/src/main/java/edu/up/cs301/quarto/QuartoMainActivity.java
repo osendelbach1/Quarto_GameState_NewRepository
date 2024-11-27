@@ -1,5 +1,10 @@
 package edu.up.cs301.quarto;
 
+import android.os.Bundle;
+import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+
 import java.util.ArrayList;
 
 import edu.up.cs301.GameFramework.GameMainActivity;
@@ -60,7 +65,7 @@ public class QuartoMainActivity extends GameMainActivity {
 		// - from 1 to 2 players
 		// - name of game is "quarto Game"
 		// - port number as defined above
-		GameConfig defaultConfig = new GameConfig(playerTypes, 1, 2, "quarto Game",
+		GameConfig defaultConfig = new GameConfig(playerTypes, 1, 2, "Quarto",
 				PORT_NUMBER);
 
 		// Add the default players to the configuration
@@ -88,5 +93,4 @@ public class QuartoMainActivity extends GameMainActivity {
 		//if (state == null) state = new QuartoState();
 		return new QuartoLocalGame(state);
 	}
-
 }

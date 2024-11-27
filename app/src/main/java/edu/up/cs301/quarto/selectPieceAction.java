@@ -10,11 +10,14 @@ package edu.up.cs301.quarto;
 
 import android.util.Log;
 
+import java.io.Serializable;
+
 import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import edu.up.cs301.GameFramework.players.GamePlayer;
 
 
-public class selectPieceAction extends GameAction {
+public class selectPieceAction extends GameAction implements Serializable {
+    private static final long serialVersionUID = 1126202475;
 
     public Piece selected;
 
@@ -31,6 +34,7 @@ public class selectPieceAction extends GameAction {
             //Log.d("Piece removed", "" + initSelected.getShape() + initSelected.getColor() + initSelected.getHole() + initSelected.getHeight());
             this.selected = initSelected;
             //Log.d("Error", "Piece already placed");
+
     }
 }
 

@@ -8,11 +8,13 @@ package edu.up.cs301.quarto;
 */
 
 
-public class Piece {
+import java.io.Serializable;
+
+public class Piece implements Serializable {
+
+    private static final long serialVersionUID = 1126202471;
+
     //instance variables
-
-
-
     private int pieceID;
     private Boolean shortOrTall;
     private Boolean holeOrSolid;

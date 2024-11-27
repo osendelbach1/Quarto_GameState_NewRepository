@@ -1,5 +1,8 @@
 package edu.up.cs301.quarto;
 
+import android.widget.TextView;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -16,7 +19,7 @@ import edu.up.cs301.GameFramework.infoMessage.GameState;
  * @author Olivia Sendelbach, Magnus Graham, Becca Biukoto, Aaron Chu
  * @Date 10/06/24
  */
-public class QuartoState extends GameState {
+public class QuartoState extends GameState implements Serializable {
 
 	//constants for piece characteristics
 	public static final Boolean SHORT = true;
@@ -29,9 +32,9 @@ public class QuartoState extends GameState {
 	public static final Boolean CIRCLE = false;
 
 
-
+	public TextViewModel turn;
 	// to satisfy Serializable interface
-	private static final long serialVersionUID = 7737393762469851826L;
+	private static final long serialVersionUID = 1126202472;
 
 	//game board
 	private Piece[][] board = new Piece[4][4];
