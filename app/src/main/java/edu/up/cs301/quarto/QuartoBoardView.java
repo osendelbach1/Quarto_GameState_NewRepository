@@ -47,6 +47,7 @@ public class QuartoBoardView extends SurfaceView {
     private Bitmap TSDS;
     private Bitmap TSLC;
     private Bitmap TSLS;
+    private Bitmap BLANK;
 
 
     public QuartoBoardView(Context context, AttributeSet attrs) {
@@ -86,11 +87,11 @@ public class QuartoBoardView extends SurfaceView {
           TSDS = BitmapFactory.decodeResource(context.getResources(), R.drawable.tallsoliddarksquare);
           TSLC = BitmapFactory.decodeResource(context.getResources(), R.drawable.tallsolidlightcircle);
           TSLS = BitmapFactory.decodeResource(context.getResources(), R.drawable.tallsolidlightsquare);
-
+          BLANK = BitmapFactory.decodeResource(context.getResources(), R.drawable.white);
     }
 
 
-    private Bitmap pieceToDraw(Piece piece) {
+    protected Bitmap pieceToDraw(Piece piece) {
         if (piece.getHeight() == SHORT && piece.getHole() == HOLE && piece.getColor() == DARK &&  piece.getShape() == CIRCLE) {
             return SHDC;
         }
@@ -142,7 +143,17 @@ public class QuartoBoardView extends SurfaceView {
         else { return null; }
     }
 
+    /**
+     * method draws pieces on the board when player decides to place
+     *
+     * @param canvas
+     * @param left
+     * @param top
+     * @param row
+     * @param col
+     */
     private void drawPieces(Canvas canvas, float left, float top, int row, int col){
+        // existing game state?
         if (qs == null) {
             return;
         }
@@ -152,15 +163,17 @@ public class QuartoBoardView extends SurfaceView {
         }
 
         else if (qs.getBoard()[row][col] != null){
-            int width = getWidth();
-            int height = getHeight();
-            int boardSize = 4;
+            int width = getWidth(); // width of board
+            int height = getHeight(); // height of board
+            int boardSize = 4; // 4x4 board
 
-            int squareWidth = (int)(width / (boardSize + (float) 1));
-            int squareHeight = (int)(height / (boardSize + (float) 1));
-            Piece pieceToDraw = qs.getBoard()[row][col];
+            int squareWidth = (int)(width / (boardSize + (float) 1)); // width of a single square on the board
+            int squareHeight = (int)(height / (boardSize + (float) 1)); // height of a single square on the board
+            Piece pieceToDraw = qs.getBoard()[row][col]; // the piece selected
 
             Bitmap centeredPiece;
+
+            // centers piece in square that's clicked, dependent on piece's height
             if (pieceToDraw.getHeight() == SHORT){
                 centeredPiece = Bitmap.createScaledBitmap(pieceToDraw(pieceToDraw), squareWidth/2, squareHeight/2, false);
                 canvas.drawBitmap(centeredPiece, left + (float)(squareWidth / 3.5), top + (float)(squareHeight / 2.5), blackPaint);

@@ -13,11 +13,11 @@ import java.io.Serializable;
  * Code Reference: Qwirkle QuitGameAction Class
  * @Date 11/27/24
  */
-public class quitGameAction extends GameAction implements Serializable
+public class QuitGameAction extends GameAction implements Serializable
 {
     private static final long serialVersionUID = 1126202472;
 
-    public quitGameAction(GamePlayer player)
+    public QuitGameAction(GamePlayer player)
     {
         super(player);
     }

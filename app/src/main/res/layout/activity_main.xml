@@ -50,7 +50,7 @@
 
             <edu.up.cs301.quarto.QuartoBoardView
                 android:id="@+id/QuartoBoardView"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
         </LinearLayout>
@@ -63,8 +63,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="350dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TextView
@@ -72,12 +71,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Your Turn: Select a Piece" />
-
-                <TextView
-                    android:id="@+id/allPieces"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Pieces Available:" />
 
             </LinearLayout>
 
@@ -87,27 +80,47 @@
                 android:orientation="vertical"
                 tools:ignore="Suspicious0dp">
 
+                <TextView
+                    android:id="@+id/allPieces"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Pieces:" />
+
                 <androidx.gridlayout.widget.GridLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <Button
-                        android:id="@+id/button1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="SHORT, HOLE, DARK, SQUARE" />
+                    <ImageButton
+                        android:id="@+id/imageButton1"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:backgroundTint="#FFFFFF"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/shortholedarksquare" />
 
-                    <Button
-                        android:id="@+id/button2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="SHORT, HOLE, DARK, CIRCLE" />
+                    <ImageButton
+                        android:id="@+id/imageButton2"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:backgroundTint="#FFFFFF"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/shortholedarkcircle" />
 
-                    <Button
-                        android:id="@+id/button3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="SHORT, HOLE, LIGHT, SQUARE" />
+                    <ImageButton
+                        android:id="@+id/imageButton3"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:backgroundTint="#FFFFFF"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/shortholelightsquare" />
+
+                    <ImageButton
+                        android:id="@+id/imageButton4"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:backgroundTint="#FFFFFF"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/shortholelightcircle" />
 
                 </androidx.gridlayout.widget.GridLayout>
 
@@ -115,23 +128,37 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <Button
-                        android:id="@+id/button4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="SHORT, HOLE, LIGHT, CIRCLE" />
+                    <ImageButton
+                        android:id="@+id/imageButton5"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:backgroundTint="#FFFFFF"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/shortsoliddarksquare" />
 
-                    <Button
-                        android:id="@+id/button5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="SHORT, SOLID, DARK, SQUARE" />
+                    <ImageButton
+                        android:id="@+id/imageButton6"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:backgroundTint="#FFFFFF"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/shortsoliddarkcircle" />
 
-                    <Button
-                        android:id="@+id/button6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="SHORT, SOLID, DARK, CIRCLE" />
+                    <ImageButton
+                        android:id="@+id/imageButton7"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:backgroundTint="#FFFFFF"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/shortsolidlightsquare" />
+
+                    <ImageButton
+                        android:id="@+id/imageButton8"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:backgroundTint="#FFFFFF"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/shortsolidlightcircle" />
 
                 </androidx.gridlayout.widget.GridLayout>
 
@@ -139,23 +166,38 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <Button
-                        android:id="@+id/button7"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="SHORT, SOLID, LIGHT, SQUARE" />
+                    <ImageButton
+                        android:id="@+id/imageButton9"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:backgroundTint="#FFFFFF"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/tallholedarksquare" />
 
-                    <Button
-                        android:id="@+id/button8"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="SHORT, SOLID, LIGHT, CIRCLE" />
+                    <ImageButton
+                        android:id="@+id/imageButton10"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:backgroundTint="#FFFFFF"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/tallholedarkcircle"
+                        android:text="TALL, HOLE, DARK, CIRCLE" />
 
-                    <Button
-                        android:id="@+id/button9"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TALL, HOLE, DARK, SQUARE" />
+                    <ImageButton
+                        android:id="@+id/imageButton11"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:backgroundTint="#FFFFFF"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/tallholelightsquare" />
+
+                    <ImageButton
+                        android:id="@+id/imageButton12"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:backgroundTint="#FFFFFF"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/tallholelightcircle" />
 
                 </androidx.gridlayout.widget.GridLayout>
 
@@ -165,57 +207,37 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <Button
-                    android:id="@+id/button10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TALL, HOLE, DARK, CIRCLE" />
+                <ImageButton
+                    android:id="@+id/imageButton13"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:backgroundTint="#FFFFFF"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/tallsoliddarksquare" />
 
-                <Button
-                    android:id="@+id/button11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TALL, HOLE, LIGHT, SQUARE" />
+                <ImageButton
+                    android:id="@+id/imageButton14"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:backgroundTint="#FFFFFF"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/tallsoliddarkcircle" />
 
-                <Button
-                    android:id="@+id/button12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TALL, HOLE, LIGHT, CIRCLE" />
-            </androidx.gridlayout.widget.GridLayout>
+                <ImageButton
+                    android:id="@+id/imageButton15"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:backgroundTint="#FFFFFF"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/tallsolidlightsquare" />
 
-            <androidx.gridlayout.widget.GridLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <Button
-                    android:id="@+id/button13"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TALL, SOLID, DARK, SQUARE" />
-
-                <Button
-                    android:id="@+id/button14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TALL, SOLID, DARK, CIRCLE" />
-
-                <Button
-                    android:id="@+id/button15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TALL, SOLID, LIGHT, SQUARE" />
-            </androidx.gridlayout.widget.GridLayout>
-
-            <androidx.gridlayout.widget.GridLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <Button
-                    android:id="@+id/button16"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TALL, SOLID, LIGHT, CIRCLE" />
+                <ImageButton
+                    android:id="@+id/imageButton16"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:backgroundTint="#FFFFFF"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/tallsolidlightcircle" />
             </androidx.gridlayout.widget.GridLayout>
 
         </LinearLayout>

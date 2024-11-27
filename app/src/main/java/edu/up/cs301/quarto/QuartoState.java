@@ -75,6 +75,9 @@ public class QuartoState extends GameState implements Serializable {
 	public static final boolean SELECTION = true;
 	public static final boolean PLACEMENT = false;
 
+	public boolean getPhase() {
+		return phase;
+	}
 	//0 = active, 1 = won, 2 = lose
 	private int gameStatus;
 	//constants for game state
@@ -218,7 +221,7 @@ public class QuartoState extends GameState implements Serializable {
 		return false;
 	}
 
-	public boolean quitAction(QuitGameAction action)
+	public boolean quitAction(GameAction action)
 	{
 		if(gameStatus == ACTIVE || gameStatus == WON || gameStatus == LOST)
 		{
