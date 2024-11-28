@@ -14,6 +14,9 @@ import android.view.View.OnClickListener;
 
 import java.io.Serializable;
 
+import java.util.ArrayList;
+import java.util.Hashtable;
+
 /**
  * A GUI that displays 16 different pieces on the right of the screen,
  * one TextView that changes depending on the player's turn and phase, another TextView
@@ -46,6 +49,26 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 	private TextViewModel tvm;
 	private ImageButton imgButton;
 	private boolean isPieceSelected = false;
+
+	private ImageButton imageButton1;
+	private ImageButton imageButton2;
+	private ImageButton imageButton3;
+	private ImageButton imageButton4;
+	private ImageButton imageButton5;
+	private ImageButton imageButton6;
+	private ImageButton imageButton7;
+	private ImageButton imageButton8;
+	private ImageButton imageButton9;
+	private ImageButton imageButton10;
+	private ImageButton imageButton11;
+	private ImageButton imageButton12;
+	private ImageButton imageButton13;
+	private ImageButton imageButton14;
+	private ImageButton imageButton15;
+	private ImageButton imageButton16;
+
+	private Hashtable<Piece, ImageButton> buttonTable = new Hashtable<>();
+
 	/**
 	 * constructor
 	 * @param name
@@ -193,9 +216,33 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 				isPieceSelected = false;
 			}
 		}
+
+
 	}// onClick
 
-	// helper method to change image button when selected
+	public void updateAlpha(Hashtable<Piece, ImageButton> table, ArrayList<Piece> unplaced) {
+		for (Piece key : table.keySet()) {
+			boolean pieceFound = false;
+
+			//check if any piece in unplaced matches the key using PieceEquals
+			for (Piece u : unplaced) {
+
+				if (state.PieceEquals(key, u)) {
+					pieceFound = true;
+					break;
+				}
+			}
+
+			if (pieceFound) {
+				table.get(key).setImageAlpha(255);
+			}
+			else {
+				table.get(key).setImageAlpha(128);
+			}
+		}
+
+	}
+
 	public void indicateSelection(ImageButton button) {
 		button.setImageAlpha(128);
 	}
@@ -237,6 +284,7 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 			return;
 		else {
 			this.state = (QuartoState) info;
+			updateAlpha(buttonTable, state.getUnPlaced());
 			updateDisplay(state);
 		}
 		// Determine if it's the human's turn
@@ -269,38 +317,69 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 		textView = myActivity.findViewById(R.id.PlayerTurn);
 
 
-		ImageButton imageButton1 = activity.findViewById(R.id.imageButton1);
+		imageButton1 = activity.findViewById(R.id.imageButton1);
 		imageButton1.setOnClickListener(this);
-		ImageButton imageButton2 = activity.findViewById(R.id.imageButton2);
+		buttonTable.put(state.getPieces()[0], imageButton1);
+
+		imageButton2 = activity.findViewById(R.id.imageButton2);
 		imageButton2.setOnClickListener(this);
-		ImageButton imageButton3 = activity.findViewById(R.id.imageButton3);
+		buttonTable.put(state.getPieces()[1], imageButton2);
+
+		imageButton3 = activity.findViewById(R.id.imageButton3);
 		imageButton3.setOnClickListener(this);
-		ImageButton imageButton4 = activity.findViewById(R.id.imageButton4);
+		buttonTable.put(state.getPieces()[2], imageButton3);
+
+		imageButton4 = activity.findViewById(R.id.imageButton4);
 		imageButton4.setOnClickListener(this);
-		ImageButton imageButton5 = activity.findViewById(R.id.imageButton5);
+		buttonTable.put(state.getPieces()[3], imageButton4);
+
+		imageButton5 = activity.findViewById(R.id.imageButton5);
 		imageButton5.setOnClickListener(this);
-		ImageButton imageButton6 = activity.findViewById(R.id.imageButton6);
+		buttonTable.put(state.getPieces()[4], imageButton5);
+
+		imageButton6 = activity.findViewById(R.id.imageButton6);
 		imageButton6.setOnClickListener(this);
-		ImageButton imageButton7 = activity.findViewById(R.id.imageButton7);
+		buttonTable.put(state.getPieces()[5], imageButton6);
+
+		imageButton7 = activity.findViewById(R.id.imageButton7);
 		imageButton7.setOnClickListener(this);
-		ImageButton imageButton8 = activity.findViewById(R.id.imageButton8);
+		buttonTable.put( state.getPieces()[6], imageButton7);
+
+		imageButton8 = activity.findViewById(R.id.imageButton8);
 		imageButton8.setOnClickListener(this);
-		ImageButton imageButton9 = activity.findViewById(R.id.imageButton9);
+		buttonTable.put(state.getPieces()[7], imageButton8);
+
+		imageButton9 = activity.findViewById(R.id.imageButton9);
 		imageButton9.setOnClickListener(this);
-		ImageButton imageButton10 = activity.findViewById(R.id.imageButton10);
+		buttonTable.put(state.getPieces()[8], imageButton9);
+
+		imageButton10 = activity.findViewById(R.id.imageButton10);
 		imageButton10.setOnClickListener(this);
-		ImageButton imageButton11 = activity.findViewById(R.id.imageButton11);
+		buttonTable.put(state.getPieces()[9], imageButton10);
+
+		imageButton11 = activity.findViewById(R.id.imageButton11);
 		imageButton11.setOnClickListener(this);
-		ImageButton imageButton12 = activity.findViewById(R.id.imageButton12);
+		buttonTable.put(state.getPieces()[10], imageButton11);
+
+		imageButton12 = activity.findViewById(R.id.imageButton12);
 		imageButton12.setOnClickListener(this);
-		ImageButton imageButton13 = activity.findViewById(R.id.imageButton13);
+		buttonTable.put(state.getPieces()[11], imageButton12);
+
+		imageButton13 = activity.findViewById(R.id.imageButton13);
 		imageButton13.setOnClickListener(this);
-		ImageButton imageButton14 = activity.findViewById(R.id.imageButton14);
+		buttonTable.put(state.getPieces()[12], imageButton13);
+
+		imageButton14 = activity.findViewById(R.id.imageButton14);
 		imageButton14.setOnClickListener(this);
-		ImageButton imageButton15 = activity.findViewById(R.id.imageButton15);
+		buttonTable.put(state.getPieces()[13], imageButton14);
+
+		imageButton15 = activity.findViewById(R.id.imageButton15);
 		imageButton15.setOnClickListener(this);
-		ImageButton imageButton16 = activity.findViewById(R.id.imageButton16);
+		buttonTable.put(state.getPieces()[14], imageButton15);
+
+		imageButton16 = activity.findViewById(R.id.imageButton16);
 		imageButton16.setOnClickListener(this);
+		buttonTable.put(state.getPieces()[15], imageButton16);
 
 		Button QuartoButton = activity.findViewById(R.id.quartoButton);
 		QuartoButton.setOnClickListener(this);
