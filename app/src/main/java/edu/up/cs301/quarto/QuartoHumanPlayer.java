@@ -191,7 +191,7 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 		// to quit the game :(
 		if(button.getId() == R.id.quitButton)
 		{
-			QuitGameAction qga = new QuitGameAction((this));
+			QuitGameAction qga = new QuitGameAction(this, this.myActivity);
 			game.sendAction(qga);
 		}
 

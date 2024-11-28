@@ -2,6 +2,8 @@ package edu.up.cs301.quarto;
 
 import static androidx.core.app.ActivityCompat.finishAffinity;
 
+import android.app.Activity;
+
 import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import edu.up.cs301.GameFramework.players.GamePlayer;
 
@@ -18,10 +20,11 @@ import java.io.Serializable;
 public class QuitGameAction extends GameAction implements Serializable
 {
     //private static final long serialVersionUID = 1126202468;
-
-    public QuitGameAction(GamePlayer player)
+    public Activity myActivity;
+    public QuitGameAction(GamePlayer player, Activity activity)
     {
         super(player);
+        this.myActivity = activity;
     }
 
     //Makes it so you can always quit
@@ -29,12 +32,5 @@ public class QuitGameAction extends GameAction implements Serializable
     {
         return true;
     }
-
-    public void quitAction()
-    {
-        GamePlayer GamePlayer = this.getPlayer();
-        //System.exit(0);
-    }
-
 
 }

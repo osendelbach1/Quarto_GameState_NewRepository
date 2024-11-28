@@ -90,7 +90,7 @@ public class QuartoLocalGame extends LocalGame implements Serializable {
 
 		else if(action instanceof QuitGameAction) {
 			QuitGameAction qga = (QuitGameAction)action;
-			boolean result = this.gameState.quitAction();
+			boolean result = this.gameState.quitAction(qga.myActivity);
 			Log.d("State: ", "" + state.toString());
 			return result;
 		}

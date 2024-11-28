@@ -1,5 +1,7 @@
 package edu.up.cs301.quarto;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.widget.TextView;
 
 import java.io.Serializable;
@@ -8,6 +10,7 @@ import java.util.Arrays;
 
 import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import edu.up.cs301.GameFramework.infoMessage.GameState;
+import edu.up.cs301.GameFramework.utilities.MessageBox;
 
 
 /**
@@ -221,9 +224,30 @@ public class QuartoState extends GameState implements Serializable {
 		return false;
 	}
 
-	public boolean quitAction()
+	public boolean quitAction(Activity myActivity)
 	{
-		if(gameStatus == ACTIVE)
+		String quitQuestion =
+				"Do you really want to quit?";
+		String posLabel =
+				"Quit";
+		String negLabel =
+				"Continue playing game";
+		MessageBox.popUpChoice(quitQuestion, posLabel, negLabel,
+				new DialogInterface.OnClickListener(){
+					public void onClick(DialogInterface di, int val) {
+						// if the user says that he wants to quit, exit the
+						// application
+						System.exit(0);
+					}},
+				null,
+				myActivity);
+		// return 'true' because we have handled this event
+		return true;
+
+
+
+
+		/*if(gameStatus == ACTIVE)
 		{
 			//display "quitting gam...e"
 			gameStatus = QUITTED;
@@ -234,10 +258,10 @@ public class QuartoState extends GameState implements Serializable {
 		else if (gameStatus == LOST) {
 			//display defeat message
 		}
-
+		System.exit(0);
 		//exit the game
 
-		return true;
+		return true;*/
 	}
 
 	public boolean endTurnAction()
