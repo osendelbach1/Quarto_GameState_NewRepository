@@ -29,15 +29,6 @@ public class placePieceAction extends GameAction implements Serializable {
         squareTouched(x, y);
     }
 
-    public placePieceAction(GamePlayer player, float x, float y, Piece p, float height, float width) {
-        super(player);
-        this.p = p;
-        squareTouched(x, y);
-    }
-
-    private float height;
-    private float width;
-
     public int getRow() {
         return row;
     }
