@@ -10,8 +10,6 @@ instance contains the total of each characteristic per row/col/diagonal.
 @Author Olivia Sendelbach
 @Author Becca Biukoto
  */
-public class Quadruplet {
-
 
 /**
  * Assists with Smart AI functionality in placing the piece
@@ -36,7 +34,6 @@ public class Quadruplet implements Serializable {
     private int consecCircle;
     private int consecSquare;
     private boolean placeable;
-    private boolean consecutive;
 
     // constructor
     public Quadruplet() {
@@ -71,72 +68,28 @@ public class Quadruplet implements Serializable {
         this.placeable = placeable;
     }
 
-    // Getter and Setter for consecDark
-    public int getConsecDark() {
-        return consecDark;
-    }
-
     public void addConsecDark() {
         this.consecDark++;
-    }
-
-    // Getter and Setter for consecLight
-    public int gettConsecLight() {
-        return consecLight;
     }
 
     public void addConsecLight() {
         this.consecLight++;
     }
 
-    // Getter and Setter for consecShort
-    public int getConsecShort() {
-        return consecShort;
-    }
-
     public void addConsecShort() {
         this.consecShort++;
-    }
-
-    // Getter and Setter for consecTall
-    public int getConsecTall() {
-        return consecTall;
     }
 
     public void addConsecTall() {
         this.consecTall++;
     }
 
-    // Getter and Setter for consecHole
-    public int getConsecHole() {
-        return consecHole;
-    }
-
     public void addConsecHole() {
         this.consecHole++;
     }
 
-    // Getter and Setter for consecSolid
-    public int getConsecSolid() {
-        return consecSolid;
-    }
-
-    public void addConsecSolid() {
-        this.consecSolid++;
-    }
-
-    // Getter and Setter for consecCircle
-    public int getConsecCircle() {
-        return consecCircle;
-    }
-
     public void addConsecCircle() {
         this.consecCircle++;
-    }
-
-    // Getter and Setter for consecSquare
-    public int getConsecSquare() {
-        return consecSquare;
     }
 
     public void addConsecSquare() {
