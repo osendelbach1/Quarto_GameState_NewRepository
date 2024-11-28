@@ -34,7 +34,7 @@ public class QuartoState extends GameState implements Serializable {
 
 	//public TextViewModel turn;
 	// to satisfy Serializable interface
-	private static final long serialVersionUID = 1126202472;
+	private static final long serialVersionUID = 1126202471;
 
 	//game board
 	private Piece[][] board = new Piece[4][4];

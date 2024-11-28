@@ -70,7 +70,11 @@
                     android:id="@+id/PlayerTurn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Your Turn: Select a Piece" />
+                    android:background="#306632"
+                    android:text="Your Turn: Select a Piece"
+                    android:textAlignment="center"
+                    android:textColor="#F6F6F6"
+                    android:textSize="24sp" />
 
             </LinearLayout>
 
@@ -84,7 +88,8 @@
                     android:id="@+id/allPieces"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Pieces:" />
+                    android:text="Pieces Available:"
+                    android:textSize="24sp" />
 
                 <androidx.gridlayout.widget.GridLayout
                     android:layout_width="match_parent"

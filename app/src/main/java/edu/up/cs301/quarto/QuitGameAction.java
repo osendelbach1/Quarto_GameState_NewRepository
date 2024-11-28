@@ -1,5 +1,7 @@
 package edu.up.cs301.quarto;
 
+import static androidx.core.app.ActivityCompat.finishAffinity;
+
 import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import edu.up.cs301.GameFramework.players.GamePlayer;
 
@@ -15,7 +17,7 @@ import java.io.Serializable;
  */
 public class QuitGameAction extends GameAction implements Serializable
 {
-    private static final long serialVersionUID = 1126202472;
+    private static final long serialVersionUID = 1126202468;
 
     public QuitGameAction(GamePlayer player)
     {
@@ -33,4 +35,6 @@ public class QuitGameAction extends GameAction implements Serializable
         GamePlayer GamePlayer = this.getPlayer();
         //System.exit(0);
     }
+
+
 }

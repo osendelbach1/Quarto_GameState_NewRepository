@@ -159,6 +159,12 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 			game.sendAction(dva);
 		}
 
+		if(button.getId() == R.id.quitButton)
+		{
+			QuitGameAction qga = new QuitGameAction((this));
+			game.sendAction(qga);
+		}
+
 		if(selection) {
 			// Get the Piece
 			Piece p = state.getPieces()[index];
@@ -180,8 +186,6 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 				isPieceSelected = false;
 			}
 		}
-
-
 	}// onClick
 
 	public void indicateSelection(ImageButton button) {
@@ -239,9 +243,6 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 		// Update the TextView
 		textView.setText(turnMessage);
 
-		if (!isHumanTurn && isSelectionPhase) {
-			indicateSelection(imgButton);
-		}
 	}
 
 	/**
@@ -296,6 +297,9 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 		Button QuartoButton = activity.findViewById(R.id.quartoButton);
 		QuartoButton.setOnClickListener(this);
+
+		Button QuitButton = activity.findViewById(R.id.quitButton);
+		QuitButton.setOnClickListener(this);
 
 		QBV = activity.findViewById(R.id.QuartoBoardView);
 		QBV.setOnTouchListener(this);
