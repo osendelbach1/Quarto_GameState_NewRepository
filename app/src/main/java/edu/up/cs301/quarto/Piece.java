@@ -12,7 +12,7 @@ import java.io.Serializable;
 
 public class Piece implements Serializable {
 
-    private static final long serialVersionUID = 1126202474;
+    //private static final long serialVersionUID = 1126202474;
 
     //instance variables
     private int pieceID;

@@ -17,7 +17,6 @@ import edu.up.cs301.GameFramework.players.GamePlayer;
 
 
 public class selectPieceAction extends GameAction implements Serializable {
-    private static final long serialVersionUID = 1126202475;
 
     public Piece selected;
 

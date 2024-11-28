@@ -14,7 +14,6 @@ import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import edu.up.cs301.GameFramework.players.GamePlayer;
 
 public class placePieceAction extends GameAction implements Serializable {
-    private static final long serialVersionUID = 1126202471;
 
     //instance variables
     private int row;
@@ -28,6 +27,14 @@ public class placePieceAction extends GameAction implements Serializable {
         this.p = p;
         squareTouched(x, y);
     }
+    public placePieceAction(GamePlayer player, float x, float y, Piece p, float height, float width) {
+        super(player);
+        this.p = p;
+        squareTouched(x, y);
+    }
+
+    private float height;
+    private float width;
 
     public int getRow() {
         return row;
