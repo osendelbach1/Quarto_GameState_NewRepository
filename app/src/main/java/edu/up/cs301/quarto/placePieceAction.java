@@ -1,24 +1,27 @@
-/*
-* @author Olivia Sendelbach
- * @author Magnus Graham
- * @author Becca Biukoto
- * @version November 10, 2024
- */
 package edu.up.cs301.quarto;
-
-import android.provider.Settings;
 
 import java.io.Serializable;
 
 import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import edu.up.cs301.GameFramework.players.GamePlayer;
 
+/**
+ * A place piece action the players send to the game to place a
+ * piece in a grid on the board.
+ *
+ *
+ * @author Olivia Sendelbach
+ * @author Magnus Graham
+ * @author Becca Biukoto
+ * @version November 10, 2024
+ */
+
 public class placePieceAction extends GameAction implements Serializable {
 
     //instance variables
-    private int row;
-    private int col;
-    public Piece p;
+    private int row; // ... of board
+    private int col; // ... of board
+    public Piece p; // piece to be placed
 
 
     //implements parent class in constructor
@@ -27,15 +30,15 @@ public class placePieceAction extends GameAction implements Serializable {
         this.p = p;
         squareTouched(x, y);
     }
+
+    // used in QuartoHumanPlayer to draw piece on board
     public placePieceAction(GamePlayer player, float x, float y, Piece p, float height, float width) {
         super(player);
         this.p = p;
         squareTouched(x, y);
     }
 
-    private float height;
-    private float width;
-
+    // getters
     public int getRow() {
         return row;
     }
@@ -45,7 +48,9 @@ public class placePieceAction extends GameAction implements Serializable {
     }
 
 
-    // checks which square on the board is touched by checking the variables passed in and seeing if they are within the bounds of each tile
+    /** checks which square on the board is touched by
+    // checking the variables passed in and seeing if they
+    // are within the bounds of each tile */
     public void squareTouched(float x, float y) {
         if (x >= 100 && x <= 300 && y >= 50 && y <= 250) {
             row = 0;

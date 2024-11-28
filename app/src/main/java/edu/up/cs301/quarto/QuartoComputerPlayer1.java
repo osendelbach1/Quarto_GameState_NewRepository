@@ -2,6 +2,7 @@ package edu.up.cs301.quarto;
 
 import android.widget.ImageButton;
 
+import java.io.Serializable;
 import java.util.Random;
 
 import edu.up.cs301.GameFramework.GameMainActivity;
@@ -12,18 +13,17 @@ import edu.up.cs301.GameFramework.utilities.Tickable;
 import edu.up.cs301.GameFramework.infoMessage.NotYourTurnInfo;
 
 /**
- * A computer-version of a quarto-player.  Since this is such a simple game,
- * it just sends "+" and "-" commands with equal probability, at an average
- * rate of one per second. 
- * 
- @author Olivia Sendelbach
+ * A computer-version of a quarto-player. It chooses a random piece from
+ * the unplaced array in QuartoState and places it in a random position
+ * on the board.
+ *
+ *
+ * @author Olivia Sendelbach
  * @author Magnus Graham
  * @author Becca Biukoto
  * @version November 16, 2024
- * 
- * @version September 2013
  */
-public class QuartoComputerPlayer1 extends GameComputerPlayer implements Tickable {
+public class QuartoComputerPlayer1 extends GameComputerPlayer implements Tickable, Serializable {
 	
     /**
      * Constructor for objects of class quartoComputerPlayer1
@@ -38,14 +38,7 @@ public class QuartoComputerPlayer1 extends GameComputerPlayer implements Tickabl
     public QuartoComputerPlayer1(String name) {
         // invoke superclass constructor
         super(name);
-        
-        // start the timer, ticking 20 times per second
-        getTimer().setInterval(5000);
-        getTimer().start();
     }
-	public void indicateSelection(ImageButton button) {
-		button.setImageAlpha(128);
-	}
 	/**
      * callback method--game's state has changed
      * 
@@ -88,25 +81,8 @@ public class QuartoComputerPlayer1 extends GameComputerPlayer implements Tickabl
 		Piece q = state.getUnPlaced().get(randomNumber3);
 		selectPieceAction spa = new selectPieceAction(this, q);
 		game.sendAction(spa);
-		indicateSelection(imageButton);
 
 		declareVictoryAction dva = new declareVictoryAction(this);
 		game.sendAction(dva);
-	}
-	
-	/**
-	 * callback method: the timer ticked
-	 */
-	protected void timerTicked() {
-		// 5% of the time, increment or decrement the quarto
-		if (Math.random() >= 0.05) return; // do nothing 95% of the time
-
-		// "flip a coin" to determine whether to increment or decrement
-		boolean move = Math.random() >= 0.5;
-	}
-
-
-	@Override
-	public void setAsGui(GameMainActivity a) {
 	}
 }

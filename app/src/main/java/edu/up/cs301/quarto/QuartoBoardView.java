@@ -17,8 +17,11 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.SurfaceView;
 
+import java.io.Serializable;
+
 /**
- * draws the Quarto board so it appears in surface view
+ * Draws the Quarto board so it appears in surface view
+ * as well as the pieces.
  *
  * @author Becca Biukoto
  * @author Olivia Sendelbach
@@ -26,11 +29,12 @@ import android.view.SurfaceView;
  * @version 11/13/2024
  */
 
-public class QuartoBoardView extends SurfaceView {
-
+public class QuartoBoardView extends SurfaceView implements Serializable {
+    // instance variables
     private Paint blackPaint; // for color
-    private QuartoState qs;
+    private QuartoState qs; // game state
 
+    // pieces (height,depth,color,shape)
     private Bitmap SHDC;
     private Bitmap SHDS;
     private Bitmap SHLC;
@@ -47,6 +51,8 @@ public class QuartoBoardView extends SurfaceView {
     private Bitmap TSDS;
     private Bitmap TSLC;
     private Bitmap TSLS;
+
+    // for pieces already selected
     private Bitmap BLANK;
 
 
@@ -64,12 +70,13 @@ public class QuartoBoardView extends SurfaceView {
         renderPieces(context);
     }
 
-    // setter method for the shogi state
+    // setter method for the Quarto state
     public void setQuartoState(QuartoState state){
         this.qs = state;
         invalidate();
     }
 
+    // pieces coinciding with drawable
     public void renderPieces(Context context){
          SHDC = BitmapFactory.decodeResource(context.getResources(), R.drawable.shortholedarkcircle);
           SHDS = BitmapFactory.decodeResource(context.getResources(), R.drawable.shortholedarksquare);
@@ -90,7 +97,7 @@ public class QuartoBoardView extends SurfaceView {
           BLANK = BitmapFactory.decodeResource(context.getResources(), R.drawable.white);
     }
 
-
+    // determines what drawable to align with piece selected
     protected Bitmap pieceToDraw(Piece piece) {
         if (piece.getHeight() == SHORT && piece.getHole() == HOLE && piece.getColor() == DARK &&  piece.getShape() == CIRCLE) {
             return SHDC;
@@ -153,7 +160,7 @@ public class QuartoBoardView extends SurfaceView {
      * @param col
      */
     private void drawPieces(Canvas canvas, float left, float top, int row, int col){
-        // existing game state?
+        // is there an existing game state?
         if (qs == null) {
             return;
         }
@@ -185,6 +192,7 @@ public class QuartoBoardView extends SurfaceView {
         }
     }
 
+    // guidelines on how to draw the board
     private void drawBoard(Canvas canvas) {
         /**
          * External citation

@@ -6,6 +6,8 @@ import edu.up.cs301.GameFramework.LocalGame;
 import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import android.util.Log;
 
+import java.io.Serializable;
+
 /**
  * A class that represents the state of a game. In our Quarto game,
  * we have to know who's turn it is and whether they are placing a piece on
@@ -17,24 +19,14 @@ import android.util.Log;
  * @author Becca Biukoto
  * @version October 11, 2024
  */
-public class QuartoLocalGame extends LocalGame {
-
-
-	// When a quarto game is played, any number of players. The first player
-	// is trying to get the quarto value to TARGET_MAGNITUDE; the second player,
-	// if present, is trying to get the quarto to -TARGET_MAGNITUDE. The
-	// remaining players are neither winners nor losers, but can interfere by
-	// modifying the quarto.
-	public static final int TARGET_MAGNITUDE = 10;
-
+public class QuartoLocalGame extends LocalGame implements Serializable {
 	// the game's state
 	private QuartoState gameState;
 
 	/**
 	 * can this player move
 	 *
-	 * @return true, because all player are always allowed to move at all times,
-	 * as this is a fully asynchronous game
+	 * @return player index
 	 */
 	@Override
 	protected boolean canMove(int playerIdx) {
@@ -55,7 +47,7 @@ public class QuartoLocalGame extends LocalGame {
 	}
 
 	/**
-	 * This ctor should be called when a new quarto game is started
+	 * This ctor should be called when a new game is started
 	 */
 	public QuartoLocalGame(GameState state) {
 		// initialize the game state, with the quarto value starting at 0
@@ -67,7 +59,7 @@ public class QuartoLocalGame extends LocalGame {
 	}
 
 	/**
-	 * Will add actions: select piece, place piece, quit, end turn, and declare victory
+	 * Determines what move is being made
 	 */
 	@Override
 	protected boolean makeMove(GameAction action) {
@@ -91,17 +83,17 @@ public class QuartoLocalGame extends LocalGame {
 			return result;
 		}
 
-//		else if (action instanceof declareVictoryAction) {
-//			boolean result = this.gameState.declareVictoryAction();
-//			return result;
-//		}
-//
-//		else if(action instanceof QuitGameAction) {
-//			QuitGameAction qga = (QuitGameAction)action;
-//			boolean result = this.gameState.quitAction((QuitGameAction) action);
-//			Log.d("State: ", "" + state.toString());
-//			return result;
-//		}
+		else if (action instanceof declareVictoryAction) {
+			boolean result = this.gameState.declareVictoryAction();
+			return result;
+		}
+
+		else if(action instanceof QuitGameAction) {
+			QuitGameAction qga = (QuitGameAction)action;
+			boolean result = this.gameState.quitAction((QuitGameAction) action);
+			Log.d("State: ", "" + state.toString());
+			return result;
+		}
 		else {
 			// denote that this was an illegal move
 			return false;
@@ -120,38 +112,3 @@ public class QuartoLocalGame extends LocalGame {
 
 	}//sendUpdatedSate
 } // class quartoLocalGame
-
-
-/** the following comments are the original code from the counter game
- * that may be useful for future use.
- */
-
-//	@Override
-//	protected String checkIfGameOver() {
-//	}
-
-//get the value of the quarto
-//		int quartoVal = this.gameState.getquarto();
-//
-//		if (quartoVal >= TARGET_MAGNITUDE) {
-//			 quarto has reached target magnitude, so return message that
-//			 player 0 has won.
-//			return playerNames[0]+" has won.";
-//		}
-//		else if (quartoVal <= -TARGET_MAGNITUDE) {
-//			 quarto has reached negative of target magnitude; if there
-//			 is a second player, return message that this player has won,
-//			 otherwise that the first player has lost
-//			if (playerNames.length >= 2) {
-//				return playerNames[1]+" has won.";
-//			}
-//			else {
-//				return playerNames[0]+" has lost.";
-//			}
-//		}else {
-//			game is still between the two limit: return null, as the game
-//			 is not yet over
-//			return null;
-//
-//		}
-

@@ -1,6 +1,21 @@
 package edu.up.cs301.quarto;
 
-public class Quadruplet {
+import java.io.Serializable;
+
+/**
+ * Assists with Smart AI functionality in placing the piece
+ * in the most optimal grid on the board. Also takes into
+ * account how many pieces with the same characteristic are in a row,
+ * column, and/or diagonal.
+ *
+ * @author Magnus Graham
+ * @author Olivia Sendelbach
+ * @author Becca Biukoto
+ * @version 11/22/2024
+ */
+
+public class Quadruplet implements Serializable {
+    // instance variables keeping count of consecutive characteristics
     private int consecDark;
     private int consecLight;
     private int consecShort;
@@ -12,6 +27,7 @@ public class Quadruplet {
     private boolean placeable;
     private boolean consecutive;
 
+    // constructor
     public Quadruplet() {
         this.consecDark = 0;
         this.consecLight = 0;
@@ -24,6 +40,7 @@ public class Quadruplet {
         this.placeable = false;
     }
 
+    // gets the total of similar characteristics in a row, column, or diagonal
     public int getTotal() {
         checkHeight();
         checkColor();
@@ -113,9 +130,6 @@ public class Quadruplet {
         this.consecSquare++;
     }
 
-   
-    
-    
     public void checkHeight() {
         if (this.consecShort > 0 && this.consecTall > 0) {
                 this.consecShort = 0;

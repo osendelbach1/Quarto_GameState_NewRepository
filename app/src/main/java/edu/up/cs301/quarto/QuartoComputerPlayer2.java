@@ -9,29 +9,24 @@ import android.widget.Button;
 import android.widget.TextView;
 
 
+import java.io.Serializable;
 import java.util.Hashtable;
 import java.util.ArrayList;
 
 import java.util.Random;
 
-//import edu.up.cs301.quarto.Quadruplet;
-
-
-
 
 /**
-* A computer-version of a quarto-player.  Since this is such a simple game,
-* it just sends "+" and "-" commands with equal probability, at an average
-* rate of one per second. This computer player does, however, have an option to
-* display the game as it is progressing, so if there is no human player on the
-* device, this player will display a GUI that shows the value of the quarto
-* as the game is being played.
-* 
-* @author Steven R. Vegdahl
-* @author Andrew M. Nuxoll
-* @version September 2013
-*/
-public class QuartoComputerPlayer2 extends QuartoComputerPlayer1 {
+ * Smart AI:
+ * Compared to the dumb AI, this one is meticulous about which piece to select
+ * and finds the most optimal place to put the piece on the board. It's main goal is to win
+ *
+ * @author Magnus Graham
+ * @author Olivia Sendelbach
+ * @author Becca Biukoto
+ * @version 11/22/2024
+ */
+public class QuartoComputerPlayer2 extends QuartoComputerPlayer1 implements Serializable {
 
 	public static final Boolean SHORT = true;
 	public static final Boolean TALL = false;
@@ -362,18 +357,15 @@ public class QuartoComputerPlayer2 extends QuartoComputerPlayer1 {
 	}
 
 	/** 
-	 * sets the quarto value in the text view
+	 *
 	 *  */
 	private void updateDisplay() {
-		// if the guiHandler is available, set the new quarto value
-		// in the quarto-display widget, doing it in the Activity's
-		// thread.
 		if (guiHandler != null) {
 			guiHandler.post(
 					new Runnable() {
 						public void run() {
 						if (quartoValueTextView != null && currentGameState != null) {
-							//quartoValueTextView.setText("" + currentGameState.getquarto());
+							//TODO: edit this area
 						}
 					}});
 		}
@@ -406,17 +398,7 @@ public class QuartoComputerPlayer2 extends QuartoComputerPlayer1 {
 		this.guiHandler = new Handler();
 		
 		// Load the layout resource for the our GUI's configuration
-		activityForGui.setContentView(R.layout.quarto_human_player);
-
-		// remember who our text view is, for updating the quarto value
-		this.quartoValueTextView =
-				(TextView) activityForGui.findViewById(R.id.quartoValueTextView);
-		
-		// disable the buttons, since they will have no effect anyway
-		Button plusButton = (Button)activityForGui.findViewById(R.id.plusButton);
-		plusButton.setEnabled(false);
-		Button minusButton = (Button)activityForGui.findViewById(R.id.minusButton);
-		minusButton.setEnabled(false);
+		activityForGui.setContentView(R.layout.activity_main);
 		
 		// if the state is non=null, update the display
 		if (currentGameState != null) {

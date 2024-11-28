@@ -1,5 +1,14 @@
 package edu.up.cs301.quarto;
 
+/**
+ * A class meant to assist with changing TextView to reflect the current
+ * player's turn and the phase they're on
+ *
+ * @author Becca Biukoto
+ * @author Olivia Sendelbach
+ * @author Magnus Graham
+ * @version 11/18/2024
+ */
 public class TextViewModel {
 
     // updates textview of player turn and phase

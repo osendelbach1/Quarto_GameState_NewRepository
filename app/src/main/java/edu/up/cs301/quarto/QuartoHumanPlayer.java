@@ -12,20 +12,23 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
 
+import java.io.Serializable;
+
 /**
- * A GUI of a quarto-player. The GUI displays the current value of the quarto,
- * and allows the human player to press the '+' and '-' buttons in order to
- * send moves to the game.
+ * A GUI that displays 16 different pieces on the right of the screen,
+ * one TextView that changes depending on the player's turn and phase, another TextView
+ * that says "Pieces Available."
  *
- * Just for fun, the GUI is implemented so that if the player presses either button
- * when the quarto-value is zero, the screen flashes briefly, with the flash-color
- * being dependent on whether the player is player 0 or player 1.
+ * Pressing an image button would have the next player display that same piece on a board they clicked.
+ * This class implements both OnTouch and OnClick listeners since we have buttons and a surface
+ * view.
  *
- * @author Steven R. Vegdahl
- * @author Andrew M. Nuxoll
- * @version July 2013
+ * @author Becca Biukoto
+ * @author Magnus Graham
+ * @author Olivia Sendelbach
+ * @version 11/7/2024
  */
-public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListener, View.OnTouchListener {
+public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListener, View.OnTouchListener, Serializable {
 
 	/* instance variables */
 
@@ -64,7 +67,7 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 	}
 
 	/**
-	 * sets the quarto value in the text view
+	 * sets the QuartoState
 	 */
 	protected void updateDisplay(QuartoState qs) {
 		if (qs != null) {
@@ -73,8 +76,10 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 	}
 
 	/**
-	 * this method gets called when the user clicks the '+' or '-' button. It
-	 * creates a new quartoMoveAction to return to the parent activity.
+	 * This method gets called when the user clicks an image button with a corresponding
+	 * piece, quarto button to declare victory, and the quit button. A selectPieceAction, quitGameAction,
+	 * and declareVictoryAction, is called and sent to the game, along with a change of
+	 * the TextView reflecting the player's turn and phase.
 	 *
 	 * @param button
 	 * 		the button that was clicked
@@ -154,11 +159,13 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 			imgButton = myActivity.findViewById(R.id.imageButton16);
 		}
 
+		// to declare victory!
 		if (button.getId() == R.id.quartoButton) {
 			declareVictoryAction dva = new declareVictoryAction((this));
 			game.sendAction(dva);
 		}
 
+		// to quit the game :(
 		if(button.getId() == R.id.quitButton)
 		{
 			QuitGameAction qga = new QuitGameAction((this));
@@ -181,18 +188,19 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 				}
 			}
 			if (!found) {
-				Log.d("Error", "Piece already placed!");
-				this.flash(0xFFFF0000, 100);
+				Log.d("Error", "Piece already placed!"); // for debugging
+				this.flash(0xFFFF0000, 100); // flashes red to indicate piece has been placed
 				isPieceSelected = false;
 			}
 		}
 	}// onClick
 
+	// helper method to change image button when selected
 	public void indicateSelection(ImageButton button) {
 		button.setImageAlpha(128);
 	}
 
-
+	// helper method to change textview according to turn and phase
 	private CharSequence getTurnAndPhase (boolean isHumanTurn, boolean isSelectionPhase) {
 		if (isHumanTurn) {
 			return isSelectionPhase ? "Your Turn: Select a Piece" : "Your Turn: Place the Piece";
@@ -234,8 +242,7 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 		// Determine if it's the human's turn
 		boolean isHumanTurn = state.getTurn() == 0; // Assuming 0 = human, 1 = computer
 		boolean isSelectionPhase = state.getPhase(); // Assuming true = selection, false = placement
-		Log.d("GameState", "Turn: " + state.getTurn() + ", Phase: " + state.getPhase());
-
+		Log.d("GameState", "Turn: " + state.getTurn() + ", Phase: " + state.getPhase()); // debugging
 
 		// Get the appropriate message
 		CharSequence turnMessage = getTurnAndPhase(isHumanTurn, isSelectionPhase);

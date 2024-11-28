@@ -1,21 +1,22 @@
 package edu.up.cs301.quarto;
-/*
+import java.io.Serializable;
+
+/**
+ * This class defines what a piece is by their characteristics.
+ * It assists the QuartoState with identifying different pieces.
+ *
+ *
  * @author Olivia Sendelbach
  * @author Magnus Graham
  * @author Aaron Chu
  * @author Becca Biukoto
  * @version October 20, 2024
-*/
-
-
-import java.io.Serializable;
-
+ */
 public class Piece implements Serializable {
 
     //private static final long serialVersionUID = 1126202474;
 
     //instance variables
-    private int pieceID;
     private Boolean shortOrTall;
     private Boolean holeOrSolid;
     private Boolean darkOrLight;
@@ -29,6 +30,7 @@ public class Piece implements Serializable {
         this.squareOrCircle = shape;
     }
 
+    // constructor to create a new piece if needed
     public Piece(Piece p) {
         this.shortOrTall = p.getHeight();
         this.holeOrSolid = p.getHole();
