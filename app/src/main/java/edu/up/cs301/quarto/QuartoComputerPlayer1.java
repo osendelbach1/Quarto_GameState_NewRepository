@@ -1,7 +1,10 @@
 package edu.up.cs301.quarto;
 
+import android.widget.ImageButton;
+
 import java.util.Random;
 
+import edu.up.cs301.GameFramework.GameMainActivity;
 import edu.up.cs301.GameFramework.infoMessage.GameState;
 import edu.up.cs301.GameFramework.players.GameComputerPlayer;
 import edu.up.cs301.GameFramework.infoMessage.GameInfo;
@@ -29,7 +32,8 @@ public class QuartoComputerPlayer1 extends GameComputerPlayer implements Tickabl
      * 		the player's name
      */
 	private QuartoState state;
-
+	private int randomNumber3;
+	private ImageButton imageButton;
 
     public QuartoComputerPlayer1(String name) {
         // invoke superclass constructor
@@ -39,7 +43,9 @@ public class QuartoComputerPlayer1 extends GameComputerPlayer implements Tickabl
         getTimer().setInterval(5000);
         getTimer().start();
     }
-
+	public void indicateSelection(ImageButton button) {
+		button.setImageAlpha(128);
+	}
 	/**
      * callback method--game's state has changed
      * 
@@ -72,14 +78,17 @@ public class QuartoComputerPlayer1 extends GameComputerPlayer implements Tickabl
 		Random random = new Random();
 		int randomNumber1 = (int)random.nextInt(900);
 		int randomNumber2 = (int)random.nextInt(850);
+		sleep(2);
+
 		placePieceAction ppa = new placePieceAction(this, randomNumber1, randomNumber2, state.getCurrentPiece());
 		game.sendAction(ppa);
 
 		sleep(2);
-		int randomNumber3 = (int)random.nextInt(state.getUnPlaced().size());
+		randomNumber3 = (int)random.nextInt(state.getUnPlaced().size());
 		Piece q = state.getUnPlaced().get(randomNumber3);
 		selectPieceAction spa = new selectPieceAction(this, q);
 		game.sendAction(spa);
+		indicateSelection(imageButton);
 
 		declareVictoryAction dva = new declareVictoryAction(this);
 		game.sendAction(dva);
@@ -94,5 +103,10 @@ public class QuartoComputerPlayer1 extends GameComputerPlayer implements Tickabl
 
 		// "flip a coin" to determine whether to increment or decrement
 		boolean move = Math.random() >= 0.5;
+	}
+
+
+	@Override
+	public void setAsGui(GameMainActivity a) {
 	}
 }
