@@ -1,5 +1,7 @@
 package edu.up.cs301.quarto;
 
+import android.app.Activity;
+
 import java.io.Serializable;
 
 import edu.up.cs301.GameFramework.actionMessage.GameAction;
@@ -14,7 +16,6 @@ import edu.up.cs301.GameFramework.players.GamePlayer;
  * @version 11/25/2024
  */
 public class declareVictoryAction extends GameAction implements Serializable {
-
 
     public declareVictoryAction(GamePlayer player) {
         super(player);

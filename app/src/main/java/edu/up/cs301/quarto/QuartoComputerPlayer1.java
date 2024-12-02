@@ -76,13 +76,14 @@ public class QuartoComputerPlayer1 extends GameComputerPlayer implements Tickabl
 		placePieceAction ppa = new placePieceAction(this, randomNumber1, randomNumber2, state.getCurrentPiece());
 		game.sendAction(ppa);
 
+		declareVictoryAction dva = new declareVictoryAction(this);
+		game.sendAction(dva);
 		sleep(2);
 		randomNumber3 = (int)random.nextInt(state.getUnPlaced().size());
 		Piece q = state.getUnPlaced().get(randomNumber3);
 		selectPieceAction spa = new selectPieceAction(this, q);
 		game.sendAction(spa);
 
-		declareVictoryAction dva = new declareVictoryAction(this);
-		game.sendAction(dva);
+
 	}
 }

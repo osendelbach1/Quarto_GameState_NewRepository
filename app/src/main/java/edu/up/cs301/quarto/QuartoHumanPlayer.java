@@ -184,7 +184,7 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 		// to declare victory!
 		if (button.getId() == R.id.quartoButton) {
-			declareVictoryAction dva = new declareVictoryAction((this));
+			declareVictoryAction dva = new declareVictoryAction(this);
 			game.sendAction(dva);
 		}
 

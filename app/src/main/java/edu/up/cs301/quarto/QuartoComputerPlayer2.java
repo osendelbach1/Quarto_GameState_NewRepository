@@ -120,6 +120,7 @@ public class QuartoComputerPlayer2 extends QuartoComputerPlayer1 implements Seri
 
 		this.smartPlace(rankedArrayPlace);
 		declareVictoryAction dva = new declareVictoryAction(this);
+		game.sendAction(dva);
 		this.smartSelect(currentGameState.getUnPlaced());
 
 

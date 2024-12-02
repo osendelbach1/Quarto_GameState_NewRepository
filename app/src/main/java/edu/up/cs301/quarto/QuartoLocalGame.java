@@ -43,6 +43,12 @@ public class QuartoLocalGame extends LocalGame implements Serializable {
 	 */
 	@Override
 	protected String checkIfGameOver() {
+		if (gameState.getGameStatus() == QuartoState.WON) {
+			return "You have won! ";
+		}
+		if (gameState.getGameStatus() == QuartoState.LOST){
+			return "You have lost. ";
+		}
 		return null;
 	}
 
@@ -84,7 +90,9 @@ public class QuartoLocalGame extends LocalGame implements Serializable {
 		}
 
 		else if (action instanceof declareVictoryAction) {
+			//declareVictoryAction dva = (declareVictoryAction)action;
 			boolean result = this.gameState.declareVictoryAction();
+
 			return result;
 		}
 

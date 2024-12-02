@@ -2,6 +2,7 @@ package edu.up.cs301.quarto;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.widget.TextView;
 
 import java.io.Serializable;
@@ -83,6 +84,7 @@ public class QuartoState extends GameState implements Serializable {
 	}
 	//0 = active, 1 = won, 2 = lose
 	private int gameStatus;
+	public int getGameStatus() { return gameStatus; }
 	//constants for game state
 	public static final int ACTIVE = 0;
 	public static final int WON = 1;
@@ -243,25 +245,6 @@ public class QuartoState extends GameState implements Serializable {
 				myActivity);
 		// return 'true' because we have handled this event
 		return true;
-
-
-
-
-		/*if(gameStatus == ACTIVE)
-		{
-			//display "quitting gam...e"
-			gameStatus = QUITTED;
-		}
-		else if (gameStatus == WON) {
-			//display victory message
-		}
-		else if (gameStatus == LOST) {
-			//display defeat message
-		}
-		System.exit(0);
-		//exit the game
-
-		return true;*/
 	}
 
 	public boolean endTurnAction()
@@ -290,154 +273,160 @@ public class QuartoState extends GameState implements Serializable {
 		return p1.getHeight() == p2.getHeight() && p1.getHole() == p2.getHole() && p1.getColor() == p2.getColor() && p1.getShape() == p2.getShape();
 	}
 
-	//requirements to be able to declare victory have to be made in a method for future assignment
-	public boolean declareVictoryAction()
-	{
-		boolean rowcheck = true, colcheck = true, diagcheck = true;
+	public boolean declareVictoryAction() {
+		Log.d("DVA", "Starting declareVictoryAction");
+		boolean rowcheck = false, colcheck = false, diagcheck = false;
+
 		for (int i = 0; i < 4; i++) {
-			if (!checkRow(board, i)) {
-				rowcheck = false;
+			Log.d("DVA", "Checking row " + i);
+			if (checkRow(board, i)) {
+				rowcheck = true;
+				Log.d("DVA", "Victory in row " + i);
+				break;
 			}
-			if (!checkCol(board, i)) {
-				colcheck = false;
-			}
-			if (!checkDiagonal(board, true)) {
-				diagcheck = false;
-			}
-			if (!checkDiagonal(board, false)) {
-				diagcheck = false;
+			Log.d("DVA", "Checking column " + i);
+			if (checkCol(board, i)) {
+				colcheck = true;
+				Log.d("DVA", "Victory in column " + i);
+				break;
 			}
 		}
 
-		//check which player has won
-		if(rowcheck || colcheck || diagcheck) {
+		Log.d("DVA", "Checking diagonals");
+		if (checkDiagonal(board, true)) {
+			diagcheck = true;
+			Log.d("DVA", "Victory in left-to-right diagonal");
+		} else if (checkDiagonal(board, false)) {
+			diagcheck = true;
+			Log.d("DVA", "Victory in right-to-left diagonal");
+		}
+
+		Log.d("DVA", "Checks completed: Row=" + rowcheck + ", Col=" + colcheck + ", Diag=" + diagcheck);
+
+		if (rowcheck || colcheck || diagcheck) {
 			if (playerID == HUMANPLAYER) {
+				Log.d("DVA", "Human player wins!");
 				gameStatus = WON;
 				return true;
-			}
-			else if (playerID == CPUPLAYER) {
+			} else if (playerID == CPUPLAYER) {
+				Log.d("DVA", "CPU player wins!");
 				gameStatus = LOST;
 				return true;
 			}
 		}
+
+		Log.d("DVA", "No victory condition met.");
 		return false;
 	}
 
 	public boolean checkRow(Piece[][] boardCheck, int row) {
-		// Null check for the entire board and row
+		Log.d("CheckRow", "Checking row " + row);
+
 		if (boardCheck == null || boardCheck[row] == null) {
+			Log.e("CheckRow", "Invalid board or row!");
 			throw new IllegalArgumentException("Board or specified row cannot be null.");
 		}
 
-		// Check if the first piece in the row is null
 		if (boardCheck[row][0] == null) {
-			return false; // Return false if the first piece is null
+			Log.d("CheckRow", "First piece in row is null, no victory.");
+			return false;
 		}
 
-		// Check if all values in the row are true
 		boolean firstHeight = boardCheck[row][0].getHeight();
 		boolean firstColor = boardCheck[row][0].getColor();
 		boolean firstHole = boardCheck[row][0].getHole();
 		boolean firstShape = boardCheck[row][0].getShape();
 		boolean heightcheck = true, colorcheck = true, holecheck = true, shapecheck = true;
 
-
 		for (int j = 0; j < 4; j++) {
-
 			if (boardCheck[row][j] == null) {
-				return false; // If any piece is null, return false
+				Log.d("CheckRow", "Piece at [" + row + "][" + j + "] is null, no victory.");
+				return false;
 			}
 
-			if (boardCheck[row][j].getHeight() != firstHeight) {
-				heightcheck = false;
-			}
-			if (boardCheck[row][j].getHeight() != firstColor) {
-				colorcheck = false;
-			}
-			if (boardCheck[row][j].getHeight() != firstHole) {
-				holecheck = false;
-			}
-			if (boardCheck[row][j].getHeight() != firstShape) {
-				shapecheck = false;
-			}
+			if (boardCheck[row][j].getHeight() != firstHeight) heightcheck = false;
+			if (boardCheck[row][j].getColor() != firstColor) colorcheck = false;
+			if (boardCheck[row][j].getHole() != firstHole) holecheck = false;
+			if (boardCheck[row][j].getShape() != firstShape) shapecheck = false;
+
+			Log.d("CheckRow", "Row=" + row + ", Col=" + j + " checks: Height=" + heightcheck +
+					", Color=" + colorcheck + ", Hole=" + holecheck + ", Shape=" + shapecheck);
 		}
-		return heightcheck || colorcheck || holecheck || shapecheck;
+
+		boolean result = heightcheck || colorcheck || holecheck || shapecheck;
+		Log.d("CheckRow", "Row " + row + " result: " + result);
+		return result;
 	}
 
 	public boolean checkCol(Piece[][] boardCheck, int col) {
+		Log.d("CheckCol", "Checking column " + col);
 
-		// Check if the first piece in the col is null
 		if (boardCheck[0][col] == null) {
-			return false; // Return false if the first piece is null
+			Log.d("CheckCol", "First piece in column is null, no victory.");
+			return false;
 		}
 
-		// Check if all values in the row are true
 		boolean firstHeight = boardCheck[0][col].getHeight();
 		boolean firstColor = boardCheck[0][col].getColor();
 		boolean firstHole = boardCheck[0][col].getHole();
 		boolean firstShape = boardCheck[0][col].getShape();
 		boolean heightcheck = true, colorcheck = true, holecheck = true, shapecheck = true;
 
-
 		for (int i = 0; i < 4; i++) {
 			if (boardCheck[i][col] == null) {
-				return false; // If any piece is null, return false
+				Log.d("CheckCol", "Piece at [" + i + "][" + col + "] is null, no victory.");
+				return false;
 			}
 
-			if (boardCheck[i][col].getHeight() != firstHeight) {
-				heightcheck = false;
-			}
-			if (boardCheck[i][col].getHeight() != firstColor) {
-				colorcheck = false;
-			}
-			if (boardCheck[i][col].getHeight() != firstHole) {
-				holecheck = false;
-			}
-			if (boardCheck[i][col].getHeight() != firstShape) {
-				shapecheck = false;
-			}
+			if (boardCheck[i][col].getHeight() != firstHeight) heightcheck = false;
+			if (boardCheck[i][col].getColor() != firstColor) colorcheck = false;
+			if (boardCheck[i][col].getHole() != firstHole) holecheck = false;
+			if (boardCheck[i][col].getShape() != firstShape) shapecheck = false;
+
+			Log.d("CheckCol", "Row=" + i + ", Col=" + col + " checks: Height=" + heightcheck +
+					", Color=" + colorcheck + ", Hole=" + holecheck + ", Shape=" + shapecheck);
 		}
-		return heightcheck || colorcheck || holecheck || shapecheck;
+
+		boolean result = heightcheck || colorcheck || holecheck || shapecheck;
+		Log.d("CheckCol", "Column " + col + " result: " + result);
+		return result;
 	}
 
 	public boolean checkDiagonal(Piece[][] boardCheck, boolean leftToRight) {
+		String direction = leftToRight ? "Left-to-right" : "Right-to-left";
+		Log.d("CheckDiag", "Checking diagonal: " + direction);
 
-		boolean heightcheck = true, colorcheck = true, holecheck = true, shapecheck = true;
-
-		if (leftToRight && boardCheck[0][0] == null) {
-			return false; // Return false if the first piece is null
-		}
-		else if (!leftToRight && boardCheck[0][3] == null) {
+		int startCol = leftToRight ? 0 : 3;
+		Piece firstPiece = boardCheck[0][startCol];
+		if (firstPiece == null) {
+			Log.d("CheckDiag", "First piece in " + direction + " diagonal is null, no victory.");
 			return false;
 		}
-		// Initialize the first piece's properties based on the diagonal direction
-		Piece firstPiece = leftToRight ? boardCheck[0][0] : boardCheck[0][3];
+
 		boolean firstHeight = firstPiece.getHeight();
 		boolean firstColor = firstPiece.getColor();
 		boolean firstHole = firstPiece.getHole();
 		boolean firstShape = firstPiece.getShape();
+		boolean heightcheck = true, colorcheck = true, holecheck = true, shapecheck = true;
 
-
-
-		// Check the diagonal according to the direction
 		for (int i = 1; i < 4; i++) {
-
 			int col = leftToRight ? i : (3 - i);
-
 			if (boardCheck[i][col] == null) {
-				return false; // If any piece in the diagonal is null, return false
+				Log.d("CheckDiag", "Piece at [" + i + "][" + col + "] is null, no victory.");
+				return false;
 			}
 
-			// Update checks if any property doesn't match the first piece
 			if (boardCheck[i][col].getHeight() != firstHeight) heightcheck = false;
 			if (boardCheck[i][col].getColor() != firstColor) colorcheck = false;
 			if (boardCheck[i][col].getHole() != firstHole) holecheck = false;
 			if (boardCheck[i][col].getShape() != firstShape) shapecheck = false;
 		}
 
-		// Return true if any of the property checks succeeded
-		return heightcheck || colorcheck || holecheck || shapecheck;
+		boolean result = heightcheck || colorcheck || holecheck || shapecheck;
+		Log.d("CheckDiag", direction + " diagonal result: " + result);
+		return result;
 	}
+
 
 
 	@Override
