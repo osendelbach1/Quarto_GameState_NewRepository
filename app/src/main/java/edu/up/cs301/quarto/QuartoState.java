@@ -53,18 +53,13 @@ public class QuartoState extends GameState implements Serializable {
 
 	//0 = human and 1 == other or AI
 	private int playerID;
+
 	public static final int HUMANPLAYER = 0;
 	public static final int CPUPLAYER = 1;
 
-	public int getTurn() {
-		if (Player1TurnComplete) {
-			return 1;
-		}
-		else {
-			return 0;
-		}
+	public int getPlayerId() {
+		return this.playerID;
 	}
-
 
 	//ID of piece selected
 	private Piece currentPiece = new Piece(false, false, false, false);
@@ -93,8 +88,8 @@ public class QuartoState extends GameState implements Serializable {
 
 
 	//If you have placed the piece given to you and then selected a piece for the other player, you have completed all the actions for your turn
-	private boolean Player1TurnComplete;
-	private boolean Player2TurnComplete;
+	//private boolean Player1TurnComplete;
+	//private boolean Player2TurnComplete;
 	public static final boolean INCOMPLETE = false;
 	public static final boolean COMPLETE = true;
 
@@ -160,8 +155,6 @@ public class QuartoState extends GameState implements Serializable {
 		this.currentPiece = new Piece(other.currentPiece);
 		this.phase = other.phase;
 		this.gameStatus = other.gameStatus;
-		this.Player1TurnComplete = other.Player1TurnComplete;
-		this.Player2TurnComplete = other.Player2TurnComplete;
 		this.result = other.result;
 	}
 
@@ -207,14 +200,14 @@ public class QuartoState extends GameState implements Serializable {
 						unPlaced.remove(i); //will remove that piece from spot i once it has been set to current piece
 						if (playerID == HUMANPLAYER) {
 							playerID = CPUPLAYER; //switches turn
-							Player1TurnComplete = true; //completes turn
-							Player2TurnComplete = false; //completes turn
+							//Player1TurnComplete = true; //completes turn
+							//Player2TurnComplete = false; //completes turn
 							//break;
 						}
 						else {
 							playerID = HUMANPLAYER;
-							Player2TurnComplete = true;
-							Player1TurnComplete = false;
+							//Player2TurnComplete = true;
+							//Player1TurnComplete = false;
 							//break;
 						}
 					}
@@ -247,23 +240,15 @@ public class QuartoState extends GameState implements Serializable {
 		return true;
 	}
 
+	//changes the player's turn
 	public boolean endTurnAction()
 	{
 		if(gameStatus == ACTIVE)
 		{
 			if(phase == PLACEMENT)
 			{
-				if(Player1TurnComplete == COMPLETE)
-				{
-					Player1TurnComplete = INCOMPLETE;
-					Player2TurnComplete = COMPLETE;
-					return true;
-				}
-				else if (Player2TurnComplete == COMPLETE) {
-					Player2TurnComplete = INCOMPLETE;
-					Player1TurnComplete = COMPLETE;
-
-				}
+				playerID = 1 - playerID;
+				return true;
 			}
 		}
 		return false;
@@ -274,34 +259,26 @@ public class QuartoState extends GameState implements Serializable {
 	}
 
 	public boolean declareVictoryAction() {
-		Log.d("DVA", "Starting declareVictoryAction");
+
 		boolean rowcheck = false, colcheck = false, diagcheck = false;
 
 		for (int i = 0; i < 4; i++) {
-			Log.d("DVA", "Checking row " + i);
 			if (checkRow(board, i)) {
 				rowcheck = true;
-				Log.d("DVA", "Victory in row " + i);
 				break;
 			}
-			Log.d("DVA", "Checking column " + i);
+
 			if (checkCol(board, i)) {
 				colcheck = true;
-				Log.d("DVA", "Victory in column " + i);
 				break;
 			}
 		}
 
-		Log.d("DVA", "Checking diagonals");
 		if (checkDiagonal(board, true)) {
 			diagcheck = true;
-			Log.d("DVA", "Victory in left-to-right diagonal");
 		} else if (checkDiagonal(board, false)) {
 			diagcheck = true;
-			Log.d("DVA", "Victory in right-to-left diagonal");
 		}
-
-		Log.d("DVA", "Checks completed: Row=" + rowcheck + ", Col=" + colcheck + ", Diag=" + diagcheck);
 
 		if (rowcheck || colcheck || diagcheck) {
 			if (playerID == HUMANPLAYER) {
@@ -314,21 +291,15 @@ public class QuartoState extends GameState implements Serializable {
 				return true;
 			}
 		}
-
-		Log.d("DVA", "No victory condition met.");
 		return false;
 	}
 
 	public boolean checkRow(Piece[][] boardCheck, int row) {
-		Log.d("CheckRow", "Checking row " + row);
-
 		if (boardCheck == null || boardCheck[row] == null) {
-			Log.e("CheckRow", "Invalid board or row!");
 			throw new IllegalArgumentException("Board or specified row cannot be null.");
 		}
 
 		if (boardCheck[row][0] == null) {
-			Log.d("CheckRow", "First piece in row is null, no victory.");
 			return false;
 		}
 
@@ -340,7 +311,6 @@ public class QuartoState extends GameState implements Serializable {
 
 		for (int j = 0; j < 4; j++) {
 			if (boardCheck[row][j] == null) {
-				Log.d("CheckRow", "Piece at [" + row + "][" + j + "] is null, no victory.");
 				return false;
 			}
 
@@ -349,20 +319,15 @@ public class QuartoState extends GameState implements Serializable {
 			if (boardCheck[row][j].getHole() != firstHole) holecheck = false;
 			if (boardCheck[row][j].getShape() != firstShape) shapecheck = false;
 
-			Log.d("CheckRow", "Row=" + row + ", Col=" + j + " checks: Height=" + heightcheck +
-					", Color=" + colorcheck + ", Hole=" + holecheck + ", Shape=" + shapecheck);
 		}
 
 		boolean result = heightcheck || colorcheck || holecheck || shapecheck;
-		Log.d("CheckRow", "Row " + row + " result: " + result);
 		return result;
 	}
 
 	public boolean checkCol(Piece[][] boardCheck, int col) {
-		Log.d("CheckCol", "Checking column " + col);
 
 		if (boardCheck[0][col] == null) {
-			Log.d("CheckCol", "First piece in column is null, no victory.");
 			return false;
 		}
 
@@ -374,7 +339,6 @@ public class QuartoState extends GameState implements Serializable {
 
 		for (int i = 0; i < 4; i++) {
 			if (boardCheck[i][col] == null) {
-				Log.d("CheckCol", "Piece at [" + i + "][" + col + "] is null, no victory.");
 				return false;
 			}
 
@@ -382,24 +346,17 @@ public class QuartoState extends GameState implements Serializable {
 			if (boardCheck[i][col].getColor() != firstColor) colorcheck = false;
 			if (boardCheck[i][col].getHole() != firstHole) holecheck = false;
 			if (boardCheck[i][col].getShape() != firstShape) shapecheck = false;
-
-			Log.d("CheckCol", "Row=" + i + ", Col=" + col + " checks: Height=" + heightcheck +
-					", Color=" + colorcheck + ", Hole=" + holecheck + ", Shape=" + shapecheck);
 		}
 
 		boolean result = heightcheck || colorcheck || holecheck || shapecheck;
-		Log.d("CheckCol", "Column " + col + " result: " + result);
 		return result;
 	}
 
 	public boolean checkDiagonal(Piece[][] boardCheck, boolean leftToRight) {
-		String direction = leftToRight ? "Left-to-right" : "Right-to-left";
-		Log.d("CheckDiag", "Checking diagonal: " + direction);
 
 		int startCol = leftToRight ? 0 : 3;
 		Piece firstPiece = boardCheck[0][startCol];
 		if (firstPiece == null) {
-			Log.d("CheckDiag", "First piece in " + direction + " diagonal is null, no victory.");
 			return false;
 		}
 
@@ -412,7 +369,6 @@ public class QuartoState extends GameState implements Serializable {
 		for (int i = 1; i < 4; i++) {
 			int col = leftToRight ? i : (3 - i);
 			if (boardCheck[i][col] == null) {
-				Log.d("CheckDiag", "Piece at [" + i + "][" + col + "] is null, no victory.");
 				return false;
 			}
 
@@ -423,7 +379,6 @@ public class QuartoState extends GameState implements Serializable {
 		}
 
 		boolean result = heightcheck || colorcheck || holecheck || shapecheck;
-		Log.d("CheckDiag", direction + " diagonal result: " + result);
 		return result;
 	}
 
@@ -476,8 +431,8 @@ public class QuartoState extends GameState implements Serializable {
 		}
 
 		// Player turn completion
-		sb.append("\nPlayer 1 Turn Complete: ").append(Player1TurnComplete ? "Yes" : "No");
-		sb.append("\nPlayer 2 Turn Complete: ").append(Player2TurnComplete ? "Yes" : "No");
+		//sb.append("\nPlayer 1 Turn Complete: ").append(Player1TurnComplete ? "Yes" : "No");
+		//sb.append("\nPlayer 2 Turn Complete: ").append(Player2TurnComplete ? "Yes" : "No");
 
 		// Result message
 		sb.append("\nResult: ").append(result);

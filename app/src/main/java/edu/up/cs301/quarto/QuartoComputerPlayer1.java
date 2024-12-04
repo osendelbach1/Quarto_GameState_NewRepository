@@ -62,7 +62,7 @@ public class QuartoComputerPlayer1 extends GameComputerPlayer implements Tickabl
 		state = (QuartoState)info;
 
 		//check if it's AI's turn
-		if (state.getTurn() != 1 ) {
+		if (state.getPlayerId() != 1 ) {
 			return; // It's not the AI's turn, so do nothing
 		}
 

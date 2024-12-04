@@ -261,7 +261,7 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 		float x = motionEvent.getX();
 		float y = motionEvent.getY();
 		Log.d("Touch","" + x + " " + y);
-		placePieceAction ppa = new placePieceAction(this, x, y, q, view.getHeight(), view.getWidth());
+		placePieceAction ppa = new placePieceAction(this, x, y, q);
 		game.sendAction(ppa);
 		isPieceSelected = false;
 		textView.setText(tvm.cpPlace);
@@ -288,9 +288,9 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements OnClickListene
 			updateDisplay(state);
 		}
 		// Determine if it's the human's turn
-		boolean isHumanTurn = state.getTurn() == 0; // Assuming 0 = human, 1 = computer
+		boolean isHumanTurn = state.getPlayerId() == 0; // Assuming 0 = human, 1 = computer
 		boolean isSelectionPhase = state.getPhase(); // Assuming true = selection, false = placement
-		Log.d("GameState", "Turn: " + state.getTurn() + ", Phase: " + state.getPhase()); // debugging
+		Log.d("GameState", "Turn: " + state.getPlayerId() + ", Phase: " + state.getPhase()); // debugging
 
 		// Get the appropriate message
 		CharSequence turnMessage = getTurnAndPhase(isHumanTurn, isSelectionPhase);

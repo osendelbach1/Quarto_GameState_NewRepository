@@ -114,7 +114,7 @@ public class QuartoComputerPlayer2 extends QuartoComputerPlayer1 implements Seri
 		}
 
 		//check if it's AI's turn
-		if (currentGameState.getTurn() != 1 ) {
+		if (currentGameState.getPlayerId() != 1 ) {
 			return; // It's not the AI's turn, so do nothing
 		}
 
@@ -176,18 +176,22 @@ public class QuartoComputerPlayer2 extends QuartoComputerPlayer1 implements Seri
 			if (i < 4 && chosen.equals(quads[i])) {
 				x = corresponding.get(chosen);
 				y = openSpots.get(quads[i]).get(rand);
+
 			}
 			else if (i < 8 && chosen.equals(quads[i])) {
 				y = corresponding.get(chosen);
 				x = openSpots.get(quads[i]).get(rand);
+
 			}
 			else if (i == 8 && chosen.equals(quads[i])) {
 				x = openSpots.get(quads[i]).get(rand);
 				y = x;
+
 			}
 			else if (i == 9 && chosen.equals(quads[i])) {
 				x = openSpots.get(quads[i]).get(rand);
 				y = x;
+
 			}
 
 		}

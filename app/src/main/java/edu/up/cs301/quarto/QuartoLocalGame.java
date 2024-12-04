@@ -30,7 +30,7 @@ public class QuartoLocalGame extends LocalGame implements Serializable {
 	 */
 	@Override
 	protected boolean canMove(int playerIdx) {
-		return gameState.getTurn() == playerIdx;
+		return gameState.getPlayerId() == playerIdx;
 	}
 
 	/**
@@ -92,7 +92,6 @@ public class QuartoLocalGame extends LocalGame implements Serializable {
 		else if (action instanceof declareVictoryAction) {
 			//declareVictoryAction dva = (declareVictoryAction)action;
 			boolean result = this.gameState.declareVictoryAction();
-
 			return result;
 		}
 
