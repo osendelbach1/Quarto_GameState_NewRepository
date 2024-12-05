@@ -1,7 +1,5 @@
 package edu.up.cs301.quarto;
 
-import static androidx.core.app.ActivityCompat.finishAffinity;
-
 import android.app.Activity;
 
 import edu.up.cs301.GameFramework.actionMessage.GameAction;
@@ -26,11 +24,4 @@ public class QuitGameAction extends GameAction implements Serializable
         super(player);
         this.myActivity = activity;
     }
-
-    //Makes it so you can always quit
-    public boolean canQuitAction()
-    {
-        return true;
-    }
-
 }

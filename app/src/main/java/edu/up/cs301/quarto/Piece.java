@@ -54,23 +54,5 @@ public class Piece implements Serializable {
     public Boolean getShape() {
         return this.squareOrCircle;
     }
-
-    //setters
-    public void setHeight(Boolean b) {
-        this.shortOrTall = b;
-    }
-
-    public void setHole(Boolean b) {
-        this.holeOrSolid = b;
-    }
-
-    public void setColor(Boolean b) {
-        this.darkOrLight = b;
-    }
-
-    public void setShape(Boolean b) {
-        this.squareOrCircle = b;
-    }
-
 }
 

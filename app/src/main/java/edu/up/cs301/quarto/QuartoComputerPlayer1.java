@@ -4,9 +4,6 @@ import android.widget.ImageButton;
 
 import java.io.Serializable;
 import java.util.Random;
-
-import edu.up.cs301.GameFramework.GameMainActivity;
-import edu.up.cs301.GameFramework.infoMessage.GameState;
 import edu.up.cs301.GameFramework.players.GameComputerPlayer;
 import edu.up.cs301.GameFramework.infoMessage.GameInfo;
 import edu.up.cs301.GameFramework.utilities.Tickable;
@@ -33,7 +30,6 @@ public class QuartoComputerPlayer1 extends GameComputerPlayer implements Tickabl
      */
 	private QuartoState state;
 	private int randomNumber3;
-	private ImageButton imageButton;
 
     public QuartoComputerPlayer1(String name) {
         // invoke superclass constructor

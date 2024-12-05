@@ -32,13 +32,6 @@ public class placePieceAction extends GameAction implements Serializable {
         squareTouched(x, y);
     }
 
-    // used in QuartoHumanPlayer to draw piece on board
-    public placePieceAction(GamePlayer player, float x, float y, Piece p, float height, float width) {
-        super(player);
-        this.p = p;
-        squareTouched(x, y);
-    }
-
     // getters
     public int getRow() {
         return row;

@@ -1,7 +1,4 @@
 package edu.up.cs301.quarto;
-
-import android.util.Log;
-
 import java.io.Serializable;
 
 import edu.up.cs301.GameFramework.actionMessage.GameAction;

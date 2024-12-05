@@ -3,13 +3,9 @@ package edu.up.cs301.quarto;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.util.Log;
-import android.widget.TextView;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import edu.up.cs301.GameFramework.infoMessage.GameState;
 import edu.up.cs301.GameFramework.utilities.MessageBox;
 
@@ -83,16 +79,6 @@ public class QuartoState extends GameState implements Serializable {
 	public static final int ACTIVE = 0;
 	public static final int WON = 1;
 	public static final int LOST = 2;
-	public static final int QUITTED = 3;
-
-
-	//If you have placed the piece given to you and then selected a piece for the other player, you have completed all the actions for your turn
-	//private boolean Player1TurnComplete;
-	//private boolean Player2TurnComplete;
-	public static final boolean INCOMPLETE = false;
-	public static final boolean COMPLETE = true;
-
-
 
 	private String result;
 

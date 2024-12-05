@@ -5,7 +5,6 @@ import edu.up.cs301.GameFramework.infoMessage.GameInfo;
 import android.app.Activity;
 import android.os.Handler;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.TextView;
 
 
@@ -14,8 +13,6 @@ import java.util.Hashtable;
 import java.util.ArrayList;
 
 import java.util.Random;
-
-import edu.up.cs301.quarto.Quadruplet;
 
 
 
