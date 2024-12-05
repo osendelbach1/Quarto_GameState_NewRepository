@@ -34,9 +34,10 @@ public class Quadruplet implements Serializable {
     private int consecCircle;
     private int consecSquare;
     private boolean placeable;
+    private String name;
 
     // constructor
-    public Quadruplet() {
+    public Quadruplet(String name) {
         this.consecDark = 0;
         this.consecLight = 0;
         this.consecShort = 0;
@@ -46,6 +47,11 @@ public class Quadruplet implements Serializable {
         this.consecCircle = 0;
         this.consecSquare = 0;
         this.placeable = false;
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 
     // gets the total of similar characteristics in a row, column, or diagonal
@@ -58,7 +64,6 @@ public class Quadruplet implements Serializable {
 
         return consecDark + consecLight + consecShort + consecTall + consecHole + consecSolid + consecCircle + consecSquare;
     }
-
 
     public boolean getPlaceable() {
         return placeable;

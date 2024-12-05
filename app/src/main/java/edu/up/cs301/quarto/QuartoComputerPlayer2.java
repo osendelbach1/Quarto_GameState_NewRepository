@@ -42,20 +42,20 @@ public class QuartoComputerPlayer2 extends QuartoComputerPlayer1 implements Seri
 	public static final Boolean CIRCLE = false;
 
 	// Initialize Row instances
-	Quadruplet Row0 = new Quadruplet();
-	Quadruplet Row1 = new Quadruplet();
-	Quadruplet Row2 = new Quadruplet();
-	Quadruplet Row3 = new Quadruplet();
+	Quadruplet Row0 = new Quadruplet("Row0");
+	Quadruplet Row1 = new Quadruplet("Row1");
+	Quadruplet Row2 = new Quadruplet("Row2");
+	Quadruplet Row3 = new Quadruplet("Row3");
 
 	// Initialize Column instances
-	Quadruplet Col0 = new Quadruplet();
-	Quadruplet Col1 = new Quadruplet();
-	Quadruplet Col2 = new Quadruplet();
-	Quadruplet Col3 = new Quadruplet();
+	Quadruplet Col0 = new Quadruplet("Col0");
+	Quadruplet Col1 = new Quadruplet("Col1");
+	Quadruplet Col2 = new Quadruplet("Col2");
+	Quadruplet Col3 = new Quadruplet("Col3");
 
 	// Initialize Diagonal instances
-	Quadruplet Diag0 = new Quadruplet();
-	Quadruplet Diag1 = new Quadruplet();
+	Quadruplet Diag0 = new Quadruplet("Diag1LR");
+	Quadruplet Diag1 = new Quadruplet("DiagRL");
 
 	ArrayList<Quadruplet> rankedArrayPlace = new ArrayList<>();
 
@@ -120,11 +120,12 @@ public class QuartoComputerPlayer2 extends QuartoComputerPlayer1 implements Seri
 			if (currentGameState.getPlayerId() != 1 ) {
 				return; // It's not the AI's turn, so do nothing
 			}
-
+			sleep(2);
 			this.smartPlace(rankedArrayPlace);
 			declareVictoryAction dva = new declareVictoryAction(this);
 			Log.d("Smart AI", "dva");
 			game.sendAction(dva);
+			sleep(2);
 			this.smartSelect(currentGameState.getUnPlaced());
 			return;
 		}
@@ -151,6 +152,7 @@ public class QuartoComputerPlayer2 extends QuartoComputerPlayer1 implements Seri
 
 		 for (int i = 0; i < 10; i++) {
 			 corresponding.put(quads[i], i%4);
+			 quads[i].setPlaceable(false); //reset false
 		 }
 
 		Hashtable<Quadruplet, ArrayList<Integer>> openSpots = new Hashtable<>(); //hashtable declaring which quadruplet corresponds to which table index
@@ -169,7 +171,7 @@ public class QuartoComputerPlayer2 extends QuartoComputerPlayer1 implements Seri
 				checkDiagonal(quads[i], false, openSpots); //diag right to left
 			}
 			for (Quadruplet key : openSpots.keySet()) {
-				Log.d("DEBUG", "Key: " + key + ", Indices: " + openSpots.get(key));
+				Log.d("DEBUG", "Key: " + key.getName() + ", Indices: " + openSpots.get(key));
 			}
 			addRanked(rankedArray, quads[i]); // add row/col/diag to arraylist
 		}
@@ -189,24 +191,27 @@ public class QuartoComputerPlayer2 extends QuartoComputerPlayer1 implements Seri
 
 				if (i < 4 && chosen.equals(quads[i])) {
 					Log.d("Chosen", "Row" + i);
-					x = corresponding.get(chosen);
-					y = openSpots.get(quads[i]).get(rand);
+					y = corresponding.get(chosen);
+					x = openSpots.get(quads[i]).get(rand);
+					break;
 
 				} else if (i < 8 && chosen.equals(quads[i])) {
 					Log.d("Chosen", "Col" + i%4);
-					y = corresponding.get(chosen);
-					x = openSpots.get(quads[i]).get(rand);
+					x = corresponding.get(chosen);
+					y = openSpots.get(quads[i]).get(rand);
+					break;
 
 				} else if (i == 8 && chosen.equals(quads[i])) {
 					Log.d("Chosen", "Diag" + i);
 					x = openSpots.get(quads[i]).get(rand);
 					y = x;
+					break;
 
 				} else if (i == 9 && chosen.equals(quads[i])) {
 					Log.d("Chosen", "Diag" + i);
 					x = openSpots.get(quads[i]).get(rand);
 					y = x;
-
+					break;
 				}
 			} else {
 				Log.d("Debug", "openSpots.get(" + quads[i] + ") is empty!");
@@ -215,7 +220,7 @@ public class QuartoComputerPlayer2 extends QuartoComputerPlayer1 implements Seri
 		}
 
 		//pass the x and y to placePieceAction
-		placePieceAction ppa = new placePieceAction(this, (100 + (x * 200)), (50 + (y * 200)), currentGameState.getCurrentPiece());
+		placePieceAction ppa = new placePieceAction(this, (100 + (x * 200) + 1), (50 + (y * 200) + 1), currentGameState.getCurrentPiece());
 		Log.d("Smart AI", "ppa");
 		rankedArray.clear();
 		game.sendAction(ppa);
@@ -246,6 +251,7 @@ public class QuartoComputerPlayer2 extends QuartoComputerPlayer1 implements Seri
 			if (boardsquare == null) {
 				openSpots.putIfAbsent(q, new ArrayList<>());
 				openSpots.get(q).add(j);
+
 				if (!q.getPlaceable()) {
 					q.setPlaceable(true);
 				}

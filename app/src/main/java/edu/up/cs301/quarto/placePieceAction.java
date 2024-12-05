@@ -48,7 +48,7 @@ public class placePieceAction extends GameAction implements Serializable {
     // checking the variables passed in and seeing if they
     // are within the bounds of each tile */
     public void squareTouched(float x, float y) {
-        if (x >= 100 && x <= 300 && y >= 50 && y <= 250) {
+        /*if (x >= 100 && x <= 300 && y >= 50 && y <= 250) {
             row = 0;
             col = 0;
         } else if (x >= 300 && x <= 500 && y >= 50 && y <= 250) {
@@ -96,8 +96,8 @@ public class placePieceAction extends GameAction implements Serializable {
         } else if (x >= 700 && x <= 900 && y >= 650 && y <= 850) {
             row = 3;
             col = 3;
-        }
-        /*if (x >= 100 && x <= 900 && y >= 50 && y <= 850) {
+        }*/
+        if (x >= 100 && x <= 900 && y >= 50 && y <= 850) {
             row = (int) ((y - 50) / 200);
             col = (int) ((x - 100) / 200);
             Log.d("GridDebug", "x: " + x + ", y: " + y + " -> row: " + row + ", col: " + col);
@@ -105,7 +105,7 @@ public class placePieceAction extends GameAction implements Serializable {
         } else {
             // Handle out-of-bounds input
             Log.d("GridDebug", "x: " + x + ", y: " + y + " is out of bounds -> row: " + row + ", col: " + col);
-        }*/
+        }
         Log.d("GridDebug", "x: " + x + ", y: " + y + " -> row: " + row + ", col: " + col);
         //Log.d("GridDebug", "x: " + x + ", y: " + y + " is out of bounds -> row: " + row + ", col: " + col);
 
