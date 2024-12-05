@@ -209,7 +209,7 @@ public class QuartoComputerPlayer2 extends QuartoComputerPlayer1 implements Seri
 
 				} else if (i == 9 && chosen.equals(quads[i])) {
 					Log.d("Chosen", "Diag" + i);
-					x = openSpots.get(quads[i]).get(rand);
+					x = 3 - openSpots.get(quads[i]).get(rand);
 					y = x;
 					break;
 				}
