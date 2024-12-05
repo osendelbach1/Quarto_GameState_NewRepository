@@ -17,6 +17,8 @@ import edu.up.cs301.GameFramework.players.GamePlayer;
 
 public class selectPieceAction extends GameAction implements Serializable {
 
+    private static final long serialVersionUID = 1392075814;
+
     public Piece selected;
 
     /**
@@ -27,6 +29,7 @@ public class selectPieceAction extends GameAction implements Serializable {
 
 // Uses parameters passed in select a piece
     public selectPieceAction(GamePlayer player, Piece initSelected) {
+
             super(player);
             //game.getUnPlaced().remove(initSelected);
             //Log.d("Piece removed", "" + initSelected.getShape() + initSelected.getColor() + initSelected.getHole() + initSelected.getHeight());

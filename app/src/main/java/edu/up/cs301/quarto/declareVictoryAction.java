@@ -16,9 +16,10 @@ import edu.up.cs301.GameFramework.players.GamePlayer;
  * @version 11/25/2024
  */
 public class declareVictoryAction extends GameAction implements Serializable {
+    private static final long serialVersionUID = 1126202472;
 
     public declareVictoryAction(GamePlayer player) {
         super(player);
     }
-    //private static final long serialVersionUID = 1126202472;
+
 }

@@ -36,9 +36,8 @@ public class QuartoState extends GameState implements Serializable {
 	public static final Boolean CIRCLE = false;
 
 
-	//public TextViewModel turn;
 	// to satisfy Serializable interface
-	//private static final long serialVersionUID = 1126202473;
+	private static final long serialVersionUID = 1126202473;
 
 	//game board
 	private Piece[][] board = new Piece[4][4];
@@ -429,10 +428,6 @@ public class QuartoState extends GameState implements Serializable {
 			default:
 				sb.append("Unknown");
 		}
-
-		// Player turn completion
-		//sb.append("\nPlayer 1 Turn Complete: ").append(Player1TurnComplete ? "Yes" : "No");
-		//sb.append("\nPlayer 2 Turn Complete: ").append(Player2TurnComplete ? "Yes" : "No");
 
 		// Result message
 		sb.append("\nResult: ").append(result);

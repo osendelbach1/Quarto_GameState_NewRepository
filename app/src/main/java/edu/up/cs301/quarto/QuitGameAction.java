@@ -19,7 +19,7 @@ import java.io.Serializable;
  */
 public class QuitGameAction extends GameAction implements Serializable
 {
-    //private static final long serialVersionUID = 1126202468;
+    private static final long serialVersionUID = 1463877274;
     public Activity myActivity;
     public QuitGameAction(GamePlayer player, Activity activity)
     {
