@@ -2,6 +2,8 @@ package edu.up.cs301.quarto;
 
 import edu.up.cs301.GameFramework.GameMainActivity;
 import edu.up.cs301.GameFramework.infoMessage.GameInfo;
+import edu.up.cs301.GameFramework.infoMessage.NotYourTurnInfo;
+
 import android.app.Activity;
 import android.os.Handler;
 import android.util.Log;
@@ -96,30 +98,36 @@ public class QuartoComputerPlayer2 extends QuartoComputerPlayer1 implements Seri
 	@Override
 	protected void receiveInfo(GameInfo info) {
 		// perform superclass behavior
-		super.receiveInfo(info);
-		
-		Log.i("computer player", "receiving");
-		
-		// if there is no game, ignore
-		if (game == null) {
+		if (info instanceof NotYourTurnInfo) {
 			return;
 		}
-		else if (info instanceof QuartoState) {
-			// if we indeed have a quarto-state, update the GUI
-			currentGameState = (QuartoState)info;
-			updateDisplay();
+
+		// if we don't have a game-state, ignore
+		if (info instanceof QuartoState) {
+			Log.i("computer player", "receiving");
+
+			// if there is no game, ignore
+			if (game == null) {
+				return;
+			}
+			else if (info instanceof QuartoState) {
+				// if we indeed have a quarto-state, update the GUI
+				currentGameState = (QuartoState)info;
+				updateDisplay();
+			}
+
+			//check if it's AI's turn
+			if (currentGameState.getPlayerId() != 1 ) {
+				return; // It's not the AI's turn, so do nothing
+			}
+
+			this.smartPlace(rankedArrayPlace);
+			declareVictoryAction dva = new declareVictoryAction(this);
+			Log.d("Smart AI", "dva");
+			game.sendAction(dva);
+			this.smartSelect(currentGameState.getUnPlaced());
+			return;
 		}
-
-		//check if it's AI's turn
-		if (currentGameState.getPlayerId() != 1 ) {
-			return; // It's not the AI's turn, so do nothing
-		}
-
-		this.smartPlace(rankedArrayPlace);
-		declareVictoryAction dva = new declareVictoryAction(this);
-		game.sendAction(dva);
-		this.smartSelect(currentGameState.getUnPlaced());
-
 
 	}
 
@@ -149,6 +157,8 @@ public class QuartoComputerPlayer2 extends QuartoComputerPlayer1 implements Seri
 
 		//for loop through board, updating each quadruplet's "placeable" characteristic and count of each characteristic
 		for (int i = 0; i < 10; i++) {
+			Log.d("DEBUG", "running openspots");
+
 			if (i < 4) {
 				checkRow(quads[i], i, openSpots); //rows
 			} else if (i < 8) {
@@ -157,6 +167,9 @@ public class QuartoComputerPlayer2 extends QuartoComputerPlayer1 implements Seri
 				checkDiagonal(quads[i], true, openSpots); //diag left to right
 			} else if (i == 9) {
 				checkDiagonal(quads[i], false, openSpots); //diag right to left
+			}
+			for (Quadruplet key : openSpots.keySet()) {
+				Log.d("DEBUG", "Key: " + key + ", Indices: " + openSpots.get(key));
 			}
 			addRanked(rankedArray, quads[i]); // add row/col/diag to arraylist
 		}
@@ -167,35 +180,46 @@ public class QuartoComputerPlayer2 extends QuartoComputerPlayer1 implements Seri
 		int y = 0;
 
 		Random random = new Random();
-		int rand = random.nextInt(openSpots.get(chosen).size());
+		//int rand = random.nextInt(openSpots.get(chosen).size());
 		//assign index within the selected row/col/diag
 		for (int i = 0; i < 10; i++) {
-			if (i < 4 && chosen.equals(quads[i])) {
-				x = corresponding.get(chosen);
-				y = openSpots.get(quads[i]).get(rand);
+			// Ensure `openSpots.get(quads[i])` is not empty
+			if (openSpots.get(quads[i]) != null) {
+				int rand = random.nextInt(openSpots.get(quads[i]).size());
 
-			}
-			else if (i < 8 && chosen.equals(quads[i])) {
-				y = corresponding.get(chosen);
-				x = openSpots.get(quads[i]).get(rand);
+				if (i < 4 && chosen.equals(quads[i])) {
+					Log.d("Chosen", "Row" + i);
+					x = corresponding.get(chosen);
+					y = openSpots.get(quads[i]).get(rand);
 
-			}
-			else if (i == 8 && chosen.equals(quads[i])) {
-				x = openSpots.get(quads[i]).get(rand);
-				y = x;
+				} else if (i < 8 && chosen.equals(quads[i])) {
+					Log.d("Chosen", "Col" + i%4);
+					y = corresponding.get(chosen);
+					x = openSpots.get(quads[i]).get(rand);
 
-			}
-			else if (i == 9 && chosen.equals(quads[i])) {
-				x = openSpots.get(quads[i]).get(rand);
-				y = x;
+				} else if (i == 8 && chosen.equals(quads[i])) {
+					Log.d("Chosen", "Diag" + i);
+					x = openSpots.get(quads[i]).get(rand);
+					y = x;
 
+				} else if (i == 9 && chosen.equals(quads[i])) {
+					Log.d("Chosen", "Diag" + i);
+					x = openSpots.get(quads[i]).get(rand);
+					y = x;
+
+				}
+			} else {
+				Log.d("Debug", "openSpots.get(" + quads[i] + ") is empty!");
 			}
 
 		}
 
 		//pass the x and y to placePieceAction
-		placePieceAction ppa = new placePieceAction(this, x, y, currentGameState.getCurrentPiece());
+		placePieceAction ppa = new placePieceAction(this, (100 + (x * 200)), (50 + (y * 200)), currentGameState.getCurrentPiece());
+		Log.d("Smart AI", "ppa");
+		rankedArray.clear();
 		game.sendAction(ppa);
+
 
 	}
 
@@ -256,7 +280,7 @@ public class QuartoComputerPlayer2 extends QuartoComputerPlayer1 implements Seri
 
 		// Initialize the first piece's properties based on the diagonal direction
 		// Check the diagonal according to the direction
-		for (int i = 1; i < 4; i++) {
+		for (int i = 0; i < 4; i++) {
 
 			int col = leftToRight ? i : (3 - i);
 			Piece boardsquare = currentGameState.getBoard()[i][col];
@@ -361,6 +385,7 @@ public class QuartoComputerPlayer2 extends QuartoComputerPlayer1 implements Seri
 			return Integer.compare(bScore, aScore); //return sorted arraylist
 		});
 		selectPieceAction spa = new selectPieceAction(this, unplaced.get(0)); //call selectPieceAction on the piece that has the least common characteristics with the board
+		Log.d("Smart AI", "spa");
 		game.sendAction(spa);
 	}
 

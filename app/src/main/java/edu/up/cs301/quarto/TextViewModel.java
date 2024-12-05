@@ -13,9 +13,9 @@ public class TextViewModel {
 
     // updates textview of player turn and phase
     public CharSequence hpSelect = "Your Turn: Select a Piece";
-    public CharSequence hpPlace = "Your Turn: Place the Piece on the Board";
-    public CharSequence cpSelect = "Opponent's Turn: Selecting a Piece";
-    public CharSequence cpPlace = "Opponent's Turn: Placing the Piece on the Board";
+    public CharSequence hpPlace = "Your Turn: Place the Piece";
+    public CharSequence cpSelect = "Opponent's Turn: Select a Piece";
+    public CharSequence cpPlace = "Opponent's Turn: Place the Piece";
 
 
 }

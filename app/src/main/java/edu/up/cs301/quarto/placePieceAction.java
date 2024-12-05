@@ -1,5 +1,7 @@
 package edu.up.cs301.quarto;
 
+import android.util.Log;
+
 import java.io.Serializable;
 
 import edu.up.cs301.GameFramework.actionMessage.GameAction;
@@ -95,5 +97,18 @@ public class placePieceAction extends GameAction implements Serializable {
             row = 3;
             col = 3;
         }
+        /*if (x >= 100 && x <= 900 && y >= 50 && y <= 850) {
+            row = (int) ((y - 50) / 200);
+            col = (int) ((x - 100) / 200);
+            Log.d("GridDebug", "x: " + x + ", y: " + y + " -> row: " + row + ", col: " + col);
+
+        } else {
+            // Handle out-of-bounds input
+            Log.d("GridDebug", "x: " + x + ", y: " + y + " is out of bounds -> row: " + row + ", col: " + col);
+        }*/
+        Log.d("GridDebug", "x: " + x + ", y: " + y + " -> row: " + row + ", col: " + col);
+        //Log.d("GridDebug", "x: " + x + ", y: " + y + " is out of bounds -> row: " + row + ", col: " + col);
+
+
     }
 }
